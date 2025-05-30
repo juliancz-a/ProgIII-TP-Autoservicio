@@ -1,7 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --accent: #0ff;
+  --nav: #9a37c6;
+  --footer: #451459;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+
+html {
+    font-family: "Exo";
 }
 
 body {
@@ -13,15 +32,17 @@ body {
         linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
     background-size: 55px 55px;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* mínimo igual a la altura del viewport */
 }
 
-.nav-bar {
-    background-color: #9a37c6;
-    width: 100vw;
-    height: 8vh;
+main {
+  flex: 1; /* toma el espacio restante entre header y footer */
 }
 
-button {
+/* BUTTONS */
+button { /* buttons basic style*/
   background: transparent;
   color: #fff;
   font-size: 17px;
@@ -51,4 +72,64 @@ button::before {
   );
   z-index: 1;
   transition: background 3s;
+
+/* HEADER */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--nav);
+  border-bottom: 1px solid #333;
+}
+
+.logo-text {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text);
+    text-shadow:
+        1px 1px 0 #5E17EB,
+        2px 2px 0 #451459,
+        3px 3px 0 var(--accent);
+}
+
+.nav-links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+/* FOOTER */
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--footer);
+    border-top: 1px solid #333;
+    font-size: 14px; 
+}
+
+.footer p {
+    color: white;
+}
+
+.footer-links {
+  margin-top: 0.5rem;
+}
+
+.footer-links a {
+  margin: 0 0.75rem;
+  color: var(--bg);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
 }
