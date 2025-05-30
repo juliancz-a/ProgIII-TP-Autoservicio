@@ -1,0 +1,9 @@
+h1 {
+    color: white;
+}
+
+.card {
+    background-color: rgb(132, 208, 19);
+    width: 150px;
+    height: 150px;
+}
