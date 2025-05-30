@@ -2,8 +2,99 @@ h1 {
     color: white;
 }
 
+p {
+    color: white;
+}
+
+.container {
+    display: flex;
+    margin-top: 10px;
+}
+
+/* CATEGORIES */
+.categories {
+    width: 15%;
+    display: flex;
+    margin-left: 10px;
+
+    color:white;
+}
+
+.categories ul{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    list-style: none;
+}
+
+.categories ul li{
+    font-size: 1.50rem;
+}
+
+/* GRID */
+.product-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap : 100px;
+
+    margin-top : 25px;
+
+}
+
 .card {
-    background-color: rgb(132, 208, 19);
-    width: 150px;
-    height: 150px;
+    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+
+    width: 450px;
+    height: 350px;
+    border-radius: 20px;
+    padding: 5px;
+    cursor: pointer;
+
+}
+
+.card .card-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: rgb(5, 6, 45);
+    border-radius: 17px;
+
+    display: flex;
+    
+}
+
+.card-content .card-text {
+    width: 50%;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card-content .card-text p {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.card-content .card-text button {
+    width: 75%;
+}
+
+.card-content .card-image {
+    transform: translate(-50px, -10%);
+    width: 50%;
+    height: 80%;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+    border-radius: 5px;
+}
+
+.card-content .card-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
 }
