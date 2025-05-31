@@ -59,6 +59,8 @@ button { /* buttons basic style*/
 
 /* HEADER */
 .nav-bar {
+  width: 100vw;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
