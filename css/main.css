@@ -169,8 +169,12 @@ p {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.card-buy button:hover {
+.product-quantity button:hover,
+.card-buy-button:hover {
     background-color: #451459;
+}
+
+.card-buy-button:hover {
     transform: scale(1.05);
 }
 

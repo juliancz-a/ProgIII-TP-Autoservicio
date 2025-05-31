@@ -26,7 +26,7 @@ html {
 body {
   width: 100%;
   height: 100%;
-  --color: rgba(114, 114, 114, 0.3);
+  --color: rgba(167, 41, 121, 0.3);
   background-color: #191a1a;
   background-image: linear-gradient(
       0deg,
@@ -79,81 +79,35 @@ button {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.308);
 }
 
-/* HEADER */
-.nav-bar {
-  width: 100vw;
-
-  display: flex;
-  gap: 1rem;
-  position: fixed; /* fijo en la pantalla */
-  top: 0; /* en la parte superior */
-  left: 0;
-  width: 100%; /* que ocupe todo el ancho */
-  z-index: 1000; /* que esté por encima del contenido */
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: var(--nav);
-  border-bottom: 1px solid #333;
+.nav-bar, .footer {
   user-select: none;
 }
 
-.search-bar {
+/* HEADER */
+.nav-bar {
+  width: 100dvw;
+  padding: 1rem 1.5rem;
+
   display: flex;
-  line-height: 28px;
+  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
-  max-width: 450px;
-  margin: 0 1rem;
-  flex: 1;
-}
 
-.search-input {
-    font-family: inherit;
-    height: 50px;
-    padding-left: 2.5rem;
-    box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
-    border: 0;
-    border-radius: 10px;
-    background-color: rgb(40, 40, 40);
-    outline: none;
-    color: #bdbecb;
-    transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
-    cursor: text;
-    z-index: 0;
-}
+  position: fixed;
+  top: 0; 
+  left: 0;
+  z-index: 1000; 
 
-.search-input::placeholder {
-  color: #bdbecb;
-}
-
-.search-input:hover {
-  box-shadow: 0 0 0 2.5px #2f303d, 0px 0px 25px -15px #000;
-}
-
-.search-input:active {
-  transform: scale(0.95);
-}
-
-.search-input:focus {
-  box-shadow: 0 0 0 2.5px #2f303d;
-}
-
-.search-icon {
-  position: absolute;
-  left: 1rem;
-  fill: #bdbecb;
-  width: 1rem;
-  height: 1rem;
-  pointer-events: none;
-  z-index: 1;
+  background-color: var(--nav);
+  border-bottom: 1px solid #333;
 }
 
 .logo-text {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 2.5rem;
+
+  font-size: 2rem;
   font-weight: 800;
   color: var(--text);
   text-shadow: 1px 1px 0 #5e17eb, 2px 2px 0 #451459, 3px 3px 0 var(--accent);
@@ -168,9 +122,58 @@ button {
     drop-shadow(3px 3px 0 var(--accent));
 }
 
+.search-bar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  height: 45px;
+  padding-left: 1rem;
+  padding-right: 2.5rem;
+  box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+  border: 0;
+  border-radius: 12px;
+  background-color: #16171d;
+  outline: none;
+  color: #bdbecb;
+  transition: all 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+  cursor: text;
+  z-index: 0;
+}
+
+.search-input::placeholder {
+  color: #bdbecb;
+}
+
+.search-input:hover {
+  box-shadow: 0 0 0 2.5px #15a1c4, 0px 0px 25px -15px #000;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 2.5px #15a1c4, 0px 0px 25px -15px #000;
+}
+
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  fill: #bdbecb;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .hamburger-menu {
-    width: 2.5rem;
-    height: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: none;
 }
 
 .nav-links a {
@@ -188,9 +191,10 @@ button {
 /* FOOTER */
 .footer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  padding: 2rem;
+  justify-content: space-around;
+  padding: 1rem;
   background-color: var(--footer);
   border-top: 1px solid #333;
   font-size: 14px;
@@ -200,16 +204,35 @@ button {
   color: white;
 }
 
-.footer-links {
+.footer-links,
+.github-links {
   margin-top: 0.5rem;
 }
 
-.footer-links a {
+.footer-links a,
+.github-links a {
   margin: 0 0.75rem;
   color: var(--bg);
   text-decoration: none;
+  transition: 250ms;
 }
 
-.footer-links a:hover {
+.footer-links a:hover,
+.github-links a:hover {
   color: var(--accent);
+}
+
+.github-icon {
+  height: 1rem;
+}
+
+.github-links {
+  display: flex;
+}
+
+.github-links a {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-evenly;
 }
