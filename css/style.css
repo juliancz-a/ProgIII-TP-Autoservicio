@@ -125,11 +125,11 @@ button {
 .search-bar {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-55%);
   display: flex;
-  line-height: 28px;
+  line-height: 32px;
   align-items: center;
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .search-input {
@@ -193,8 +193,8 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
-  padding: 1rem;
+  justify-content: space-between;
+  padding: 1.5rem;
   background-color: var(--footer);
   border-top: 1px solid #333;
   font-size: 14px;
@@ -223,16 +223,28 @@ button {
 }
 
 .github-icon {
-  height: 1rem;
+  height: 1.5rem;
 }
 
 .github-links {
   display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .github-links a {
   display: flex;
-  gap: 5px;
+  gap: 2px;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.github-links a img {
+  transition: 300ms;
+}
+
+.github-links a:hover img {
+  filter: drop-shadow(0 0 1px var(--accent)) drop-shadow(0 0 1px var(--accent));
 }
