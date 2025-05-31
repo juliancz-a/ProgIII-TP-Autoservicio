@@ -1,9 +1,15 @@
+:root {
+    --main-shadow: #9a37c6;
+    --main-text : #fff;
+    --containers-bg: rgb(5, 6, 45);
+}
+
 h1 {
-    color: white;
+    color: var(--main-text);
 }
 
 p {
-    color: white;
+    color: var(--main-text);
 }
 
 .container {
@@ -15,9 +21,15 @@ p {
 .categories {
     width: 15%;
     display: flex;
-    margin-left: 10px;
+    margin-left: 25px;
 
-    color:white;
+    color:var(--main-text);
+    text-shadow:
+        1px 1px 0 #5E17EB,
+        2px 2px 0 #451459,
+        3px 3px 0 var(--main-shadow);
+
+    margin-top: 25px;
 }
 
 .categories ul{
@@ -31,35 +43,52 @@ p {
     font-size: 1.50rem;
 }
 
-/* GRID */
+.categories ul li button {
+    width: 200px;
+    font-size: 1rem;
+    padding: 0.8em 2em;
+    background-color: var(--containers-bg);
+    border: 3px solid var(--main-shadow);
+    border-radius: 1em;
+    color: var(--main-text);
+    font-weight: bolder;
+    transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
+    box-shadow: -5px 5px 0px 0px var(--main-shadow)
+}
+
+.categories ul li button:hover {
+    transform: translate(5px, -5px);
+}
+
+/* PRODUCTS GRID */
 .product-grid {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap : 100px;
+    gap : 80px;
 
     margin-top : 25px;
+    margin-bottom: 50px;
 
 }
 
 .card {
-    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
-    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-
     width: 450px;
     height: 350px;
-    border-radius: 20px;
-    padding: 5px;
-    cursor: pointer;
 
+    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    border-radius: 20px;
+
+    padding: 5px;
 }
 
 .card .card-content {
     width: 100%;
     height: 100%;
     position: relative;
-    background: rgb(5, 6, 45);
+    background: var(--containers-bg);
     border-radius: 17px;
 
     display: flex;
@@ -81,14 +110,34 @@ p {
 }
 
 .card-content .card-text button {
+    
     width: 75%;
 }
 
+.card-content .card-text button::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    background: linear-gradient(
+        320deg,
+        rgba(0, 140, 255, 0.678),
+        rgba(128, 0, 128, 0.308)
+    );
+    z-index: 1;
+    transition: background 3s;
+}
+
 .card-content .card-image {
-    transform: translate(-50px, -10%);
+    transform: translate(-30px, -10%);
     width: 50%;
     height: 80%;
-    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+    
+    box-shadow:  rgba(154, 55, 198, 0.4) 5px 5px,  rgba(154, 55, 198, 0.3) 10px 10px,  rgba(154, 55, 198, 0.2) 15px 15px,  rgba(154, 55, 198, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
     border-radius: 5px;
 }
 
