@@ -81,6 +81,8 @@ button {
 
 /* HEADER */
 .nav-bar {
+  width: 100vw;
+
   display: flex;
   gap: 1rem;
   position: fixed; /* fijo en la pantalla */

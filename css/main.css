@@ -13,13 +13,15 @@ p {
 }
 
 .container {
+    width: 100%;
     display: flex;
-    margin-top: 100px;
+    margin-top: 10px;
+    gap: 50px;
 }
 
 /* CATEGORIES */
 .categories {
-    width: 15%;
+    width: 250px;
     display: flex;
     margin-left: 25px;
 
@@ -29,13 +31,22 @@ p {
         2px 2px 0 #451459,
         3px 3px 0 var(--main-shadow);
 
-    margin-top: 25px;
+   
+    border-right: 2px;
+	border-left: 0;
+	border-style: solid;
+    border-image: linear-gradient(to bottom, #00000000,var(--main-shadow), #00000000) 1 100%;
 }
 
 .categories ul{
+    position: fixed;
+
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 50px;
+    justify-content: center;
     list-style: none;
 }
 
@@ -63,9 +74,10 @@ p {
 
 /* PRODUCTS GRID */
 .product-grid {
+    width: 80%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     gap : 80px;
 
@@ -74,9 +86,11 @@ p {
 }
 
 .card {
+    display: flex;
+    flex-wrap: wrap;
     width: 450px;
     height: 350px;
-
+    
     background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
     box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
     border-radius: 20px;
@@ -86,7 +100,7 @@ p {
 
 .card .card-content {
     width: 100%;
-    height: 100%;
+    height: 70%;
     position: relative;
     background: var(--containers-bg);
     border-radius: 17px;
@@ -94,6 +108,7 @@ p {
     display: flex;
     
 }
+
 
 .card-content .card-text {
     width: 50%;
@@ -104,37 +119,25 @@ p {
     align-items: center;
 }
 
-.card-content .card-text p {
+.card-text p {
     margin-top: 5px;
     text-align: center;
 }
 
-.card-content .card-text button {
-    width: 75%;
+.card-text .description {
+    font-size: 1.10rem;
+    opacity: 0.5;
 }
 
-.card-content .card-text button::before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    border-radius: 10px;
-    background: linear-gradient(
-        320deg,
-        rgba(0, 140, 255, 0.678),
-        rgba(128, 0, 128, 0.308)
-    );
-    z-index: 1;
-    transition: background 3s;
+.card-text .price {
+    font-size: 1rem;
 }
+
 
 .card-content .card-image {
     transform: translate(-30px, -10%);
     width: 50%;
-    height: 80%;
+    height: 95%;
     
     box-shadow:  rgba(154, 55, 198, 0.4) 5px 5px,  rgba(154, 55, 198, 0.3) 10px 10px,  rgba(154, 55, 198, 0.2) 15px 15px,  rgba(154, 55, 198, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
     border-radius: 5px;
@@ -148,3 +151,60 @@ p {
     border-radius: 5px;
 }
 
+.card-buy {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.card-buy button {
+   background: linear-gradient(
+        320deg,
+        rgba(0, 140, 255, 0.678),
+        rgba(128, 0, 128, 0.308)
+    );
+
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.card-buy button:hover {
+    background-color: #451459;
+    transform: scale(1.05);
+}
+
+.card-buy .product-quantity{
+    width: 50%;
+    display: flex;
+    
+    align-items: center;
+    gap: 5px;
+}
+
+.product-quantity button{
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    
+}
+
+.product-quantity input[type="number"] {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+
+  /* sacar flechitas de Firefox que hace lo que quiere*/
+   -moz-appearance: textfield
+  
+}
+
+/* Sacar flechas internas de input type number */
+.product-quantity input[type="number"]::-webkit-inner-spin-button,
+.product-quantity input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+    margin: 0;
+}
