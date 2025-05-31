@@ -14,7 +14,7 @@ p {
 
 .container {
     display: flex;
-    margin-top: 10px;
+    margin-top: 100px;
 }
 
 /* CATEGORIES */
@@ -45,13 +45,14 @@ p {
 
 .categories ul li button {
     width: 200px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 0.8em 2em;
     background-color: var(--containers-bg);
     border: 3px solid var(--main-shadow);
     border-radius: 1em;
     color: var(--main-text);
-    font-weight: bolder;
+    font-weight: 400;
+    text-transform: capitalize;
     transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
     box-shadow: -5px 5px 0px 0px var(--main-shadow)
 }
@@ -70,7 +71,6 @@ p {
 
     margin-top : 25px;
     margin-bottom: 50px;
-
 }
 
 .card {
@@ -110,7 +110,6 @@ p {
 }
 
 .card-content .card-text button {
-    
     width: 75%;
 }
 
@@ -139,6 +138,7 @@ p {
     
     box-shadow:  rgba(154, 55, 198, 0.4) 5px 5px,  rgba(154, 55, 198, 0.3) 10px 10px,  rgba(154, 55, 198, 0.2) 15px 15px,  rgba(154, 55, 198, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
     border-radius: 5px;
+    user-select: none;
 }
 
 .card-content .card-image img{
@@ -147,3 +147,4 @@ p {
     object-fit: cover;
     border-radius: 5px;
 }
+
