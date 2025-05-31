@@ -1,196 +1,198 @@
 :root {
-    --main-shadow: #9a37c6;
-    --main-text : #fff;
-    --containers-bg: rgb(5, 6, 45);
+  --main-shadow: #9a37c6;
+  --main-text: #fff;
+  --containers-bg: rgb(5, 6, 45);
 }
 
 h1 {
-    color: var(--main-text);
+  color: var(--main-text);
 }
 
 p {
-    color: var(--main-text);
+  color: var(--main-text);
 }
 
 .container {
-    width: 100%;
-    display: flex;
-    margin-top: 100px;
-    gap: 50px;
+  width: 100%;
+  display: flex;
+  margin-top: 100px;
+  gap: 50px;
 }
 
 /* CATEGORIES */
 .categories {
-    width: 250px;
-    display: flex;
-    margin-left: 25px;
+  width: 250px;
+  display: flex;
+  margin-left: 25px;
 
-    color:var(--main-text);
-    text-shadow:
-        1px 1px 0 #5E17EB,
-        2px 2px 0 #451459,
-        3px 3px 0 var(--main-shadow);
+  color: var(--main-text);
+  text-shadow: 1px 1px 0 #5e17eb, 2px 2px 0 #451459,
+    3px 3px 0 var(--main-shadow);
 
-   
-    border-right: 2px;
-	border-left: 0;
-	border-style: solid;
-    border-image: linear-gradient(to bottom, #00000000,var(--main-shadow), #00000000) 1 100%;
+  border-right: 2px;
+  border-left: 0;
+  border-style: solid;
+  border-image: linear-gradient(
+      to bottom,
+      #00000000,
+      var(--main-shadow),
+      #00000000
+    )
+    1 100%;
 }
 
-.categories ul{
-    position: fixed;
+.categories ul {
+  position: fixed;
 
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    justify-content: center;
-    list-style: none;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  list-style: none;
 }
 
-.categories ul li{
-    font-size: 1.50rem;
+.categories ul li {
+  font-size: 1.5rem;
 }
 
 .categories ul li button {
-    width: 200px;
-    font-size: 1.1rem;
-    padding: 0.8em 2em;
-    background-color: var(--containers-bg);
-    border: 3px solid var(--main-shadow);
-    border-radius: 1em;
-    color: var(--main-text);
-    font-weight: 400;
-    text-transform: capitalize;
-    transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
-    box-shadow: -5px 5px 0px 0px var(--main-shadow)
+  width: 200px;
+  font-size: 1.1rem;
+  padding: 0.8em 2em;
+  background-color: var(--containers-bg);
+  border: 3px solid var(--main-shadow);
+  border-radius: 1em;
+  color: var(--main-text);
+  font-weight: 400;
+  text-transform: capitalize;
+  transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
+  box-shadow: -5px 5px 0px 0px var(--main-shadow);
 }
 
 .categories ul li button:hover {
-    transform: translate(5px, -5px);
+  transform: translate(5px, -5px);
 }
 
 /* PRODUCTS GRID */
 .product-grid {
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap : 80px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 80px;
 
-    margin-top : 25px;
-    margin-bottom: 50px;
+  margin-top: 25px;
+  margin-bottom: 50px;
 }
 
 .card {
-    display: flex;
-    flex-wrap: wrap;
-    width: 450px;
-    height: 350px;
-    
-    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
-    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-    border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 450px;
+  height: 350px;
 
-    padding: 5px;
+  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  border-radius: 20px;
+
+  padding: 5px;
 }
 
 .card .card-content {
-    width: 100%;
-    height: 70%;
-    position: relative;
-    background: var(--containers-bg);
-    border-radius: 17px;
+  width: 100%;
+  height: 70%;
+  position: relative;
+  background: var(--containers-bg);
+  border-radius: 17px;
 
-    display: flex;
-    
+  display: flex;
 }
 
-
 .card-content .card-text {
-    width: 50%;
-    font-size: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+  width: 50%;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .card-text p {
-    margin-top: 5px;
-    text-align: center;
+  margin-top: 5px;
+  text-align: center;
 }
 
 .card-text .description {
-    font-size: 1.10rem;
-    opacity: 0.5;
+  font-size: 1.1rem;
+  opacity: 0.5;
 }
 
 .card-text .price {
-    font-size: 1rem;
+  font-size: 1rem;
 }
-
 
 .card-content .card-image {
-    transform: translate(-30px, -10%);
-    width: 50%;
-    height: 95%;
-    
-    box-shadow:  rgba(154, 55, 198, 0.4) 5px 5px,  rgba(154, 55, 198, 0.3) 10px 10px,  rgba(154, 55, 198, 0.2) 15px 15px,  rgba(154, 55, 198, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
-    border-radius: 5px;
-    user-select: none;
+  transform: translate(-30px, -10%);
+  width: 50%;
+  height: 95%;
+
+  box-shadow: rgba(154, 55, 198, 0.4) 5px 5px, rgba(154, 55, 198, 0.3) 10px 10px,
+    rgba(154, 55, 198, 0.2) 15px 15px, rgba(154, 55, 198, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
+  border-radius: 5px;
+  user-select: none;
 }
 
-.card-content .card-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
+.card-content .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .card-buy {
-    width: 100%;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-evenly;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .card-buy button {
-   background: linear-gradient(
-        320deg,
-        rgba(0, 140, 255, 0.678),
-        rgba(128, 0, 128, 0.308)
-    );
+  background: linear-gradient(
+    320deg,
+    rgba(0, 140, 255, 0.678),
+    rgba(128, 0, 128, 0.308)
+  );
 
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .product-quantity button:hover,
 .card-buy-button:hover {
-    background-color: #451459;
+  background-color: #451459;
 }
 
 .card-buy-button:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
-.card-buy .product-quantity{
-    width: 50%;
-    display: flex;
-    
-    align-items: center;
-    gap: 5px;
+.card-buy .product-quantity {
+  width: 50%;
+  display: flex;
+
+  align-items: center;
+  gap: 5px;
 }
 
-.product-quantity button{
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    
+.product-quantity button {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #191a1a7c; /* revisar si queda bien */
 }
 
 .product-quantity input[type="number"] {
@@ -200,15 +202,19 @@ p {
   border-radius: 10px;
   border: none;
   text-align: center;
+  background-color: #191a1a;;
 
   /* sacar flechitas de Firefox que hace lo que quiere*/
-   -moz-appearance: textfield
-  
+  -moz-appearance: textfield;
+}
+
+.product-quantity input[type="number"] {
+    color: white;
 }
 
 /* Sacar flechas internas de input type number */
 .product-quantity input[type="number"]::-webkit-inner-spin-button,
 .product-quantity input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
-    margin: 0;
+  margin: 0;
 }
