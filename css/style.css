@@ -6,6 +6,7 @@
   --accent: #0ff;
   --nav: #9a37c6;
   --footer: #451459;
+  --shadow-size: clamp(1px, 0.1dvw, 10px);
 }
 
 * {
@@ -86,7 +87,8 @@ button {
 /* HEADER */
 .nav-bar {
   width: 100dvw;
-  padding: 1rem 1.5rem;
+  padding: clamp(10px, 1dvw, 150px);;
+  margin-bottom: 15px;
 
   display: flex;
   gap: 1rem;
@@ -107,19 +109,23 @@ button {
   align-items: center;
   gap: 0.5rem;
 
-  font-size: 2rem;
+  font-size: clamp(2rem, 2dvw, 10rem);
   font-weight: 800;
   color: var(--text);
-  text-shadow: 1px 1px 0 #5e17eb, 2px 2px 0 #451459, 3px 3px 0 var(--accent);
+  text-shadow:
+    var(--shadow-size) var(--shadow-size) 0 #5e17eb,
+    calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 #451459,
+    calc(var(--shadow-size) * 2.5) calc(var(--shadow-size) * 2.5) 0 var(--accent);
 }
 
 .logo-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  object-fit: contain;
+  width: clamp(2.5rem, 1dvw, 10rem);
+  height: clamp(2.5rem, 1dvw, 10rem);
   transform: translateY(-3px);
-  filter: drop-shadow(1px 1px 0 #5e17eb) drop-shadow(2px 2px 0 #451459)
-    drop-shadow(3px 3px 0 var(--accent));
+  filter: 
+    drop-shadow(var(--shadow-size)  var(--shadow-size) 0 #5e17eb) 
+    drop-shadow(calc(var(--shadow-size)) calc(var(--shadow-size)) 0 #451459)
+    drop-shadow(calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 var(--accent));
 }
 
 .search-bar {

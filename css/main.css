@@ -16,37 +16,34 @@ p {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 15vh;
   gap: 50px;
 }
 
-.slideshow-container {
+.slider-container {
   width: 100%;
   max-width: 1000px;
-  margin: auto;
   overflow: hidden;
+  margin: auto;
+  border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  position: relative;
 }
 
-.slideshow-container,
-.slide img {
-    border-radius: 10px;
+.slider {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
 }
 
 .slide {
-  display: none;
-  width: 100%;
-  animation: fadeEffect 1.5s ease-in-out;
+  flex: 0 0 100%; /* hace que cada slide tenga 100% del ancho del contenedor */
 }
 
 .slide img {
   width: 100%;
+  height: auto;
   display: block;
-}
-
-@keyframes fadeEffect {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  object-fit: cover;
 }
 
 .products-section {

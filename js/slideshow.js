@@ -1,17 +1,11 @@
-let slideIndex = 0;
-showSlides();
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+const slider = document.querySelector('.slider');
 
-function showSlides() {
-  const slides = document.getElementsByClassName("slide");
-
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-
-  slideIndex++;
-  if (slideIndex > slides.length) slideIndex = 1;
-
-  slides[slideIndex - 1].style.display = "block";
-  
-  setTimeout(showSlides, 4000); // cambia cada 4 segundos
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % totalSlides;
+  slider.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
+
+setInterval(nextSlide, 4000); // cada 4 segundos
