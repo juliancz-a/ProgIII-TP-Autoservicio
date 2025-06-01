@@ -1,0 +1,44 @@
+[
+  {
+    "id" : 1,
+    "title": "RTX 5070",
+    "description": "Tarjeta gráfica NVIDIA GeForce RTX 5070 con 12GB de memoria GDDR7, ideal para juegos en alta resolución y rendimiento gráfico exigente.",
+    "price": 459.99,
+    "img": "https://images.pexels.com/photos/4581903/pexels-photo-4581903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id" : 2,
+    "title": "Mouse Logitech G203",
+    "description": "Mouse gamer Logitech G203 con sensor de hasta 8000 DPI, iluminación RGB personalizable y diseño ergonómico para largas sesiones de juego.",
+    "price": 25.99,
+    "img": "https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id" : 3,
+    "title": "Joystick Genérico USB",
+    "description": "Joystick USB compatible con PC y consolas, con doble vibración, agarre ergonómico y botones configurables para una experiencia de juego inmersiva.",
+    "price": 18.50,
+    "img": "https://images.unsplash.com/photo-1578898395216-78dae5d29344?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id" : 4,     
+    "title": "Headsets Gamer",
+    "description": "Auriculares gamer con sonido envolvente, micrófono con cancelación de ruido y almohadillas acolchadas para máxima comodidad.",
+    "price": 45.00,
+    "img": "https://images.unsplash.com/photo-1625245488600-f03fef636a3c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id" : 5,     
+    "title": "Motherboard TUF Gaming Z590",
+    "description": "Placa madre ASUS TUF Gaming Z590 con soporte para procesadores Intel de 10ª y 11ª generación, DDR4, PCIe 4.0 y diseño robusto para gamers exigentes.",
+    "price": 220.00,
+    "img": "https://images.unsplash.com/photo-1712701815718-29f5fe510c0e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  },
+  {
+    "id" : 6,     
+    "title": "SSD NVMe 990 EVO 1TB Samsung",
+    "description": "Unidad de estado sólido Samsung 990 EVO NVMe de 1TB, con velocidades de lectura/escritura ultra rápidas para mejorar el rendimiento del sistema.",
+    "price": 109.99,
+    "img": "https://images.unsplash.com/photo-1720048169387-84bbb8fd8ec9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  }
+]

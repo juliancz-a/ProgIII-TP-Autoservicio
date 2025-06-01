@@ -96,7 +96,7 @@ button {
   position: fixed;
   top: 0; 
   left: 0;
-  z-index: 1000; 
+  z-index: 10; 
 
   background-color: var(--nav);
   border-bottom: 1px solid #333;
@@ -186,6 +186,30 @@ button {
 
 .nav-links a:hover {
   color: var(--accent);
+}
+
+.cart-button {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.cart-button span {
+
+  font-size: 2rem;
+}
+
+.cart-button .quantity {
+  font-size: 1rem;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 25px;
 }
 
 /* FOOTER */

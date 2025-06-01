@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/main.css">
     <link rel="shortcut icon" href="./img/icon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=shopping_cart" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>NeonBits</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
             </svg>
         </div>
         <img class="hamburger-menu" src="./img/logo-hamburger-menu.png" alt="">
-        <span class="material-symbols-outlined">shopping_cart</span>
+        <a href="cart.html" class="cart-button" id="cart-button"><span class="material-symbols-outlined">shopping_cart</span></a>
     </header>
     <main class="container">
 
@@ -53,130 +53,8 @@
                 </ul>
             </section>
             <!-- PRODUCT GRID -->
-            <div class="product-grid">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://images.pexels.com/photos/4581903/pexels-photo-4581903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
-                        </div>
-                        <div class="card-text">
-                            <p class="title">GTX 1080ti</p>
-                            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                            <p class="price"> $259.99US </p>
-                        </div>
-                    </div>
-                    <div class="card-buy">
-                        <div class="product-quantity">
-                            <button>−</button>
-                            <input type="number" id="cantidad" value="1" min="1" readonly>
-                            <button>+</button>
-    
-                        </div>
-                        <button class="card-buy-button"> Add to Cart</button>
-                    </div>
-                </div>
-                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=1928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                        </div>
-                        <div class="card-text">
-                            <p class="title">Mouse Logitech G203</p>
-                            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                            <p class="price"> $29.99US </p>
-                        </div>
-                    </div>
-                    <div class="card-buy">
-                        <div class="product-quantity">
-                            <button>−</button>
-                            <input type="number" id="cantidad" value="1" min="1" readonly>
-                            <button>+</button>
-                        </div>
-                        <button class="card-buy-button"> Add to Cart</button>
-                    </div>
-                </div>
-                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1578898395216-78dae5d29344?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                        </div>
-                        <div class="card-text">
-                            <p class="title">Joystick generico</p>
-                            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                            <p class="price"> $29.99US </p>
-                        </div>
-                    </div>
-                    <div class="card-buy">
-                        <div class="product-quantity">
-                            <button>−</button>
-                            <input type="number" id="cantidad" value="1" min="1" readonly>
-                            <button>+</button>
-                        </div>
-                        <button class="card-buy-button"> Add to Cart</button>
-                    </div>
-                </div>
-                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1625245488600-f03fef636a3c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                        </div>
-                        <div class="card-text">
-                            <p class="title">Headsets</p>
-                            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                            <p class="price"> $259.99US </p>
-                        </div>
-                    </div>
-                    <div class="card-buy">
-                        <div class="product-quantity">
-                            <button>−</button>
-                            <input type="number" id="cantidad" value="1" min="1" readonly>
-                            <button>+</button>
-    
-                        </div>
-                        <button class="card-buy-button"> Add to Cart</button>
-                    </div>
-                </div>
-                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1712701815718-29f5fe510c0e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                        </div>
-                        <div class="card-text">
-                            <p class="title">Motherboard TUF GAMING Z590</p>
-                            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                            <p class="price"> $199.99US </p>
-                        </div>
-                    </div>
-                    <div class="card-buy">
-                        <div class="product-quantity">
-                            <button>−</button>
-                            <input type="number" id="cantidad" value="1" min="1" readonly>
-                            <button>+</button>
-    
-                        </div>
-                        <button class="card-buy-button"> Add to Cart</button>
-                    </div>
-                </div>
-                 <div class="card">
-                    <div class="card-content">
-                        <div class="card-image">
-                            <img src="https://images.unsplash.com/photo-1720048169387-84bbb8fd8ec9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
-                        </div>
-                        <div class="card-text">
-                            <p class="title">SSD NVME 990 EVO Samsung 1tb</p>
-                            <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                            <p class="price"> $229.99US </p>
-                        </div>
-                    </div>
-                    <div class="card-buy">
-                        <div class="product-quantity">
-                            <button>−</button>
-                            <input type="number" id="cantidad" value="1" min="1" readonly>
-                            <button>+</button>
-                        </div>
-                        <button class="card-buy-button"class="card-buy-button"> Add to Cart</button>
-                    </div>
-                </div>
+            <div id="grid" class="product-grid">
+               <!-- Dynamic Content -->
             </div>
         </section>
     </main>
@@ -192,5 +70,9 @@
             <a href="#">Ayuda</a>
         </div>
     </footer>
+    <div id="popup-container" class="popup-container">
+    </div>
+
+    <script src="./js/main.js"></script>
 </body>
 </html>
