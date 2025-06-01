@@ -15,8 +15,45 @@ p {
 .container {
   width: 100%;
   display: flex;
+  flex-direction: column;
   margin-top: 100px;
   gap: 50px;
+}
+
+.slideshow-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.slideshow-container,
+.slide img {
+    border-radius: 10px;
+}
+
+.slide {
+  display: none;
+  width: 100%;
+  animation: fadeEffect 1.5s ease-in-out;
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.products-section {
+    width: 100%;
+    display: flex;
+    margin-top: 100px;
+    gap: 50px;
 }
 
 /* CATEGORIES */
@@ -210,6 +247,9 @@ p {
 
 .product-quantity input[type="number"] {
     color: white;
+    font-family: inherit;
+    border: none;
+    outline: none;
 }
 
 /* Sacar flechas internas de input type number */
