@@ -3,6 +3,10 @@
   --categories-hover : #802ea3;
   --main-text: #fff;
   --containers-bg: rgb(5, 6, 45);
+
+  --card-bg-1 :  #af40ff;
+  --card-bg-2 : #5b42f3;
+  --card-bg-3 : #00ddeb;
 }
 
 h1 {
@@ -19,7 +23,7 @@ p {
   flex-direction: column;
   align-items: center;
   margin-top: 15vh;
-  gap: 50px;
+  
 }
 
 /* CATEGORIES BUTTON */
@@ -75,23 +79,29 @@ p {
   transform: rotate(-45deg);
 }
 
-button:hover {
+.categories button:hover {
   background-color:var(--categories-hover)
 }
 
-button:hover .arrow {
+.categories button:hover .arrow {
   background: var(--main-text);
 }
 
-button:hover .arrow:before {
+.categories button:hover .arrow:before {
   right: 0;
 }
 
+.categories .selected {
+  background-color:var(--categories-hover)
+
+}
+
+
 .slider-container {
   width: 100%;
+  max-height: 330px;
   max-width: 1000px;
   overflow: hidden;
-  margin: auto;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
   position: relative;
@@ -116,12 +126,13 @@ button:hover .arrow:before {
 
 /* PRODUCTS GRID */
 .products-section {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top : 10px;
-    gap: 50px;
+    gap: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .products-section .title-wrapper {
@@ -129,9 +140,8 @@ button:hover .arrow:before {
   display: flex;
   align-items: start;
   justify-content: start;
- 
   border-bottom: 4px solid;
-  border-image: linear-gradient(to right, #ff00cc, #3333ff) 1;
+  border-image: linear-gradient(to right, var(--card-bg-1), var(--card-bg-2), var(--card-bg-3)) 1;
 }
 
 .title-wrapper h2 {
@@ -143,10 +153,10 @@ button:hover .arrow:before {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 80px;
 
+  gap: 40px;
   margin-top: 25px;
   margin-bottom: 50px;
   
@@ -155,10 +165,10 @@ button:hover .arrow:before {
 .card {
   display: flex;
   flex-wrap: wrap;
-  width: 450px;
+  width: 420px;
   height: 350px;
 
-  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  background-image: linear-gradient(144deg, var(--card-bg-1), var(--card-bg-2) 50%, var(--card-bg-3));
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
   border-radius: 20px;
 
@@ -194,9 +204,7 @@ button:hover .arrow:before {
   opacity: 0.5;
 }
 
-.card-text .price {
-  font-size: 1rem;
-}
+
 
 .card-content .card-image {
   transform: translate(-30px, -10%);
@@ -217,6 +225,7 @@ button:hover .arrow:before {
   border-radius: 5px;
 }
 
+
 .card-buy {
   width: 100%;
   display: flex;
@@ -235,55 +244,22 @@ button:hover .arrow:before {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.product-quantity button:hover,
-.card-buy-button:hover {
-  background-color: #451459;
-}
+.card-buy .price-wrapper {
+  width: 40%;
+  height: 75%;
 
-.card-buy-button:hover {
-  transform: scale(1.05);
-}
-
-.card-buy .product-quantity {
-  width: 50%;
   display: flex;
-
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+
+  background-color: #11111117;
+  border-radius: 17px;
+  padding: 5px;
 }
 
-.product-quantity button {
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  background-color: #191a1a7c; /* revisar si queda bien */
-}
-
-.product-quantity input[type="number"] {
-  width: 40px;
-  height: 40px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  text-align: center;
-  background-color: #191a1a;;
-
-  /* sacar flechitas de Firefox que hace lo que quiere*/
-  -moz-appearance: textfield;
-}
-
-.product-quantity input[type="number"] {
-    color: white;
-    font-family: inherit;
-    border: none;
-    outline: none;
-}
-
-/* Sacar flechas internas de input type number */
-.product-quantity input[type="number"]::-webkit-inner-spin-button,
-.product-quantity input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.card-buy .price {
+  font-size: 1.75rem;
+  
 }
 
 .card-added {

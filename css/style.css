@@ -280,3 +280,58 @@ button {
 .github-links a:hover img {
   filter: drop-shadow(0 0 1px var(--accent)) drop-shadow(0 0 1px var(--accent));
 }
+
+
+/* TEMP CODE TEMP CODE */
+
+
+.product-quantity button:hover,
+.card-buy-button:hover {
+  background-color: #451459;
+}
+
+.card-buy-button:hover {
+  transform: scale(1.05);
+}
+
+.card-buy .product-quantity {
+  width: 50%;
+  display: flex;
+
+  align-items: center;
+  gap: 5px;
+}
+
+.product-quantity button {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #191a1a7c; /* revisar si queda bien */
+}
+
+.product-quantity input[type="number"] {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  background-color: #191a1a;;
+
+  /* sacar flechitas de Firefox que hace lo que quiere*/
+  -moz-appearance: textfield;
+}
+
+.product-quantity input[type="number"] {
+    color: white;
+    font-family: inherit;
+    border: none;
+    outline: none;
+}
+
+/* Sacar flechas internas de input type number */
+.product-quantity input[type="number"]::-webkit-inner-spin-button,
+.product-quantity input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
