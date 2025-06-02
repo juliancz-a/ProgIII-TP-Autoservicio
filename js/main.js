@@ -15,6 +15,11 @@ function renderCards(products) {
     
     for(const product of products) {
         const cardDiv = createCardStructure(product)
+
+        if (isInCart(product)) {
+            updateCard(cardDiv, product)
+        }
+
         fragment.appendChild(cardDiv);
     }
 
@@ -26,6 +31,7 @@ function createCardStructure(product) {
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
 
+    
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
@@ -81,9 +87,12 @@ function addButtonsEvents(cardDiv, product) {
         let prodQuantity = parseInt(quantityInput.value)
         if (prodQuantity > 0) {
             
-            saveCart(cart, prodQuantity, product)
             showPopup(product)
+
+            addToCart(cart, prodQuantity, product)
+            updateCard(cardDiv, product)
             updateCartBtn()
+
         } else {
             showPopup(null)
         }
@@ -92,18 +101,58 @@ function addButtonsEvents(cardDiv, product) {
 
 }
 
-function saveCart(cart, quantity, product) {
+function addToCart(cart, quantity, product) {
     product["quantity"] = quantity;
 
     cart.push(product)
 
-    const jsonCart = JSON.stringify(cart)
-    localStorage.setItem('cart', jsonCart)
+    updateCart();
 
 }
 
+function removeFromCart(product) {
+    
+    cart = cart.filter((p) => {
+        return p.id != product.id
+    })
+    
+    updateCart();
+}
 
-// POP-UPS FOR ITEMS ADDED TO THE CART
+function updateCart() {
+    const jsonCart = JSON.stringify(cart)
+    localStorage.setItem('cart', jsonCart)
+}
+
+
+function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
+    const cardBuy = cardDiv.lastChild
+    
+    const removeBtn = document.createElement('button')
+    removeBtn.className = 'card-buy-button';
+    removeBtn.textContent = 'Remove from cart'
+    
+    cardBuy.replaceChildren(removeBtn)
+    
+    cardDiv.classList.add('card-added');
+
+    removeBtn.addEventListener('click', () => {
+        showPopup(product) // SHOW Removal popup and then remove from the cart
+
+        removeFromCart(product)
+
+        const newCardDiv = createCardStructure(product)
+        cardDiv.replaceWith(newCardDiv)
+
+    })
+}
+
+function isInCart(product) {
+    return productAdded = cart.find(p => p.id === product.id);
+}
+
+
+// POP-UPS FOR ITEMS ADDED TO THE CART/REMOVED FROM THE CART/0 QUANTITY SELECTED
 const popupContainer = document.getElementById('popup-container')
 let popupTimeout;
 
@@ -122,32 +171,51 @@ function showPopup(product) {
 function createPopup(product) {
 
     const popup = document.createElement('div');
-    popup.className = 'popup'
+    popup.className = 'popup';
+
+    let message = '';
+    let icon = '';
+    let type;
 
     if (!product) {
-            popup.classList.add('error')
-            popup.innerHTML = `
-                <p>Selecciona más de uno para añadirlo al carrito</p>
-                <span class="material-symbols-outlined">close</span>`
-        } else {
-            popup.innerHTML = `
-                <p>${product.title} al carrito</p>
-                <span class="material-symbols-outlined">check</span>`
-        }
+        message = 'Selecciona más de uno para añadirlo al carrito';
+        icon = 'close';
+        type = 'error';
+    } else if (isInCart(product)) {
+        message = `${product.title} eliminado del carrito`;
+        icon = 'undo';
+        type = 'undo';
+    } else {
+        message = `${product.title} al carrito`;
+        icon = 'check';
+    }
 
-    return popup
+    if (type) {
+        popup.classList.add(type);
+    }
+
+    popup.innerHTML = `
+        <p>${message}</p>
+        <span class="material-symbols-outlined">${icon}</span>
+    `;
+
+    return popup;
 }
 
 //MANAGE STATE OF CART BTN
 const cartBtn = document.getElementById('cart-button');
 const quantityInfo = document.createElement('span');
+cartBtn.appendChild(quantityInfo);
+
+const tabTitle = document.getElementById('tab-title')
 
 function updateCartBtn() {
-    console.log(cart.length);
-    
+    quantityInfo.style.display = "none"
+
     if (cart.length > 0){
+        quantityInfo.style.display = "inline"
         quantityInfo.className = 'quantity'
-        cartBtn.appendChild(quantityInfo);
+        tabTitle.textContent = `(${cart.length}) NeonBits`
     }
 
     quantityInfo.textContent = cart.length;
@@ -156,7 +224,6 @@ function updateCartBtn() {
 
 // BRING CART FROM LOCAL STORAGE
 let cart = JSON.parse(localStorage.getItem('cart')) || []
-
 
 // INIT FUNCTIONS
 getProducts().then(data => {
