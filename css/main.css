@@ -254,6 +254,12 @@ p {
   margin: 0;
 }
 
+.card-added {
+    background-image: linear-gradient(144deg, #ffc340, #f3428c 50%, #db3551);
+}
+
+
+/* POPUPS */
 .popup-container {
   width: 200px;
   bottom: 20px;
@@ -282,6 +288,10 @@ p {
 
 .error {
   background-color: rgb(138, 54, 51);
+}
+
+.undo {
+  background-color: rgb(138, 132, 51);
 }
 
 @keyframes slideIn {
