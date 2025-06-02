@@ -10,28 +10,45 @@
     <title id="tab-title">NeonBits</title>
 </head>
 <body>
-    <header class="nav-bar">
-        <div class="logo">
-            <span class="logo-text"><img class="logo-icon" src="./img/icon.svg" draggable="false" alt="">NEONBITS</span>
-        </div>
-        <div class="search-bar">
-            <input
+    <header >
+        <nav class="nav-bar">
+            <div class="logo">
+                <span class="logo-text"><img class="logo-icon" src="./img/icon.svg" draggable="false" alt="">NEONBITS</span>
+            </div>
+            <!-- CATEGORIES -->
+            <section class="categories">
+                <ul>
+                    <li>
+                        <button class="categories-button">Destacados<div class="arrow-wrapper"><div class="arrow"></div></div></button>
+                    </li>
+                    <li>
+                        <button class="categories-button">Componentes <div class="arrow-wrapper"><div class="arrow"></div></div></button>
+                    </li>
+                    <li>
+                        <button class="categories-button">Accesorios <div class="arrow-wrapper"><div class="arrow"></div></div></button>
+                    </li>
+                </ul>
+            </section>
+            <div class="search-bar">
+                <input
                 id="query"
                 class="search-input"
                 type="search"
                 placeholder="Buscar..."
                 name="searchbar"
-            />
-            <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
-                <g>
-                    <path
+                />
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                    <g>
+                        <path
                         d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-                    ></path>
-                </g>
-            </svg>
-        </div>
-        <img class="hamburger-menu" src="./img/logo-hamburger-menu.png" alt="">
-        <a href="cart.html" class="cart-button" id="cart-button"><span class="material-symbols-outlined">shopping_cart</span></a>
+                        ></path>
+                    </g>
+                </svg>
+            </div>
+            <img class="hamburger-menu" src="./img/logo-hamburger-menu.png" alt="">
+            <a href="cart.html" class="cart-button" id="cart-button"><span class="material-symbols-outlined">shopping_cart</span></a>
+        </nav>
+
     </header>
     <main class="container">
         <div class="slider-container">
@@ -43,14 +60,9 @@
         </div>
         <script src="./js/slideshow.js"></script>
         <section class="products-section">
-            <!-- CATEGORIES -->
-            <section class="categories">
-                <ul>
-                    <li><button>Destacados</button></li>
-                    <li><button>Componentes</button></li>
-                    <li><button>Accesorios</button></li>
-                </ul>
-            </section>
+            <div class="title-wrapper">
+                <h2>Nuestros productos</h2>
+            </div>
             <!-- PRODUCT GRID -->
             <div id="grid" class="product-grid">
                <!-- Dynamic Content -->

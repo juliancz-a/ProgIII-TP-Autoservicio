@@ -129,12 +129,13 @@ button {
 }
 
 .search-bar {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-55%);
+
+  position: relative;
+
   display: flex;
   line-height: 32px;
   align-items: center;
+  min-width: 300px;
   max-width: 500px;
 }
 
@@ -167,8 +168,9 @@ button {
 }
 
 .search-icon {
+
   position: absolute;
-  right: 1rem;
+  left: 90%;
   fill: #bdbecb;
   width: 1rem;
   height: 1rem;
