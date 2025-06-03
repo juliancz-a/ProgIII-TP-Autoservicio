@@ -98,7 +98,7 @@ function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
     const cardBuy = cardDiv.lastChild
     
     const removeBtn = document.createElement('button')
-    removeBtn.classList.add('card-buy-button', 'product-button');
+    removeBtn.classList.add('card-buy-button');
     removeBtn.textContent = 'Remove from cart'
     
     cardBuy.replaceChildren(removeBtn)

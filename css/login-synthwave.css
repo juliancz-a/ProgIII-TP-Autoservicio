@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: clamp(120px, 15dvh, 600px) auto 3dvh;
+  margin: 3dvh auto 3dvh;
   padding: 2px;
   width: min(90%, 500px);
   background: linear-gradient(144deg, var(--accent-tertiary), var(--accent-secondary) 50%, var(--accent));

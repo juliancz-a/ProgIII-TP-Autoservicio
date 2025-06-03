@@ -194,7 +194,6 @@ p {
     rgba(128, 0, 128, 0.308)
   );
 
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .card-buy .price-wrapper {
