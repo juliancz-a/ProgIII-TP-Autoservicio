@@ -172,17 +172,20 @@ main {
 .categories button {
   font-family: inherit;
   border-radius: 20px;
-  color: var(--main-text);
   padding: 1em 1.8em;
-  box-shadow: 0 0 5px rgba(181, 55, 242, 0.2);
+  color: var(--main-text);
+
   display: flex;
-  transition: all 0.3s ease;
   align-items: center;
   gap: 0.6em;
+
   font-weight: bold;
-  background: rgba(37, 31, 71, 0.7);
-  border: 1px solid rgba(181, 55, 242, 0.4);
   font-size: 1rem;
+
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 .categories .arrow-wrapper {
@@ -194,7 +197,7 @@ main {
 .categories button .arrow {
   margin-top: 1px;
   width: 10px;
-  background: var(--accent-secondary);
+  background: var(--nav);
   height: 2px;
   position: relative;
   transition: 0.3s;
@@ -214,8 +217,6 @@ main {
 }
 
 .categories button:hover {
-  background-color: var(--categories-hover);
-  box-shadow: 0 0 10px rgba(255, 42, 109, 0.4), 0 0 15px rgba(181, 55, 242, 0.2);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
 }
 
@@ -228,9 +229,20 @@ main {
   border-color: var(--accent);
 }
 
+
 .categories .selected {
   background-color: var(--categories-hover);
   box-shadow: 0 0 10px rgba(255, 42, 109, 0.4), 0 0 15px rgba(181, 55, 242, 0.2);
+  outline: none;
+}
+
+.categories .selected .arrow {
+    background: var(--accent)  ;
+}
+
+.categories .selected .arrow::before {
+    right: 0;
+    border-color: var(--accent);
 }
 
 .search-bar {
