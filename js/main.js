@@ -44,7 +44,7 @@ function createCardStructure(product) {
             </div>
             <div class="card-buy">
                 <div class="price-wrapper">
-                    <p class="price"> $${product.price} </p>
+                    <p class="price"> ${product.price} </p>
                 </div>
                 <button class="card-buy-button product-button"> Add to Cart</button>
             </div>`
@@ -199,12 +199,15 @@ cartBtn.appendChild(quantityInfo);
 const tabTitle = document.getElementById('tab-title')
 
 function updateCartBtn() {
-    quantityInfo.style.display = "none"
 
     if (cart.length > 0){
         quantityInfo.style.display = "inline"
         quantityInfo.className = 'quantity'
         tabTitle.textContent = `(${cart.length}) NeonBits`
+    } else {
+        tabTitle.textContent = `NeonBits`
+            quantityInfo.style.display = "none"
+
     }
 
     quantityInfo.textContent = cart.length;
