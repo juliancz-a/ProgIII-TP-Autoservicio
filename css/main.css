@@ -1,7 +1,12 @@
 :root {
-  --main-shadow: #9a37c6;
+  --main-shadow: #9a37c6;;
+  --categories-hover : #802ea3;
   --main-text: #fff;
   --containers-bg: rgb(5, 6, 45);
+
+  --card-bg-1 :  #af40ff;
+  --card-bg-2 : #5b42f3;
+  --card-bg-3 : #00ddeb;
 }
 
 h1 {
@@ -16,15 +21,87 @@ p {
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-top: 15vh;
-  gap: 50px;
+  
 }
+
+/* CATEGORIES BUTTON */
+.categories ul {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  list-style: none;
+}
+
+.categories ul li {
+  font-size: 1.5rem;
+}
+
+.categories button {
+
+  border-radius: 20px;
+  color: var(--main-text);
+  padding: 1em 1.8em;
+  box-shadow: none;
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+}
+
+.categories  .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.categories button .arrow {
+  margin-top: 1px;
+  width: 10px;
+  background:  var(--main-shadow);
+  height: 2px;
+  position: relative;
+  transition: 0.2s;
+}
+
+.categories .arrow::before {
+  content: "";
+  position: absolute;
+  border: solid var(--main-text);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.categories button:hover {
+  background-color:var(--categories-hover)
+}
+
+.categories button:hover .arrow {
+  background: var(--main-text);
+}
+
+.categories button:hover .arrow:before {
+  right: 0;
+}
+
+.categories .selected {
+  background-color:var(--categories-hover)
+
+}
+
 
 .slider-container {
   width: 100%;
-  max-width: 1200px;
+  max-height: 330px;
+  max-width: 1000px;
   overflow: hidden;
-  margin: auto;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
   position: relative;
@@ -46,87 +123,52 @@ p {
   object-fit: cover;
 }
 
-.products-section {
-  width: 100%;
-  display: flex;
-  margin-top : 10px;
-  gap: 50px;
-}
-
-/* CATEGORIES */
-.categories {
-  width: 250px;
-  display: flex;
-  margin-left: 25px;
-
-  color: var(--main-text);
-  text-shadow: 1px 1px 0 #5e17eb, 2px 2px 0 #451459,
-    3px 3px 0 var(--main-shadow);
-
-  border-right: 2px;
-  border-left: 0;
-  border-style: solid;
-  border-image: linear-gradient(
-      to bottom,
-      #00000000,
-      var(--main-shadow),
-      #00000000
-    )
-    1 100%;
-}
-
-.categories ul {
-  position: fixed;
-
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  justify-content: center;
-  list-style: none;
-}
-
-.categories ul li {
-  font-size: 1.5rem;
-}
-
-.categories ul li button {
-  width: 200px;
-  font-size: 1.1rem;
-  padding: 0.8em 2em;
-  background-color: var(--containers-bg);
-  border: 3px solid var(--main-shadow);
-  border-radius: 1em;
-  color: var(--main-text);
-  font-weight: 400;
-  text-transform: capitalize;
-  transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
-  box-shadow: -5px 5px 0px 0px var(--main-shadow);
-}
-
-.categories ul li button:hover {
-  transform: translate(5px, -5px);
-}
 
 /* PRODUCTS GRID */
+.products-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.products-section .title-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  border-bottom: 4px solid;
+  border-image: linear-gradient(to right, var(--card-bg-1), var(--card-bg-2), var(--card-bg-3)) 1;
+}
+
+.title-wrapper h2 {
+  color: var(--main-text);
+  font-size: 2rem;
+}
+
 .product-grid {
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 80px;
 
+  gap: 40px;
   margin-top: 25px;
   margin-bottom: 50px;
+  
 }
 
 .card {
   display: flex;
   flex-wrap: wrap;
-  width: 450px;
+  width: 420px;
   height: 350px;
 
-  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  background-image: linear-gradient(144deg, var(--card-bg-1), var(--card-bg-2) 50%, var(--card-bg-3));
   box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
   border-radius: 20px;
 
@@ -162,9 +204,7 @@ p {
   opacity: 0.5;
 }
 
-.card-text .price {
-  font-size: 1rem;
-}
+
 
 .card-content .card-image {
   transform: translate(-30px, -10%);
@@ -185,6 +225,7 @@ p {
   border-radius: 5px;
 }
 
+
 .card-buy {
   width: 100%;
   display: flex;
@@ -203,55 +244,22 @@ p {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.product-quantity button:hover,
-.card-buy-button:hover {
-  background-color: #451459;
-}
+.card-buy .price-wrapper {
+  width: 40%;
+  height: 75%;
 
-.card-buy-button:hover {
-  transform: scale(1.05);
-}
-
-.card-buy .product-quantity {
-  width: 50%;
   display: flex;
-
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+
+  background-color: #11111117;
+  border-radius: 17px;
+  padding: 5px;
 }
 
-.product-quantity button {
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  background-color: #191a1a7c; /* revisar si queda bien */
-}
-
-.product-quantity input[type="number"] {
-  width: 40px;
-  height: 40px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  text-align: center;
-  background-color: #191a1a;;
-
-  /* sacar flechitas de Firefox que hace lo que quiere*/
-  -moz-appearance: textfield;
-}
-
-.product-quantity input[type="number"] {
-    color: white;
-    font-family: inherit;
-    border: none;
-    outline: none;
-}
-
-/* Sacar flechas internas de input type number */
-.product-quantity input[type="number"]::-webkit-inner-spin-button,
-.product-quantity input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.card-buy .price {
+  font-size: 1.75rem;
+  
 }
 
 .card-added {

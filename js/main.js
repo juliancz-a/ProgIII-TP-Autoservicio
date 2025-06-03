@@ -40,18 +40,14 @@ function createCardStructure(product) {
                 <div class="card-text">
                     <p class="title">${product.title}</p>
                     <p class="description">${product.description}</p>
-                    <p class="price"> ${product.price} </p>
                 </div>
             </div>
             <div class="card-buy">
-                <div class="product-quantity">
-                    <button class="decrement-button">−</button>
-                    <input type="number" class="quantity-input" value="0" min="0" readonly>
-                    <button class="increment-button">+</button>
-
+                <div class="price-wrapper">
+                    <p class="price"> $${product.price} </p>
                 </div>
                 <button class="card-buy-button"> Add to Cart</button>
-        </div>`
+            </div>`
     
     addButtonsEvents(cardDiv, product)
 
@@ -62,50 +58,23 @@ function createCardStructure(product) {
 function addButtonsEvents(cardDiv, product) {
 
     const productManager = cardDiv.querySelector('.card-buy');
-
-    const quantityInput = productManager.querySelector('.quantity-input')
-    const decrementBtn = productManager.querySelector('.decrement-button')
-    const incrementBtn = productManager.querySelector('.increment-button')
-
-    decrementBtn.addEventListener('click', () => {
-        let prodQuantity = parseInt(quantityInput.value)
-        
-        if(prodQuantity > 0) {
-            quantityInput.value = prodQuantity - 1
-        }
-    })
-
-    incrementBtn.addEventListener('click', () => {
-        let prodQuantity = parseInt(quantityInput.value)
-        
-        quantityInput.value = prodQuantity + 1
-    })
-
     const buyBtn = productManager.querySelector('.card-buy-button')
     
     buyBtn.addEventListener('click', () => {
-        let prodQuantity = parseInt(quantityInput.value)
-        if (prodQuantity > 0) {
             
             showPopup(product)
 
-            addToCart(cart, prodQuantity, product)
+            addToCart(cart, product)
             updateCard(cardDiv, product)
             updateCartBtn()
-
-        } else {
-            showPopup(null)
-        }
 
     })
 
 }
 
-function addToCart(cart, quantity, product) {
-    product["quantity"] = quantity;
+function addToCart(cart, product) {
 
     cart.push(product)
-
     updateCart();
 
 }
@@ -138,8 +107,8 @@ function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
 
     removeBtn.addEventListener('click', () => {
         showPopup(product) // SHOW Removal popup and then remove from the cart
-
         removeFromCart(product)
+        updateCartBtn()
 
         const newCardDiv = createCardStructure(product)
         cardDiv.replaceWith(newCardDiv)
@@ -177,11 +146,8 @@ function createPopup(product) {
     let icon = '';
     let type;
 
-    if (!product) {
-        message = 'Selecciona más de uno para añadirlo al carrito';
-        icon = 'close';
-        type = 'error';
-    } else if (isInCart(product)) {
+
+    if (isInCart(product)) {
         message = `${product.title} eliminado del carrito`;
         icon = 'undo';
         type = 'undo';
@@ -200,6 +166,29 @@ function createPopup(product) {
     `;
 
     return popup;
+}
+
+// CATEGORIES BUTTONS
+
+const categoriesBtns = document.getElementsByClassName('categories-button')
+
+for (const btn of categoriesBtns) {
+    btn.addEventListener('click', () => {
+
+       for (const btn of categoriesBtns) { // check for selected class
+            btn.classList.remove('selected')
+        }
+
+        getProducts().then(data => {
+            if (btn.value == "") {
+                products = data;
+            } else {
+                products = data.filter(p => p.category === btn.value);
+            }
+            renderCards(products);
+            btn.classList.add('selected')
+    })
+    });
 }
 
 //MANAGE STATE OF CART BTN
@@ -231,4 +220,5 @@ getProducts().then(data => {
     renderCards(products)
 })
 
+categoriesBtns[0].classList.add('selected');
 updateCartBtn()
