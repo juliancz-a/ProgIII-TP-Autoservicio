@@ -46,7 +46,7 @@ function createCardStructure(product) {
                 <div class="price-wrapper">
                     <p class="price"> $${product.price} </p>
                 </div>
-                <button class="card-buy-button"> Add to Cart</button>
+                <button class="card-buy-button product-button"> Add to Cart</button>
             </div>`
     
     addButtonsEvents(cardDiv, product)
@@ -98,7 +98,7 @@ function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
     const cardBuy = cardDiv.lastChild
     
     const removeBtn = document.createElement('button')
-    removeBtn.className = 'card-buy-button';
+    removeBtn.classList.add('card-buy-button', 'product-button');
     removeBtn.textContent = 'Remove from cart'
     
     cardBuy.replaceChildren(removeBtn)
