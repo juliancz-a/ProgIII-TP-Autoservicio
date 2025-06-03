@@ -54,51 +54,8 @@
             <h1>Carrito</h1>
             <section class="cart-section">
                 <!-- CART GRID -->
-                <section class="cart-products">
-                    <div class="product">
-                        <div class="product-content">
-                            <div class="product-image">
-                                <img src="https://images.pexels.com/photos/4581903/pexels-photo-4581903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="${product.title}">
-                            </div>
-                            <div class="product-details">
-                                <p class="product-title">Placa de Video ASUS PRIME GeForce RTX 5070 12GB GDDR7 OC</p>
-                            </div>
-                            <div class="product-quantity">
-                                <div class="quantity-wrapper">
-                                    <button class="quantity-btn">−</button>
-                                    <input type="number" class="quantity-input" value="1" min="1" />
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="product-price">
-                                <div class="final-price">
-                                    <h5>1.054.400</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product">
-                        <div class="product-content">
-                            <div class="product-image">
-                                <img src="https://images.pexels.com/photos/4581903/pexels-photo-4581903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="${product.title}">
-                            </div>
-                            <div class="product-details">
-                                <p class="product-title">Placa de Video ASUS PRIME GeForce RTX 5070 12GB GDDR7 OC</p>
-                            </div>
-                            <div class="product-quantity">
-                                <div class="quantity-wrapper">
-                                    <button class="quantity-btn">−</button>
-                                    <input type="number" class="quantity-input" value="1" min="1" />
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </div>
-                            <div class="product-price">
-                                <div class="final-price">
-                                    <h5>1.054.400</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <section id="cart" class="cart-products">
+                    <!-- Dynamic Content -->
                 </section>
                 <!-- CART DETAIL -->
                 <section class="cart-panel">
@@ -106,8 +63,8 @@
                         <div class="resume">
                             <h3>Resumen</h3>
                             <ul>
-                                <li><span>Subtotal</span><span>$ 1.054.400</span></li>
-                                <li><span>Total</span><span>$ 1.054.400</span></li>
+                                <li><span>Subtotal</span><span>$ 1.054<sup>40</sup></span></li>
+                                <li><span>Total</span><span>$ 1.054<sup>40</sup></span></li>
                             </ul>
                         </div>
                         <div class="cart-options">
@@ -133,5 +90,6 @@
     </footer>
     <div id="popup-container" class="popup-container">
     </div>
+    <script src="./js/cart.js"></script>
 </body>
 </html>
