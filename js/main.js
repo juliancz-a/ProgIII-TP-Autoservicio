@@ -35,7 +35,7 @@ function createCardStructure(product) {
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
-                    <img src="${product.img}" alt="">
+                    <img src="${product.img}" alt="${product.title}">
                 </div>
                 <div class="card-text">
                     <p class="title">${product.title}</p>

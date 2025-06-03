@@ -4,12 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="shortcut icon" href="./img/icon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/cart-synthwave.css">
+    <link rel="shortcut icon" href="./img/tab_icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Cart</title>
 </head>
 <body>
-
+    <header class="nav-bar">
+        <div class="logo">
+            <span class="logo-text"><img class="logo-icon" src="./img/icon.svg" draggable="false" alt="">NEONBITS</span>
+        </div>
+        <div class="search-bar">
+            <input
+                id="query"
+                class="search-input"
+                type="search"
+                placeholder="Buscar..."
+                name="searchbar"
+            />
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="search-icon">
+                <g>
+                    <path
+                        d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                    ></path>
+                </g>
+            </svg>
+        </div>
+        <img class="hamburger-menu" src="./img/logo-hamburger-menu.png" alt="">
+        <a href="cart.html" class="cart-button" id="cart-button"><span class="material-symbols-outlined">shopping_cart</span></a>
+    </header>
+    <main>
+        <section class="cart-container">
+            <h1>Carrito</h1>
+            <section class="cart-section">
+                <!-- CART GRID -->
+                <section class="cart-products">
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-image">
+                                <img src="https://images.pexels.com/photos/4581903/pexels-photo-4581903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="${product.title}">
+                            </div>
+                            <div class="product-details">
+                                <p class="product-title">Placa de Video ASUS PRIME GeForce RTX 5070 12GB GDDR7 OC</p>
+                            </div>
+                            <div class="product-quantity">
+                                <div class="quantity-wrapper">
+                                    <button class="quantity-btn">−</button>
+                                    <input type="number" class="quantity-input" value="1" min="1" />
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                            </div>
+                            <div class="product-price">
+                                <div class="final-price">
+                                    <h5>1.054.400</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-image">
+                                <img src="https://images.pexels.com/photos/4581903/pexels-photo-4581903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="${product.title}">
+                            </div>
+                            <div class="product-details">
+                                <p class="product-title">Placa de Video ASUS PRIME GeForce RTX 5070 12GB GDDR7 OC</p>
+                            </div>
+                            <div class="product-quantity">
+                                <div class="quantity-wrapper">
+                                    <button class="quantity-btn">−</button>
+                                    <input type="number" class="quantity-input" value="1" min="1" />
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                            </div>
+                            <div class="product-price">
+                                <div class="final-price">
+                                    <h5>1.054.400</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- CART DETAIL -->
+                <section class="cart-panel">
+                    <div class="cart-detail">
+                        <div class="resume">
+                            <h3>Resumen</h3>
+                            <ul>
+                                <li><span>Subtotal</span><span>$ 1.054.400</span></li>
+                                <li><span>Total</span><span>$ 1.054.400</span></li>
+                            </ul>
+                        </div>
+                        <div class="cart-options">
+                            <button>Seguir comprando</button>
+                            <button>Continuar a metodo de pago</button>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 NEONBITS. Todos los derechos reservados.</p>
+        <div class="github-links">
+            <a href="https://github.com/juliancz-a" target="_blank"><img class="github-icon" src="./img/github.png" alt="">Caceres Julián</a>
+            <a href="https://github.com/maaaseee" target="_blank"><img class="github-icon" src="./img/github.png" alt="">Aieta Federico</a>
+        </div>
+        <div class="footer-links">
+            <a href="#">Términos</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Ayuda</a>
+        </div>
+    </footer>
+    <div id="popup-container" class="popup-container">
+    </div>
 </body>
 </html>
