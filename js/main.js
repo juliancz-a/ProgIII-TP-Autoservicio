@@ -144,20 +144,14 @@ function createPopup(product) {
 
     let message = '';
     let icon = '';
-    let type;
-
 
     if (isInCart(product)) {
         message = `${product.title} eliminado del carrito`;
         icon = 'undo';
-        type = 'undo';
+        popup.classList.add('undo');
     } else {
         message = `${product.title} al carrito`;
         icon = 'check';
-    }
-
-    if (type) {
-        popup.classList.add(type);
     }
 
     popup.innerHTML = `
