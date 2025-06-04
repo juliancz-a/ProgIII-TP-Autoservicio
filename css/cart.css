@@ -49,6 +49,7 @@
 }
 
 .product {
+    position: relative;
     min-height: 100px;
     padding: 0.8rem;
     border-radius: 8px;
@@ -152,9 +153,9 @@
 .quantity-btn {
     width: 28px;
     height: 32px;
-    background: rgba(181, 55, 242, 0.2);
+    background: transparent;
     border: none;
-    color: #e5e5ff;
+    color: #ff2a6d;
     font-size: 16px;
     cursor: pointer;
     transition: background 0.3s, color 0.3s, text-shadow 0.3s;
@@ -186,7 +187,7 @@
     color: #e5e5ff;
     font-family: inherit;
     outline: none;
-    user-select: none;
+    pointer-events: none;
 }
 
 .quantity-input::-webkit-outer-spin-button,
@@ -217,7 +218,7 @@
 
 .product-price .final-price h5 sup,
 .resume li span sup {
-    font-size: 0.5em;
+    font-size: 0.7rem;
     position: absolute;
     top: 0;
     right: -0.1em;
@@ -227,7 +228,8 @@
     display: inline-block;
 }
 
-.product-price .final-price h5::before {
+.product-price .final-price h5::before,
+.resume .price::before {
     content: "$";
     font-size: 0.85em;
     font-weight: 500;
@@ -263,25 +265,25 @@
 }
 
 /* Resume section styling */
-
 .resume ul {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0;
 }
 
-.resume li {
+.resume ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
     color: #e5e5ff;
+    font-size: 1.2rem;
 }
 
 .resume ul li:last-child {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: #ff2a6d;
     text-shadow: 0 0 5px rgba(255, 42, 109, 0.3);
     border-top: 1px solid rgba(255, 42, 109, 0.3);
@@ -357,6 +359,31 @@
     background-color: rgba(255, 42, 109, 0.8);
     box-shadow: 0 0 10px rgba(255, 42, 109, 0.4);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+.delete-btn {
+    position: absolute;
+    bottom: 0.8rem;
+    right: 0.8rem;
+    background: transparent;
+    border: 1px solid rgba(255, 42, 109, 0.4);
+    color: #ff2a6d;
+    border-radius: 6px;
+    padding: 6px;
+    cursor: pointer;
+    margin: 0.5rem auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    width: 36px;
+    height: 36px;
+}
+
+.delete-btn:hover {
+    background: rgba(255, 42, 109, 0.3);
+    color: white;
+    box-shadow: 0 0 8px rgba(255, 42, 109, 0.5);
 }
 
 /* Responsive design */
@@ -459,4 +486,3 @@
         justify-content: flex-end;
     }
 }
-
