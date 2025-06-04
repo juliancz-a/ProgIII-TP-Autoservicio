@@ -1,21 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
-  --bg: #ffffff;
-  --text: #000000;
-  --accent: #0ff;
-  --nav: #9a37c6;
-  --footer: #451459;
-  --shadow-size: clamp(1px, 0.1dvw, 10px);
-  --categories-hover : #802ea3;
-  --main-shadow: #9a37c6;
-  --main-text: #fff;
+  --bg: #1a1a2e;
+  --text: #e5e5ff;
+  --accent: #00e5ff;
+  --accent-secondary: #ff2a6d;
+  --accent-tertiary: #b537f2;
+  --nav: #251f47;
+  --footer: #1a1a2e;
+  --shadow-size: clamp(2px, 0.15dvw, 12px);
+  --categories-hover: rgba(255, 42, 109, 0.6);
+  --main-shadow: #ff2a6d;
+  --main-text: #e5e5ff;
+  --neon-glow: 0 0 5px rgba(255, 42, 109, 0.4), 0 0 10px rgba(0, 229, 255, 0.3);
+  --neon-glow-strong: 0 0 8px rgba(255, 42, 109, 0.5), 0 0 15px rgba(0, 229, 255, 0.4), 0 0 20px rgba(181, 55, 242, 0.3);
+  --neon-border: 1px solid rgba(255, 42, 109, 0.3);
+  --header-height: clamp(70px, 10dvh, 100px);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: thin; /* o "auto" */
+  scrollbar-color: var(--accent) var(--nav); /* thumb y track */
 }
 
 html,
@@ -25,12 +33,15 @@ body {
 
 html {
   font-family: "Exo";
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
 }
 
 body {
   width: 100%;
   height: 100%;
-  --color: rgba(167, 41, 121, 0.3);
+  --color: rgba(255, 42, 109, 0.15);
+  padding-top: var(--header-height); /* Add padding to prevent content from being hidden under fixed header */
   background-color: #191a1a;
   background-image: linear-gradient(
       0deg,
@@ -57,10 +68,34 @@ body {
       transparent
     );
   background-size: 55px 55px;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* mínimo igual a la altura del viewport */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-gutter: stable; /* Estabiliza el gutter, ver abajo */
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* para scroll vertical */
+  height: 8px; /* para scroll horizontal */
+}
+
+/* Track (fondo) */
+::-webkit-scrollbar-track {
+  background: #1b1b1f;
+  border-radius: 8px;
+}
+
+/* Thumb (la parte que se mueve) */
+::-webkit-scrollbar-thumb {
+  background-color: #a855f7; /* violeta neon */
+  border-radius: 8px;
+  border: 2px solid #1b1b1f; /* bordes del fondo, opcional */
+}
+
+/* Thumb al hacer hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9333ea; /* un tono más oscuro */
 }
 
 main {
@@ -68,20 +103,7 @@ main {
 }
 
 /* BUTTONS */
-button {
-  /* buttons basic style*/
-  background: transparent;
-  color: #fff;
-  font-size: 17px;
-  text-transform: uppercase;
-  font-weight: 600;
-  border: none;
-  padding: 20px 30px;
-  cursor: pointer;
-  perspective: 30rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.308);
-}
+/* Button styles moved to main.css as .product-button */
 
 .nav-bar, .footer {
   user-select: none;
@@ -90,8 +112,8 @@ button {
 /* HEADER */
 .nav-bar {
   width: 100dvw;
-  padding: clamp(10px, 1dvw, 150px);;
-  margin-bottom: 15px;
+  padding: clamp(10px, 1dvw, 150px);
+  height: var(--header-height); /* Set fixed height for header */
 
   display: flex;
   gap: 1rem;
@@ -104,7 +126,9 @@ button {
   z-index: 10; 
 
   background-color: var(--nav);
-  border-bottom: 1px solid #333;
+  background-image: linear-gradient(180deg, #251f47 0%, #1a1a2e 100%);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);
 }
 
 .logo-text {
@@ -116,9 +140,10 @@ button {
   font-weight: 800;
   color: var(--text);
   text-shadow:
-    var(--shadow-size) var(--shadow-size) 0 #5e17eb,
-    calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 #451459,
-    calc(var(--shadow-size) * 2.5) calc(var(--shadow-size) * 2.5) 0 var(--accent);
+    var(--shadow-size) var(--shadow-size) 0 var(--accent-tertiary),
+    calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 var(--accent-secondary),
+    calc(var(--shadow-size) * 2) calc(var(--shadow-size) * 2) 0 var(--accent),
+    0 0 15px rgba(255, 42, 109, 0.5);
 }
 
 .logo-icon {
@@ -126,9 +151,10 @@ button {
   height: clamp(2.5rem, 1dvw, 10rem);
   transform: translateY(-3px);
   filter: 
-    drop-shadow(var(--shadow-size)  var(--shadow-size) 0 #5e17eb) 
-    drop-shadow(calc(var(--shadow-size)) calc(var(--shadow-size)) 0 #451459)
-    drop-shadow(calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 var(--accent));
+    drop-shadow(var(--shadow-size) var(--shadow-size) 0 var(--accent-tertiary)) 
+    drop-shadow(calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 var(--accent-secondary))
+    drop-shadow(calc(var(--shadow-size) * 2) calc(var(--shadow-size) * 2) 0 var(--accent))
+    drop-shadow(0 0 5px rgba(0, 229, 255, 0.5));
 }
 
 /* CATEGORIES BUTTON */
@@ -146,17 +172,23 @@ button {
 .categories button {
   font-family: inherit;
   border-radius: 20px;
-  color: var(--main-text);
   padding: 1em 1.8em;
-  box-shadow: none;
+  color: var(--main-text);
+
   display: flex;
-  transition: 0.2s background;
   align-items: center;
   gap: 0.6em;
+
   font-weight: bold;
+  font-size: 1rem;
+
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
-.categories  .arrow-wrapper {
+.categories .arrow-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -165,10 +197,10 @@ button {
 .categories button .arrow {
   margin-top: 1px;
   width: 10px;
-  background:  var(--main-shadow);
+  background: var(--nav);
   height: 2px;
   position: relative;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 .categories .arrow::before {
@@ -179,30 +211,42 @@ button {
   display: inline-block;
   top: -3px;
   right: 3px;
-  transition: 0.2s;
+  transition: 0.3s;
   padding: 3px;
   transform: rotate(-45deg);
 }
 
 .categories button:hover {
-  background-color:var(--categories-hover)
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
 }
 
 .categories button:hover .arrow {
-  background: var(--main-text);
+  background: var(--accent);
 }
 
 .categories button:hover .arrow:before {
   right: 0;
+  border-color: var(--accent);
 }
 
+
 .categories .selected {
-  background-color:var(--categories-hover)
+  background-color: var(--categories-hover);
+  box-shadow: 0 0 10px rgba(255, 42, 109, 0.4), 0 0 15px rgba(181, 55, 242, 0.2);
+  outline: none;
+}
+
+.categories .selected .arrow {
+    background: var(--accent)  ;
+}
+
+.categories .selected .arrow::before {
+    right: 0;
+    border-color: var(--accent);
 }
 
 .search-bar {
   position: relative;
-
   display: flex;
   line-height: 32px;
   align-items: center;
@@ -215,56 +259,60 @@ button {
   height: 45px;
   padding-left: 1rem;
   padding-right: 2.5rem;
-  box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+  box-shadow: 0 0 0 1.5px rgba(181, 55, 242, 0.4), 0 0 10px rgba(0, 229, 255, 0.15);
   border: 0;
   border-radius: 12px;
-  background-color: #16171d;
+  background-color: rgba(26, 26, 46, 0.8);
   outline: none;
-  color: #bdbecb;
+  color: var(--main-text);
   transition: all 0.35s cubic-bezier(0.19, 1, 0.22, 1);
   cursor: text;
   z-index: 0;
 }
 
 .search-input::placeholder {
-  color: #bdbecb;
+  color: rgba(229, 229, 255, 0.6);
 }
 
 .search-input:hover {
-  box-shadow: 0 0 0 2.5px #15a1c4, 0px 0px 25px -15px #000;
+  box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.4), 0 0 10px rgba(0, 229, 255, 0.3);
 }
 
 .search-input:focus {
-  box-shadow: 0 0 0 2.5px #15a1c4, 0px 0px 25px -15px #000;
+  box-shadow: 0 0 0 2px rgba(255, 42, 109, 0.4), 0 0 10px rgba(255, 42, 109, 0.2);
+  background-color: rgba(26, 26, 46, 0.9);
 }
 
 .search-icon {
-
   position: absolute;
   left: 90%;
-  fill: #bdbecb;
+  fill: var(--accent);
   width: 1rem;
   height: 1rem;
   pointer-events: none;
   z-index: 1;
+  filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.5));
 }
 
 .hamburger-menu {
   width: 2.5rem;
   height: 2.5rem;
   display: none;
+  filter: drop-shadow(0 0 5px rgba(255, 42, 109, 0.6));
 }
 
 .nav-links a {
   margin-left: 1.5rem;
   text-decoration: none;
-  color: var(--text);
+  color: var(--main-text);
   font-weight: 500;
-  transition: color 0.3s;
+  transition: all 0.3s;
+  text-shadow: 0 0 3px rgba(229, 229, 255, 0.2);
 }
 
 .nav-links a:hover {
   color: var(--accent);
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
 }
 
 .cart-button {
@@ -275,11 +323,20 @@ button {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .cart-button span {
-
   font-size: 2rem;
+  color: var(--main-text);
+  text-shadow: 0 0 5px rgba(255, 42, 109, 0.4);
+  transition: all 0.3s ease;
+}
+
+.cart-button:hover span {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+  transform: scale(1.05);
 }
 
 .cart-button .quantity {
@@ -287,8 +344,9 @@ button {
   text-align: center;
   width: 20px;
   height: 20px;
-  background-color: red;
+  background-color: var(--accent-secondary);
   border-radius: 25px;
+  box-shadow: 0 0 5px rgba(255, 42, 109, 0.4);
 }
 
 /* FOOTER */
@@ -299,12 +357,15 @@ button {
   justify-content: space-between;
   padding: 1.5rem;
   background-color: var(--footer);
-  border-top: 1px solid #333;
+  background-image: linear-gradient(0deg, #1a1a2e 0%, #251f47 100%);
+  border-top: 1px solid rgba(0, 229, 255, 0.2);
   font-size: 14px;
+  box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.25);
 }
 
 .footer p {
-  color: white;
+  color: var(--main-text);
+  text-shadow: 0 0 5px rgba(229, 229, 255, 0.3);
 }
 
 .footer-links,
@@ -315,18 +376,22 @@ button {
 .footer-links a,
 .github-links a {
   margin: 0 0.75rem;
-  color: var(--bg);
+  color: var(--main-text);
   text-decoration: none;
-  transition: 250ms;
+  transition: all 0.3s;
+  text-shadow: 0 0 3px rgba(229, 229, 255, 0.2);
 }
 
 .footer-links a:hover,
 .github-links a:hover {
   color: var(--accent);
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
 }
 
 .github-icon {
   height: 1.5rem;
+  filter: drop-shadow(0 0 2px rgba(0, 229, 255, 0.3));
+  transition: all 0.3s;
 }
 
 .github-links {
@@ -345,9 +410,9 @@ button {
 }
 
 .github-links a img {
-  transition: 300ms;
+  transition: all 0.3s;
 }
 
 .github-links a:hover img {
-  filter: drop-shadow(0 0 1px var(--accent)) drop-shadow(0 0 1px var(--accent));
+  filter: drop-shadow(0 0 3px var(--accent-secondary)) drop-shadow(0 0 5px var(--accent));
 }
