@@ -2,6 +2,10 @@ const productGrid = document.getElementById('grid');
 
 let products = [];
 
+if (!localStorage.getItem("takeawayName")) {
+    window.location.href = "login.html";
+}
+
 // Fetch data from local DB
 const getProducts = async () => {
     const response = await fetch('./db/products.json')
@@ -31,6 +35,11 @@ function createCardStructure(product) {
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
 
+    const formatted = product.price.toLocaleString("es-AR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
     
     cardDiv.innerHTML = `
             <div class="card-content">
@@ -44,9 +53,9 @@ function createCardStructure(product) {
             </div>
             <div class="card-buy">
                 <div class="price-wrapper">
-                    <p class="price"> ${product.price} </p>
+                    <p class="price">${formatted} </p>
                 </div>
-                <button class="card-buy-button product-button"> Add to Cart</button>
+                <button title="Agregar al carrito" class="card-buy-button product-button"> Add to Cart</button>
             </div>`
     
     addButtonsEvents(cardDiv, product)

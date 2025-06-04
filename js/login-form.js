@@ -1,3 +1,7 @@
+if (localStorage.getItem('takeawayName')) {
+    window.location.href = "index.html";
+}
+
 document.getElementById("login-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const name = document.getElementById("username").value.trim();

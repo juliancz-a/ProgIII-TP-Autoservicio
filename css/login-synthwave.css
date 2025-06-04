@@ -20,7 +20,7 @@
   align-items: center;
   margin: 3dvh auto 3dvh;
   padding: 2px;
-  width: min(90%, 500px);
+  width: 75%;
   background: linear-gradient(144deg, var(--accent-tertiary), var(--accent-secondary) 50%, var(--accent));
   border-radius: 20px;
   box-shadow: var(--neon-glow-strong), 0 0 30px rgba(0, 0, 0, 0.5);
@@ -59,8 +59,7 @@
 
 #login-form {
   display: block;
-  width: 100%;
-  max-width: 320px;
+  width: 60%;
 }
 
 #login-form input {
@@ -125,7 +124,6 @@
 @media (max-width: 768px) {
   .login-container {
     width: 90%;
-    margin-top: 100px;
   }
   
   #login-form {

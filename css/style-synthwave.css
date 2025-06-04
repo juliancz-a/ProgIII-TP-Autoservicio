@@ -340,6 +340,9 @@ main {
 }
 
 .cart-button .quantity {
+  position: absolute;
+  top: -2px;
+  right: -2px;
   font-size: 1rem;
   text-align: center;
   width: 20px;
