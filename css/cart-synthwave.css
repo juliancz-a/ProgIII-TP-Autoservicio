@@ -263,13 +263,14 @@
 }
 
 /* Resume section styling */
+
 .resume ul {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0;
 }
 
-.resume ul li {
+.resume li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -288,19 +289,26 @@
     margin-top: 0.5rem;
 }
 
-.resume ul li span {
-    flex: 1;
+.resume li .price-line {
     display: flex;
     justify-content: space-between;
-    gap: 0.5rem;
 }
 
-.resume ul li span .price {
-    position: relative;
-    padding-right: 0.7em;
-    white-space: nowrap;
+.resume .price {
+  position: relative;
+  display: inline-block;
+  padding-right: 0.7em;
 }
 
+.resume .price sup {
+  font-size: 0.5em;
+  position: absolute;
+  top: 0;
+  right: -0.1em;
+  color: #00e5ff;
+  text-shadow: 0 0 4px rgba(0, 229, 255, 0.6);
+  font-weight: 500;
+}
 
 /* Cart panel buttons styling */
 .cart-options {
