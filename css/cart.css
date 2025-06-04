@@ -175,7 +175,7 @@
 }
 
 .quantity-input {
-    width: 36px;
+    width: 32px;
     height: 32px;
     text-align: center;
     border: none;
@@ -265,14 +265,13 @@
 }
 
 /* Resume section styling */
-
 .resume ul {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0;
 }
 
-.resume li {
+.resume ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -487,4 +486,3 @@
         justify-content: flex-end;
     }
 }
-
