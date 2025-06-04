@@ -73,7 +73,8 @@ function addButtonsEvents(cardDiv, product) {
 }
 
 function addToCart(cart, product) {
-
+    
+    product.quantity = 1;
     cart.push(product)
     updateCart();
 
