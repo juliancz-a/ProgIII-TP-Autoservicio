@@ -109,12 +109,7 @@ main {
   user-select: none;
 }
 
-header{
-  width: 100dvw;
-  height: var(--header-height);
-  position: relative;
-
-}    
+   
 /* HEADER */
 .nav-bar {
   width: 100dvw;
