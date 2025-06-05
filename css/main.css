@@ -52,6 +52,7 @@ p {
   height: auto;
   display: block;
   object-fit: cover;
+  user-select: none;
 }
 
 .prev-slide, .next-slide {
@@ -86,13 +87,13 @@ p {
 }
 
 .indicator {
-  width: 10px;
+  width: 25px;
   height: 10px;
   background-color: rgba(255,255,255,0.5);
-  border-radius: 50%;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.575);
 }
 
 .indicator:hover {
@@ -116,6 +117,7 @@ p {
 
 .products-section .title-wrapper {
   width: 100%;
+  margin-top: 3rem;
   display: flex;
   align-items: start;
   justify-content: start;
