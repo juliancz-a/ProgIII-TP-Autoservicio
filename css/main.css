@@ -369,5 +369,19 @@ p {
 
   .card .card-buy {
     padding: 5px;
+    flex-wrap: wrap;
+  }
+
+  .card-buy button {
+    width: auto;
+  }
+
+  .card-buy .price-wrapper {
+    min-width: 50%;
+    height: 50px;
+  }
+
+  .card-buy .price {
+    font-size: 1.25rem;
   }
 }

@@ -1,5 +1,5 @@
 if (localStorage.getItem('takeawayName')) {
-    window.location.href = "/index.html";
+    window.location.href = "/";
 }
 
 document.getElementById("login-form").addEventListener("submit", function (e) {
@@ -7,6 +7,6 @@ document.getElementById("login-form").addEventListener("submit", function (e) {
     const name = document.getElementById("username").value.trim();
     if (name) {
         localStorage.setItem("takeawayName", name);
-        window.location.href = "./index.html";
+        window.location.href = "/";
     }
 });
