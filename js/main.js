@@ -35,7 +35,7 @@ function createCardStructure(product) {
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
 
-    const formatted = product.price.toLocaleString("es-AR", {
+    const formattedPrice = product.price.toLocaleString("es-AR", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     });
@@ -53,7 +53,7 @@ function createCardStructure(product) {
             </div>
             <div class="card-buy">
                 <div class="price-wrapper">
-                    <p class="price">${formatted} </p>
+                    <p class="price">${formattedPrice} </p>
                 </div>
                 <button title="Agregar al carrito" class="card-buy-button product-button"> Add to Cart</button>
             </div>`
@@ -172,60 +172,31 @@ function createPopup(product) {
     return popup;
 }
 
-// CATEGORIES BUTTONS
 
-const categoriesBtns = document.getElementsByClassName('categories-button')
+function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
+    const params = new URLSearchParams(window.location.search) //URLSearchParams => obj con los params
+    let selectedCategory = params.get('category'); // accessory / component / featured (all)
 
-for (const btn of categoriesBtns) {
-    btn.addEventListener('click', () => {
-
-       for (const btn of categoriesBtns) { // check for selected class
-            btn.classList.remove('selected')
-        }
-
-        getProducts().then(data => {
-            if (btn.value == "") {
-                products = data;
-            } else {
-                products = data.filter(p => p.category === btn.value);
-            }
-            renderCards(products);
-            btn.classList.add('selected')
-    })
-    });
-}
-
-//MANAGE STATE OF CART BTN
-const cartBtn = document.getElementById('cart-button');
-const quantityInfo = document.createElement('span');
-cartBtn.appendChild(quantityInfo);
-
-const tabTitle = document.getElementById('tab-title')
-
-function updateCartBtn() {
-
-    if (cart.length > 0){
-        quantityInfo.style.display = "inline"
-        quantityInfo.className = 'quantity'
-        tabTitle.textContent = `(${cart.length}) NeonBits`
-    } else {
-        tabTitle.textContent = `NeonBits`
-            quantityInfo.style.display = "none"
-
+    if (!selectedCategory) { // DEFAULT INDEX.HTML
+        selectedCategory = 'featured'; 
+        params.set('category', selectedCategory)
+        window.location.search = '?category=featured'
     }
 
-    quantityInfo.textContent = cart.length;
+    getProducts().then(data => {
+        let products = selectedCategory === 'accesory' || selectedCategory === 'component' ? data.filter(p => p.category === selectedCategory) : data;
+        renderCards(products)
+    })
 
+    const selectedBtn = document.querySelector(`.categories-button[value=${selectedCategory}]`)
+    selectedBtn.classList.add('selected')
+    
 }
 
 // BRING CART FROM LOCAL STORAGE
 let cart = JSON.parse(localStorage.getItem('cart')) || []
 
-// INIT FUNCTIONS
-getProducts().then(data => {
-    products = data;
-    renderCards(products)
-})
+//INIT
+showCategoryContent()
 
-categoriesBtns[0].classList.add('selected');
-updateCartBtn()
+

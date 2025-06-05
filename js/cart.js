@@ -14,7 +14,6 @@ function renderCart(products) {
         emptyCart.textContent = 'No hay elementos en el carrito';
         cartGrid.appendChild(emptyCart);
         updateSubtotalDisplay();
-        updateCartBtn();
         return;
     }
 
@@ -27,7 +26,6 @@ function renderCart(products) {
 
     cartGrid.appendChild(fragment);
     updateSubtotalDisplay()
-    updateCartBtn()
 }
 
 // Crea un producto en el DOM del carrito
@@ -101,6 +99,7 @@ function addQuantityEvents(productDiv, productId) {
         } else {
             deleteFromCart(cartItem);
             renderCart(cart);
+            updateCartBtn()
             return;
         }
     });
@@ -108,6 +107,7 @@ function addQuantityEvents(productDiv, productId) {
     deleteBtn.addEventListener("click", () => {
         deleteFromCart(cartItem);
         renderCart(cart);
+        updateCartBtn()
     });
 
     input.value = cartItem.quantity;
@@ -156,28 +156,6 @@ function deleteFromCart(product) {
 
 function updateCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-const cartBtn = document.getElementById('cart-button');
-const quantityInfo = document.createElement('span');
-cartBtn.appendChild(quantityInfo);
-const tabTitle = document.getElementById('tab-title')
-
-//MANAGE STATE OF CART BTN
-function updateCartBtn() {
-
-    if (cart.length > 0){
-        quantityInfo.style.display = "inline"
-        quantityInfo.className = 'quantity'
-        tabTitle.textContent = `(${cart.length}) NeonBits | Cart`
-    } else {
-        tabTitle.textContent = `NeonBits | Cart`
-            quantityInfo.style.display = "none"
-
-    }
-
-    quantityInfo.textContent = cart.length;
-
 }
 
 renderCart(cart);
