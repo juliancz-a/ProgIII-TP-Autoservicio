@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/cart.css">
     <link rel="shortcut icon" href="./img/tab_icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title id="tab-title">NeonBits</title>
+    <title id="tab-title">NeonBits | Cart</title>
 </head>
 <body>
     <header>
@@ -54,34 +54,40 @@
                 <a href="cart.html" class="cart-button" id="cart-button"><span class="material-symbols-outlined">shopping_cart</span></a>
             </div>
         </nav>
-
     </header>
-    <main class="container">
-        <div class="slider-container">
-            <button class="prev-slide">&#10094;</button>
-            <button class="next-slide">&#10095;</button>
-            <div class="slider">
-                <div class="slide"> <img src="./img/slide1.jpg" alt="Slide 1"> </div>
-                <div class="slide"> <img src="./img/slide2.jpg" alt="Slide 2"> </div>
-                <div class="slide"> <img src="./img/slide3.jpg" alt="Slide 3"> </div>
-            </div>
-            <div class="indicators"></div>
-        </div>
-        <script src="./js/slideshow.js"></script>
-        <section class="products-section">
-            <div class="title-wrapper">
-                <h2>Nuestros productos</h2>
-            </div>
-            <!-- PRODUCT GRID -->
-            <div id="grid" class="product-grid">
-               <!-- Dynamic Content -->
-            </div>
+    <main>
+        <section class="cart-container">
+            <h1>Carrito</h1>
+            <section class="cart-section">
+                <!-- CART GRID -->
+                <section id="cart" class="cart-products">
+                    <!-- Dynamic Content -->
+                </section>
+                <!-- CART DETAIL -->
+                <section class="cart-panel">
+                    <div class="cart-detail">
+                        <div class="resume">
+                            <h3>Resumen</h3>
+                            <ul>
+                                <li id="subtotal-amount">
+                                </li>
+                                <li id="total-amount">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cart-options">
+                            <a href="./index.html"><button class="back-shop">Seguir comprando</button></a>
+                            <a href=""><button class="redirect-checkout">Continuar a metodo de pago</button></a>
+                        </div>
+                    </div>
+                </section>
+            </section>
         </section>
     </main>
     <footer class="footer">
         <p>&copy; 2025 NEONBITS. Todos los derechos reservados.</p>
         <div class="github-links">
-            <a href="https://github.com/juliancz-a" target="_blank"><img class="github-icon" src="./img/github.png" alt="">Caceres Julián</a>
+            <a title="Eliminar" href="https://github.com/juliancz-a" target="_blank"><img class="github-icon" src="./img/github.png" alt="">Caceres Julián</a>
             <a href="https://github.com/maaaseee" target="_blank"><img class="github-icon" src="./img/github.png" alt="">Aieta Federico</a>
         </div>
         <div class="footer-links">
@@ -92,8 +98,7 @@
     </footer>
     <div id="popup-container" class="popup-container">
     </div>
-
-    <script src="./js/main.js"></script>
+    <script src="./js/cart.js"></script>
     <script src="./js/nav-bar.js"></script>
 </body>
 </html>
