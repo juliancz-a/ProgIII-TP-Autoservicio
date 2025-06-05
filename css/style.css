@@ -15,7 +15,7 @@
   --neon-glow: 0 0 5px rgba(255, 42, 109, 0.4), 0 0 10px rgba(0, 229, 255, 0.3);
   --neon-glow-strong: 0 0 8px rgba(255, 42, 109, 0.5), 0 0 15px rgba(0, 229, 255, 0.4), 0 0 20px rgba(181, 55, 242, 0.3);
   --neon-border: 1px solid rgba(255, 42, 109, 0.3);
-  --header-height: clamp(70px, 10dvh, 120px);
+  --header-height: clamp(70px, 10dvh, 100px);
 }
 
 * {
@@ -117,7 +117,7 @@ main {
   height: var(--header-height); /* Set fixed height for header */
 
   display: flex;
-  gap: 5dvw;
+  gap: 1rem;
   justify-content: space-between;
   align-items: center;
 
@@ -132,16 +132,31 @@ main {
   box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);
 }
 
-.logo {
-  height: 40px;         /* Altura fija para el contenedor */
+.logo-text {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
+
+  font-size: clamp(2rem, 2dvw, 10rem);
+  font-weight: 800;
+  color: var(--text);
+  text-shadow:
+    var(--shadow-size) var(--shadow-size) 0 var(--accent-tertiary),
+    calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 var(--accent-secondary),
+    calc(var(--shadow-size) * 2) calc(var(--shadow-size) * 2) 0 var(--accent),
+    0 0 15px rgba(255, 42, 109, 0.5);
+  z-index: 50;
 }
 
-.logo-img {
-  height: clamp(40px, 4vw, 120px); /* Tamaño adaptativo */ 
-  width: auto;          /* Mantiene la proporción */
-  display: block;
+.logo-icon {
+  width: clamp(2.5rem, 1dvw, 10rem);
+  height: clamp(2.5rem, 1dvw, 10rem);
+  transform: translateY(-3px);
+  filter: 
+    drop-shadow(var(--shadow-size) var(--shadow-size) 0 var(--accent-tertiary)) 
+    drop-shadow(calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 var(--accent-secondary))
+    drop-shadow(calc(var(--shadow-size) * 2) calc(var(--shadow-size) * 2) 0 var(--accent))
+    drop-shadow(0 0 5px rgba(0, 229, 255, 0.5));
 }
 
 /* CATEGORIES BUTTON */
@@ -149,6 +164,7 @@ main {
   display: flex;
   gap: 50px;
   justify-content: center;
+
 }
 
 .categories {

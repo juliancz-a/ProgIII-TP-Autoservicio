@@ -44,7 +44,7 @@ function createCardStructure(product) {
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
-                    <img draggable="false" src="${product.img}" alt="${product.title}">
+                    <img src="${product.img}" alt="${product.title}">
                 </div>
                 <div class="card-text">
                     <p class="title">${product.title}</p>

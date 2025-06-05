@@ -1,5 +1,5 @@
 if (localStorage.getItem('takeawayName')) {
-    window.location.href = "/index.html";
+    window.location.href = "index.html";
 }
 
 document.getElementById("login-form").addEventListener("submit", function (e) {
