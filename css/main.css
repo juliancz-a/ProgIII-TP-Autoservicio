@@ -178,7 +178,7 @@ p {
 }
 
 .card-text .title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .card-text .title::after {
@@ -191,14 +191,18 @@ p {
 }
 
 .card-text .description {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   opacity: 0.6;
+  text-align: justify;
+  text-justify: inter-word;
+  line-height: 1.4;
+  padding: 2px;
 }
 
 .card-content .card-image {
-  transform: translate(-30px, -10%);
+  transform: translate(-30px, -5%);
   width: 50%;
-  height: 95%;
+  height: 80%;
 
   box-shadow: rgba(154, 55, 198, 0.4) 5px 5px, rgba(154, 55, 198, 0.3) 10px 10px,
     rgba(154, 55, 198, 0.2) 15px 15px, rgba(154, 55, 198, 0.1) 20px 20px,
