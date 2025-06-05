@@ -183,8 +183,12 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
         window.location.search = '?category=featured'
     }
 
+    console.log(selectedCategory);
+    
     getProducts().then(data => {
-        let products = selectedCategory === 'accesory' || selectedCategory === 'component' ? data.filter(p => p.category === selectedCategory) : data;
+        let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
+        console.log(products);
+        
         renderCards(products)
     })
 
