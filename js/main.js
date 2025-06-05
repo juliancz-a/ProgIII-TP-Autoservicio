@@ -177,18 +177,11 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
     const params = new URLSearchParams(window.location.search) //URLSearchParams => obj con los params
     let selectedCategory = params.get('category'); // accessory / component / featured (all)
 
-    if (!selectedCategory) { // DEFAULT INDEX.HTML
-        selectedCategory = 'featured'; 
-        params.set('category', selectedCategory)
-        window.location.search = '?category=featured'
-    }
-
-    console.log(selectedCategory);
+    if (!selectedCategory) selectedCategory = 'featured'; 
     
     getProducts().then(data => {
         let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
-        console.log(products);
-        
+                
         renderCards(products)
     })
 

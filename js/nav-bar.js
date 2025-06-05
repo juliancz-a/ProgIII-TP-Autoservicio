@@ -27,24 +27,17 @@ for (const btn of categoriesBtns) {
 //establecer direccion url a dirigir - establecer parametro en la URL con la categoria
 function redirectToCategory(category) {
     
-    if(isInCurrentCategory(category)) {
-        return;
-    }
- 
+   
     const url = new URL('/index.html', window.location.origin);
 
-    url.searchParams.set('category', category);
+    if(category != 'featured') {
+        url.searchParams.set('category', category);
+    }
     
-    window.location.href = url.toString();
+    if (window.location.href !== url.toString()) { // Evitar recargas innecesarias
+        window.location.href = url.toString();
+    }
 }
-
-function isInCurrentCategory (category) { // evitar recarga innecesaria al estar clickeando en  la misma categoria
-    const currentParams = new URLSearchParams(window.location.search);
-    const currentCategory = currentParams.get('category') || ''
-    
-    return currentCategory === category ? true : false 
-}
-
 
 ////////////// NAV BAR CART BUTTON MANAGEMENT => //////////////////
 
