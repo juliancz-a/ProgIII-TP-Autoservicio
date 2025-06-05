@@ -109,6 +109,12 @@ main {
   user-select: none;
 }
 
+header{
+  width: 100dvw;
+  height: var(--header-height);
+  position: relative;
+
+}    
 /* HEADER */
 .nav-bar {
   width: 100dvw;
@@ -123,7 +129,7 @@ main {
   position: fixed;
   top: 0; 
   left: 0;
-  z-index: 10; 
+  z-index: 100; 
 
   background-color: var(--nav);
   background-image: linear-gradient(180deg, #251f47 0%, #1a1a2e 100%);
@@ -144,6 +150,7 @@ main {
     calc(var(--shadow-size) * 1.5) calc(var(--shadow-size) * 1.5) 0 var(--accent-secondary),
     calc(var(--shadow-size) * 2) calc(var(--shadow-size) * 2) 0 var(--accent),
     0 0 15px rgba(255, 42, 109, 0.5);
+  z-index: 50;
 }
 
 .logo-icon {
@@ -158,15 +165,20 @@ main {
 }
 
 /* CATEGORIES BUTTON */
-.categories ul {
+.nav-content{
   display: flex;
   gap: 50px;
   justify-content: center;
+
+}
+
+.categories {
+  display: flex;
   list-style: none;
 }
 
-.categories ul li {
-  font-size: 1.5rem;
+.categories li {
+  font-size: 1.5rem;  
 }
 
 .categories button {
@@ -250,7 +262,7 @@ main {
   display: flex;
   line-height: 32px;
   align-items: center;
-  min-width: 300px;
+  min-width: 350px;
   max-width: 500px;
 }
 
@@ -294,25 +306,26 @@ main {
   filter: drop-shadow(0 0 3px rgba(0, 229, 255, 0.5));
 }
 
+.nav-control {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .hamburger-menu {
-  width: 2.5rem;
-  height: 2.5rem;
   display: none;
+  cursor: pointer;
   filter: drop-shadow(0 0 5px rgba(255, 42, 109, 0.6));
 }
 
-.nav-links a {
-  margin-left: 1.5rem;
-  text-decoration: none;
-  color: var(--main-text);
-  font-weight: 500;
-  transition: all 0.3s;
-  text-shadow: 0 0 3px rgba(229, 229, 255, 0.2);
-}
-
-.nav-links a:hover {
-  color: var(--accent);
-  text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+.hamburger-menu .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
 }
 
 .cart-button {
@@ -418,4 +431,51 @@ main {
 
 .github-links a:hover img {
   filter: drop-shadow(0 0 3px var(--accent-secondary)) drop-shadow(0 0 5px var(--accent));
+}
+
+@media (max-width: 1150px) {
+   .hamburger-menu {
+    display: block;
+    }
+
+    .hamburger-menu.active .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-menu.active .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+
+    .hamburger-menu.active .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+  .nav-content {
+    width: 30vh;
+    height: 100%;
+    position: fixed;
+    left: -100%; 
+    top: var(--header-height);
+    background-color: var(--nav);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    transition: 0.5s;
+  }
+
+  .categories {
+    flex-direction: column;
+  }
+
+  .nav-content.active {
+    left: 0;
+    }
+  
+  .search-bar {
+    max-width: 350px;
+    min-width: 200px;
+  }
+
 }
