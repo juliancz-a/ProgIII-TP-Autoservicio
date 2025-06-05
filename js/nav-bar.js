@@ -28,7 +28,6 @@ for (const btn of categoriesBtns) {
 function redirectToCategory(category) {
     
     const url = new URL('/', window.location.origin);
-    console.log(window.location.origin);
     
     if(category != 'featured') {
         url.searchParams.set('category', category);
