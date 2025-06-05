@@ -33,7 +33,9 @@ function redirectToCategory(category) {
  
     const url = new URL('/index.html', window.location.origin);
 
-    url.searchParams.set('category', category);
+    if(category != 'featured') {
+        url.searchParams.set('category', category);
+    }
     
     window.location.href = url.toString();
 }
