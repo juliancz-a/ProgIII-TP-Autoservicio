@@ -27,9 +27,9 @@ for (const btn of categoriesBtns) {
 //establecer direccion url a dirigir - establecer parametro en la URL con la categoria
 function redirectToCategory(category) {
     
-   
-    const url = new URL('/index.html', window.location.origin);
-
+    const url = new URL('/', window.location.origin);
+    console.log(window.location.origin);
+    
     if(category != 'featured') {
         url.searchParams.set('category', category);
     }
