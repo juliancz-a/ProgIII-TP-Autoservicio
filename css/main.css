@@ -203,8 +203,8 @@ p {
 
 .card-content .card-image {
   transform: translate(-30px, -5%);
-  width: 50%;
-  height: 80%;
+  width: 225px;
+  height: 201px;
 
   box-shadow: rgba(154, 55, 198, 0.4) 5px 5px, rgba(154, 55, 198, 0.3) 10px 10px,
     rgba(154, 55, 198, 0.2) 15px 15px, rgba(154, 55, 198, 0.1) 20px 20px,
@@ -216,7 +216,7 @@ p {
 .card-content .card-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 5px;
 }
 
@@ -261,7 +261,7 @@ p {
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 
   background-color: var(--containers-bg);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.308);
@@ -273,6 +273,7 @@ p {
   font-size: 1.4rem;
   color: var(--accent-secondary);
   text-shadow: 0 0 5px rgba(255, 42, 109, 0.4);
+  margin-left: 5px;
 }
 
 .card-buy .price::before {
@@ -362,6 +363,7 @@ p {
     transform: none;
     height: 200px;
     margin-bottom: 10px;
+    box-shadow: none;
   }
   .card-content .card-text {
     width: 100%;
@@ -370,10 +372,11 @@ p {
   .card .card-buy {
     padding: 5px;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   .card-buy button {
-    width: auto;
+    width: 100%;
   }
 
   .card-buy .price-wrapper {

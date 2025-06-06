@@ -592,13 +592,15 @@ main {
   /* Footer Responsive */
   .footer {
     flex-direction: column;
-    min-height: 10rem;
+    min-height: 15rem;
+    padding: 2rem;
+    gap: 20px;
   }
 
   .github-links {
     position:static;
     transform: none;
-    
+    transform: none;
   }
 
 }

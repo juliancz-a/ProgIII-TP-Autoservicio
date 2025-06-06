@@ -1,6 +1,8 @@
-if (localStorage.getItem('takeawayName')) {
-    window.location.href = "/";
-}
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('takeawayName')) {
+        window.location.href = "/";
+    }
+});
 
 document.getElementById("login-form").addEventListener("submit", function (e) {
     e.preventDefault();
