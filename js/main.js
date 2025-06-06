@@ -179,6 +179,24 @@ function createPopup(product) {
     return popup;
 }
 
+const categoryTitle = document.getElementById('category-title')
+function setTitle(category) {
+    let content;
+    
+    switch (category) {
+        case 'accessory':
+            content = 'Accesorios'  
+            break
+        case 'component':
+            content = 'Componentes de PC'
+            break
+        default:
+            content = 'Nuestros productos'
+            break
+
+    }
+    return content
+}
 
 function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
     const params = new URLSearchParams(window.location.search) //URLSearchParams => obj con los params
@@ -193,6 +211,7 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
         renderCards(products)
     })
 
+    categoryTitle.innerText = setTitle(selectedCategory)
     const selectedBtn = document.querySelector(`.categories-button[value=${selectedCategory}]`)
     selectedBtn.classList.add('selected')
     
