@@ -3,7 +3,8 @@ const productGrid = document.getElementById('grid');
 let products = [];
 
 if (!localStorage.getItem("takeawayName")) {
-    window.location.href = "login.html";
+    window.location.href = "/login.html";
+    
 }
 
 // Fetch data from local DB
@@ -14,7 +15,7 @@ const getProducts = async () => {
     return data
 }
 
-function renderCards(products) {
+function renderCards(products) {    
     const fragment = document.createDocumentFragment();
 
     if (products.length === 0) {
@@ -25,13 +26,25 @@ function renderCards(products) {
     }
     
     for(const product of products) {
-        const cardDiv = createCardStructure(product)
-
-        if (isInCart(product)) {
-            updateCard(cardDiv, product)
+        let actualProduct;
+        let productInCard = isInCart(product)
+        
+        
+        if (productInCard) {
+            actualProduct = productInCard;
+        } else {
+            actualProduct = product;
         }
 
+        const cardDiv = createCardStructure(actualProduct)
+
+        if(productInCard) {
+            updateCard(cardDiv, productInCard)
+        }
+        
         fragment.appendChild(cardDiv);
+        
+
     }
 
     productGrid.replaceChildren(fragment);
@@ -56,13 +69,14 @@ function createCardStructure(product) {
                 <div class="card-text">
                     <p class="title">${product.title}</p>
                     <p class="description">${product.description}</p>
+                    <div class="price-wrapper">
+                        <p class="price">${intPart}</p>
+                    </div>
                 </div>
             </div>
             <div class="card-buy">
-                <div class="price-wrapper">
-                    <p class="price">${intPart}</p>
-                </div>
-                <button title="Agregar al carrito" class="card-buy-button product-button"> Add to Cart</button>
+                
+                <button title="Agregar al carrito" class="card-buy-button product-button"> Add to Cart <span class="material-symbols-outlined">add_shopping_cart </span></button>
             </div>`
     
     addButtonsEvents(cardDiv, product)
@@ -80,7 +94,7 @@ function addButtonsEvents(cardDiv, product) {
             
             showPopup(product)
 
-            addToCart(cart, product)
+            addToCart(product)
             updateCard(cardDiv, product)
             updateCartBtn()
 
@@ -88,10 +102,19 @@ function addButtonsEvents(cardDiv, product) {
 
 }
 
-function addToCart(cart, product) {
-    
-    product.quantity = 1;
-    cart.push(product)
+function addToCart(product) {
+    let productInCart = isInCart(product);
+
+
+    if(productInCart) {
+        productInCart.quantity++;
+        const index = cart.findIndex(p => p.id === product.id);
+        cart[index].quantity = productInCart.quantity;
+
+    } else {
+        product.quantity = 1;
+        cart.push(product)
+    }
     updateCart();
 
 }
@@ -112,25 +135,20 @@ function updateCart() {
 
 
 function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
-    const cardBuy = cardDiv.lastChild
-    
-    const removeBtn = document.createElement('button')
-    removeBtn.classList.add('card-buy-button');
-    removeBtn.textContent = 'Remove from cart'
-    
-    cardBuy.replaceChildren(removeBtn)
-    
     cardDiv.classList.add('card-added');
 
-    removeBtn.addEventListener('click', () => {
-        showPopup(product) // SHOW Removal popup and then remove from the cart
-        removeFromCart(product)
-        updateCartBtn()
+    const cardBuy = cardDiv.lastChild
+    const buyBtn = cardBuy.querySelector('button');
+    const currentQuantity = document.createElement('span');
+    const quantityWrapper = document.createElement('div');
+    quantityWrapper.className = 'quantityWrapper'
+    quantityWrapper.appendChild(currentQuantity);
+    buyBtn.appendChild(quantityWrapper)
+    
+    currentQuantity.innerText = `${product.quantity}`
+    currentQuantity.classList = 'added';
 
-        const newCardDiv = createCardStructure(product)
-        cardDiv.replaceWith(newCardDiv)
-
-    })
+    cardBuy.replaceChildren(buyBtn)
 }
 
 function isInCart(product) {
@@ -150,7 +168,7 @@ function showPopup(product) {
 
     popupTimeout = setTimeout(() => { // Remove popup after 3s
         popup.remove(); // se remueve asi mismo del container
-    }, 3000)
+    }, 2000)
 
 }
 
@@ -159,17 +177,9 @@ function createPopup(product) {
     const popup = document.createElement('div');
     popup.className = 'popup';
 
-    let message = '';
-    let icon = '';
-
-    if (isInCart(product)) {
-        message = `${product.title} eliminado del carrito`;
-        icon = 'undo';
-        popup.classList.add('undo');
-    } else {
-        message = `${product.title} al carrito`;
-        icon = 'check';
-    }
+    let message = `${product.title} al carrito`;
+    let icon = 'check';
+    
 
     popup.innerHTML = `
         <p>${message}</p>
@@ -206,7 +216,6 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
     
     getProducts().then(data => {
         products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
-        console.log(products);
         
         renderCards(products)
     })
@@ -232,7 +241,7 @@ searchBar.addEventListener('input', () => {
 
 function ejecutarBusqueda( query ) {
     const filteredItems = products.filter((p) => {
-        return p.title.toLowerCase().includes(query);
+        return p.title.toLowerCase().includes(query.toLowerCase());
     })
     renderCards(filteredItems);
 }
