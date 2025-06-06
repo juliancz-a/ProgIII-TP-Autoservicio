@@ -16,6 +16,13 @@ const getProducts = async () => {
 
 function renderCards(products) {
     const fragment = document.createDocumentFragment();
+
+    if (products.length === 0) {
+        const emptyGrid = document.createElement('h1')
+        emptyGrid.textContent = 'No encontramos ningun producto';
+        productGrid.replaceChildren(emptyGrid)
+        return;
+    }
     
     for(const product of products) {
         const cardDiv = createCardStructure(product)
@@ -35,10 +42,10 @@ function createCardStructure(product) {
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
 
-    const formattedPrice = product.price.toLocaleString("es-AR", {
+    const [intPart, decimalPart] = product.price.toLocaleString("es-AR", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    });
+    }).split(",");
 
     
     cardDiv.innerHTML = `
@@ -53,7 +60,7 @@ function createCardStructure(product) {
             </div>
             <div class="card-buy">
                 <div class="price-wrapper">
-                    <p class="price">${formattedPrice} </p>
+                    <p class="price">${intPart}</p>
                 </div>
                 <button title="Agregar al carrito" class="card-buy-button product-button"> Add to Cart</button>
             </div>`
@@ -172,25 +179,6 @@ function createPopup(product) {
     return popup;
 }
 
-const categoryTitle = document.getElementById('category-title')
-
-function setTitle(category) {
-    let content;
-    
-    switch (category) {
-        case 'accessory':
-            content = 'Accesorios'  
-            break
-        case 'component':
-            content = 'Componentes de PC'
-            break
-        default:
-            content = 'Nuestros productos'
-            break
-
-    }
-    return content
-}
 
 function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
     const params = new URLSearchParams(window.location.search) //URLSearchParams => obj con los params
@@ -199,16 +187,35 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
     if (!selectedCategory) selectedCategory = 'featured'; 
     
     getProducts().then(data => {
-        let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
-                
+        products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
+        console.log(products);
+        
         renderCards(products)
     })
 
     const selectedBtn = document.querySelector(`.categories-button[value=${selectedCategory}]`)
-
-    categoryTitle.innerText = setTitle(selectedCategory)
     selectedBtn.classList.add('selected')
     
+}
+
+const searchBar = document.getElementById('query');
+let debounceTimeout;
+searchBar.value = '';
+
+searchBar.addEventListener('input', () => {
+    clearTimeout(debounceTimeout); // Reinicia el temporizador
+
+    debounceTimeout = setTimeout(() => {
+        const query = searchBar.value.trim();
+        ejecutarBusqueda(query); // Tu función de búsqueda
+    }, 400); // Espera 400 ms desde la última tecla
+});
+
+function ejecutarBusqueda( query ) {
+    const filteredItems = products.filter((p) => {
+        return p.title.toLowerCase().includes(query);
+    })
+    renderCards(filteredItems);
 }
 
 // BRING CART FROM LOCAL STORAGE
