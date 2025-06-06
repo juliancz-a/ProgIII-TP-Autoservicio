@@ -73,6 +73,8 @@ body {
   min-height: 100vh; /* mínimo igual a la altura del viewport */
   scrollbar-width: thin; /* Firefox */
   scrollbar-gutter: stable; /* Estabiliza el gutter, ver abajo */
+
+  transition: 0.2s;
 }
 
 ::-webkit-scrollbar {
@@ -117,7 +119,7 @@ main {
   height: var(--header-height); /* Set fixed height for header */
 
   display: flex;
-  gap: 5dvw;
+  gap: 3dvw;
   justify-content: space-between;
   align-items: center;
 
@@ -146,9 +148,11 @@ main {
 
 /* CATEGORIES BUTTON */
 .nav-content{
+  width: 90%;
   display: flex;
   gap: 50px;
   justify-content: center;
+  align-items: center;
 }
 
 .categories {
@@ -241,8 +245,9 @@ main {
   display: flex;
   line-height: 32px;
   align-items: center;
-  min-width: 350px;
-  max-width: 500px;
+  width: 100%;
+  max-width: 400px;
+
 }
 
 .search-input {
@@ -289,6 +294,117 @@ main {
   display: flex;
   gap: 5px;
   align-items: center;
+}
+
+/* toggle dark-mode/light-mode btn */
+.theme-toggler {
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+#toggle {
+  display: none;
+}
+
+.toggle {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80px;
+  height: 35px;
+  padding: 8px;
+  border-radius: 50px;
+  transition: 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.toggle .moon, .sunny {
+  color: black;
+  width: 50%;
+  text-align: center;
+  font-size: 25px; 
+  line-height: 40px;
+  z-index: 1;
+}
+
+.toggle .ball {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin: 1px;
+  border-radius: 50%;
+  transition:  .3s ease-out;
+}
+
+
+/* Light mode styles */
+.light-mode {
+  background-color: white;
+  background-image: white;
+  }
+
+.light-mode .toggle{
+  background: linear-gradient(145deg, #d1d1d1, #fff);
+  }
+
+.light-mode .toggle .sunny {
+  color: #fff;
+}
+
+.light-mode .toggle .ball {
+  background: #000000;
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: #191a1a;
+  background-image: linear-gradient(
+      0deg,
+      transparent 24%,
+      var(--color) 25%,
+      var(--color) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--color) 75%,
+      var(--color) 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      var(--color) 25%,
+      var(--color) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--color) 75%,
+      var(--color) 76%,
+      transparent 77%,
+      transparent
+    );
+}
+
+.dark-mode .toggle{
+  background-color: var(--footer);
+  background-image: linear-gradient(0deg, #1a1a2e 0%, #251f47 100%);
+  box-shadow:  0 0 5px rgba(255, 42, 109, 0.4);
+  ;
+}
+
+.dark-mode .toggle .moon {
+  color: #000000;
+
+}
+.dark-mode .toggle .sunny {
+  color: #ffffff;
+}
+
+.dark-mode .toggle .ball {
+  background: #ffffff;
+  transform: translateX(32px);
 }
 
 .hamburger-menu {
@@ -435,15 +551,15 @@ main {
     }
 
   .nav-content {
-    width: 30vh;
-    height: 100dvh;   /* vh dinamica para mobiles que cambian dinamicamente el vh*/
+    width: 60%;   
+    height: calc(101dvh - var(--header-height)); /* vh dinamica para mobiles que cambian dinamicamente el vh*/
     position: fixed;
     left: -200%; 
     top: var(--header-height);
     background-color: var(--nav);
     padding: 10px;
     display: flex;
-    gap: 10px;
+    gap: 20px;
     flex-direction: column;
     justify-content: start;
     transition: 0.25s;
@@ -461,19 +577,34 @@ main {
     max-width: 350px;
     min-width: 200px;
   }
+
+  .theme-toggler {
+    height: 100%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 10px;
+  }
 }
+
+
 @media (max-width: 768px) {
 
   /* Footer Responsive */
   .footer {
     flex-direction: column;
-    min-height: 10rem;
+    min-height: 15rem;
+    padding: 2rem;
+    gap: 20px;
   }
 
   .github-links {
     position:static;
     transform: none;
-    
+    transform: none;
   }
 
+}
+
+.no-transition {
+  transition: none !important;
 }
