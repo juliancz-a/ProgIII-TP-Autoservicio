@@ -211,6 +211,7 @@ p {
     rgba(240, 46, 170, 0.05) 25px 25px;
   border-radius: 5px;
   user-select: none;
+  border: 1px solid var(--main-shadow);
 }
 
 .card-content .card-image img {
@@ -219,6 +220,34 @@ p {
   object-fit: fill;
   border-radius: 5px;
 }
+
+.card-content .price-wrapper {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--containers-bg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.308);
+  border-radius: 17px;
+  padding: 5px;
+}
+
+.card-content .price {
+  font-size: 1.4rem;
+  color: var(--accent-secondary);
+  text-shadow: 0 0 5px rgba(255, 42, 109, 0.4);
+  margin-left: 5px;
+}
+
+.card-content .price::before {
+  content: "$";
+  font-weight: 500;
+  margin-right: 2px;
+  color: #00e5ff;
+  text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+} 
 
 
 .card-buy {
@@ -230,6 +259,13 @@ p {
 }
 
 .card-buy button {
+  font-family: inherit;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 90%;
   color: #fff;
   font-size: 17px;
   text-transform: uppercase;
@@ -255,37 +291,30 @@ p {
     transform: scale(1.05);
   }
   
-.card-buy .price-wrapper {
-  width: 40%;
-  height: 75%;
-
-  display: flex;
-  align-items: center;
-  justify-content: left;
-
-  background-color: var(--containers-bg);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.308);
-  border-radius: 17px;
-  padding: 5px;
-}
-
-.card-buy .price {
-  font-size: 1.4rem;
-  color: var(--accent-secondary);
-  text-shadow: 0 0 5px rgba(255, 42, 109, 0.4);
-  margin-left: 5px;
-}
-
-.card-buy .price::before {
-  content: "$";
-  font-weight: 500;
-  margin-right: 2px;
-  color: #00e5ff;
-  text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
-} 
 
 .card-added {
     background-image: linear-gradient(144deg, #ffc340, #f3428c 50%, #db3551);
+}
+
+.quantityWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 35px;
+  height: 35px;
+}
+
+.added {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 5px;
+    color: white;
+    background-image: linear-gradient(144deg, #4340ff, #424ef3 50%, #3582db);
+
 }
 
 /* POPUPS */
@@ -310,7 +339,7 @@ p {
   background-color: rgb(86, 138, 51);
   border-radius: 8px;
   box-shadow: 0px 0px 5px -3px #111;
-  animation: slideIn 0.3s ease, fadeOut 0.5s ease 2.5s forwards;
+  animation: slideIn 0.3s ease, fadeOut 0.5s ease 1.5s forwards;
   opacity: 1;
   transform: translateY(0);
 }
