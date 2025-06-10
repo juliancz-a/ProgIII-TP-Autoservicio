@@ -10,6 +10,9 @@
     <title id="tab-title">NeonBits | Cart</title>
 </head>
 <body class="dark-mode">
+    <div id="loader">
+        <div class="loader-spinner"></div>
+    </div>
     <header>
         <nav class="nav-bar">
             <div class="logo">
@@ -45,14 +48,16 @@
                         </g>
                     </svg>
                 </div>
+                <div class="theme-toggler">
+                    <input type="checkbox" name="" id="toggle">
+                    <label for="toggle" class="toggle">
+                        <span class="material-symbols-outlined sunny">sunny</span>
+                        <span class="material-symbols-outlined moon">dark_mode</span>
+                        <span class="ball"></span>
+                    </label>
+                </div>
             </div>
             <div class="nav-control">
-                <input type="checkbox" name="" id="toggle">
-                <label for="toggle" class="toggle">
-                    <span class="material-symbols-outlined sunny">sunny</span>
-                    <span class="material-symbols-outlined moon">dark_mode</span>
-                    <span class="ball"></span>
-                </label>
                 <div class="hamburger-menu" id="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -83,8 +88,8 @@
                             </ul>
                         </div>
                         <div class="cart-options">
-                            <a href="./index.html"><button class="back-shop">Seguir comprando</button></a>
-                            <a href=""><button class="redirect-checkout">Continuar a metodo de pago</button></a>
+                            <button id="redirect-main" class="redirect-main">Seguir comprando</button>
+                            <button id="redirect-checkout" class="redirect-checkout">Continuar con metodo de pago</button>
                         </div>
                     </div>
                 </section>
@@ -103,7 +108,16 @@
             <a href="#">Ayuda</a>
         </div>
     </footer>
-    <div id="popup-container" class="popup-container">
+    <!-- Modal de Confirmación -->
+    <div id="modal-confirm" class="modal-overlay">
+        <div class="modal-content">
+            <h2>¿Confirmar compra?</h2>
+            <p>Estás por dirigirte a la seccion de pago. ¿Quiere continuar?</p>
+            <div class="modal-buttons">
+                <button id="btn-confirm" class="confirm">Confirmar</button>
+                <button id="btn-cancel" class="cancel">Cancelar</button>
+            </div>
+        </div>
     </div>
     <script src="./js/cart.js"></script>
     <script src="./js/nav-bar.js"></script>
