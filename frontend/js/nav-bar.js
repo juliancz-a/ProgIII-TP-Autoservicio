@@ -1,4 +1,18 @@
 ////////////////// NAV BAR TOGGLE LIGHT/DARK MODE BTN /////////////
+document.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById("loader");
+    const content = document.getElementById("main-content");
+
+    window.addEventListener("load", () => {
+        loader.style.opacity = "0";
+        loader.style.pointerEvents = "none";
+        setTimeout(() => {
+            loader.remove();
+            content.style.display = "block";
+        }, 300); 
+    });
+});
+
 const toggleBtn = document.getElementById('toggle');
 const body = document.querySelector('body');
 const moonIcon = document.querySelector('.moon');
@@ -26,7 +40,6 @@ function setDefaultColorSchema() {
         toggleBtn.checked = false;
     }
 }
-
 
 const categoriesBtns = document.getElementsByClassName('categories-button')
 

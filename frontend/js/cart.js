@@ -158,4 +158,36 @@ function updateCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+const modal = document.getElementById('modal-confirm');
+const modalContent = modal.querySelector('.modal-content');
+
+function closeModal() {
+    modalContent.classList.add('fade-out');
+    setTimeout(() => {
+        modal.classList.remove('active');
+        modalContent.classList.remove('fade-out');
+    }, 250);
+}
+
+document.getElementById('redirect-main').addEventListener('click', () => {
+    window.location.href = './index.html';
+});
+
+// Abrir modal (ejemplo: desde un botón)
+document.getElementById('redirect-checkout').addEventListener('click', () => {
+    document.getElementById('modal-confirm').classList.add('active');
+});
+
+// Confirmar compra
+document.getElementById('btn-confirm').addEventListener('click', () => {
+    // lógica: redireccionar, limpiar carrito, mostrar agradecimiento, etc.
+    console.log('Compra confirmada');
+    setTimeout(() => {
+        window.location.href = "./checkout.html";
+    }, 500)
+});
+
+// Cancelar / cerrar modal
+document.getElementById('btn-cancel').addEventListener('click', closeModal);
+
 renderCart(cart);

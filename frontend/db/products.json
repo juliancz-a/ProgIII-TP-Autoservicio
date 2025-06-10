@@ -2,8 +2,8 @@
   {
     "id" : 1,
     "title": "Placa de Video ASUS PRIME GeForce RTX 5070 Ti 16GB GDDR7 OC",
-    "description": "12GB de memoria GDDR7",
-    "price": 1050450,
+    "description": "16GB de memoria GDDR7",
+    "price": 1250450,
     "category" : "component",
     "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_44890_Placa_de_Video_ASUS_PRIME_GeForce_RTX_5070_12GB_GDDR7_OC_f3fd0b62-grn.jpg"
   },
@@ -51,6 +51,7 @@
     "id" : 7,     
     "title": "Disco Solido SSD M.2 SK Hynix 2TB Platinum P41 NVMe PCIe Gen4 x4",
     "description": "Velocidades de lectura de hasta 7000 MB/s y velocidades de escritura de hasta 6500 MB/s",
+    "category" : "component",
     "price": 207650,
     "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_41568_Disco_Solido_SSD_M.2_SK_Hynix_2TB_Platinum_P41_7000MB_s_NVMe_PCIe_Gen4_x4_1e6e0b33-grn.jpg"
   },

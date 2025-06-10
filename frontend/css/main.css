@@ -25,10 +25,9 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3vh;
 }
 
-.slider-container {
+/* .slider-container {
   width: 100%;
   max-width: 1000px;
   overflow: hidden;
@@ -44,7 +43,7 @@ p {
 }
 
 .slide {
-  flex: 0 0 100%; /* hace que cada slide tenga 100% del ancho del contenedor */
+  flex: 0 0 100%;
 }
 
 .slide img {
@@ -102,7 +101,7 @@ p {
 
 .indicator.active {
   background-color: var(--main-shadow);
-}
+} */
 
 /* PRODUCTS GRID */
 .products-section {
@@ -166,6 +165,10 @@ p {
   display: flex;
 }
 
+.light-mode .container .title-wrapper h2 {
+  color: #111;
+}
+
 .card-content .card-text {
   width: 50%;
   display: flex;
@@ -209,9 +212,9 @@ p {
   box-shadow: rgba(154, 55, 198, 0.4) 5px 5px, rgba(154, 55, 198, 0.3) 10px 10px,
     rgba(154, 55, 198, 0.2) 15px 15px, rgba(154, 55, 198, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
-  border-radius: 5px;
+  border-radius: 6px;
   user-select: none;
-  border: 1px solid var(--main-shadow);
+  border: 2px solid rgba(154, 55, 198, 0.8);
 }
 
 .card-content .card-image img {
