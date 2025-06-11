@@ -12,8 +12,7 @@ const name = localStorage.getItem("takeawayName");
 document.getElementById("client-name").textContent = name;
 
 const today = new Date().toLocaleDateString("es-AR", {
-    day: '2-digit', month: '2-digit', year: 'numeric'
-});
+    day: '2-digit', month: '2-digit', year: 'numeric', hour : '2-digit', minute : '2-digit', hour12: false})
 
 document.getElementById("purchase-date").textContent = today;
 
