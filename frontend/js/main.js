@@ -1,18 +1,10 @@
+import { fetchProducts } from "./utils/dataService.js";
+import {getCurrentCart, addToCart, isInCart, updateCartBtn} from "./utils/cartManager.js";
+
 const productGrid = document.getElementById('grid');
 
-let products = [];
-
 if (!localStorage.getItem("takeawayName")) {
-    window.location.href = "/login.html";
-    
-}
-
-// Fetch data from local DB
-const getProducts = async () => {
-    const response = await fetch('./db/products.json')
-    const data = await response.json()
-    
-    return data
+    window.location.href = "/login.html";   
 }
 
 function renderCards(products) {    
@@ -26,32 +18,20 @@ function renderCards(products) {
     }
     
     for(const product of products) {
-        let actualProduct;
-        let productInCard = isInCart(product)
-        
-        
-        if (productInCard) {
-            actualProduct = productInCard;
-        } else {
-            actualProduct = product;
-        }
+    
+        const cardDiv = createCardStructure(product)
 
-        const cardDiv = createCardStructure(actualProduct)
-
-        if(productInCard) {
-            updateCard(cardDiv, productInCard)
+        if(isInCart(product)) {
+            updateCard(cardDiv, product)
         }
         
         fragment.appendChild(cardDiv);
-        
-
     }
 
     productGrid.replaceChildren(fragment);
 }
 
-function createCardStructure(product) {
-
+function createCardStructure(product) {    
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
 
@@ -92,47 +72,14 @@ function addButtonsEvents(cardDiv, product) {
     
     buyBtn.addEventListener('click', () => {
             
-            showPopup(product)
-
+            showPopup(product)            
             addToCart(product)
             updateCard(cardDiv, product)
-            updateCartBtn()
+            updateCartBtn(getCurrentCart())
 
     })
 
 }
-
-function addToCart(product) {
-    let productInCart = isInCart(product);
-
-
-    if(productInCart) {
-        productInCart.quantity++;
-        const index = cart.findIndex(p => p.id === product.id);
-        cart[index].quantity = productInCart.quantity;
-
-    } else {
-        product.quantity = 1;
-        cart.push(product)
-    }
-    updateCart();
-
-}
-
-function removeFromCart(product) {
-    
-    cart = cart.filter((p) => {
-        return p.id != product.id
-    })
-    
-    updateCart();
-}
-
-function updateCart() {
-    const jsonCart = JSON.stringify(cart)
-    localStorage.setItem('cart', jsonCart)
-}
-
 
 function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
     cardDiv.classList.add('card-added');
@@ -142,19 +89,17 @@ function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
     const currentQuantity = document.createElement('span');
     const quantityWrapper = document.createElement('div');
     quantityWrapper.className = 'quantityWrapper'
+
     quantityWrapper.appendChild(currentQuantity);
     buyBtn.appendChild(quantityWrapper)
     
-    currentQuantity.innerText = `${product.quantity}`
+    let productInCart = isInCart(product);
+
+    currentQuantity.innerText = `${productInCart.quantity}`
     currentQuantity.classList = 'added';
 
     cardBuy.replaceChildren(buyBtn)
 }
-
-function isInCart(product) {
-    return productAdded = cart.find(p => p.id === product.id);
-}
-
 
 // POP-UPS FOR ITEMS ADDED TO THE CART/REMOVED FROM THE CART/0 QUANTITY SELECTED
 const popupContainer = document.getElementById('popup-container')
@@ -190,22 +135,15 @@ function createPopup(product) {
 }
 
 const categoryTitle = document.getElementById('category-title')
-function setTitle(category) {
-    let content;
-    
-    switch (category) {
-        case 'accessory':
-            content = 'Accesorios'  
-            break
-        case 'component':
-            content = 'Componentes de PC'
-            break
-        default:
-            content = 'Nuestros productos'
-            break
 
-    }
-    return content
+function setTitle(category) {
+    const titles = {
+        'accessory': 'Accesorios',
+        'component': 'Componentes de PC',
+        'featured': 'Nuestros productos'
+    };
+
+    return titles[category] || 'Nuestros productos';
 }
 
 function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
@@ -214,8 +152,8 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
 
     if (!selectedCategory) selectedCategory = 'featured'; 
     
-    getProducts().then(data => {
-        products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
+    fetchProducts().then(data => {
+        let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
         
         renderCards(products)
     })
@@ -246,9 +184,9 @@ function ejecutarBusqueda( query ) {
     renderCards(filteredItems);
 }
 
-// BRING CART FROM LOCAL STORAGE
-let cart = JSON.parse(localStorage.getItem('cart')) || []
-
 //INIT
-showCategoryContent()
 
+let cart = getCurrentCart();
+
+showCategoryContent()
+updateCartBtn(cart)
