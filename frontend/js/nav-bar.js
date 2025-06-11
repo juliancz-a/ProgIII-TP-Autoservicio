@@ -1,14 +1,12 @@
 ////////////////// NAV BAR TOGGLE LIGHT/DARK MODE BTN /////////////
 document.addEventListener('DOMContentLoaded', () => {
     const loader = document.getElementById("loader");
-    const content = document.getElementById("main-content");
-
+    
     window.addEventListener("load", () => {
         loader.style.opacity = "0";
         loader.style.pointerEvents = "none";
         setTimeout(() => {
             loader.remove();
-            content.style.display = "block";
         }, 300); 
     });
 });
@@ -81,26 +79,4 @@ function redirectToCategory(category) {
 
 ////////////// NAV BAR CART BUTTON MANAGEMENT => //////////////////
 
-const cartBtn = document.getElementById('cart-button');
-const quantityInfo = document.createElement('span');
-cartBtn.appendChild(quantityInfo);
-
-const tabTitle = document.getElementById('tab-title')
-
-function updateCartBtn() {
-
-    if (cart.length > 0){
-        quantityInfo.style.display = "inline"
-        quantityInfo.className = 'quantity'
-        tabTitle.textContent = `(${cart.length}) NeonBits`
-    } else {
-        tabTitle.textContent = `NeonBits`
-            quantityInfo.style.display = "none"
-
-    }
-
-    quantityInfo.textContent = cart.length;
-}
-
-updateCartBtn()
 setDefaultColorSchema()

@@ -1,5 +1,6 @@
+import { getCurrentCart, getFullCart, removeFromCart, updateProductQuantity, updateCartBtn } from "./utils/cartManager.js";
+
 const cartGrid = document.getElementById('cart');
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "login.html";
@@ -7,13 +8,13 @@ if (!localStorage.getItem("takeawayName")) {
 
 // Renderiza todos los productos del carrito
 function renderCart(products) {
-    cartGrid.innerHTML = '';
+    cartGrid.innerHTML = '';    
 
     if (products.length === 0) {
         const emptyCart = document.createElement('h1')
         emptyCart.textContent = 'No hay elementos en el carrito';
         cartGrid.appendChild(emptyCart);
-        updateSubtotalDisplay();
+        updateSubtotalDisplay([]);
         return;
     }
 
@@ -25,18 +26,19 @@ function renderCart(products) {
     }
 
     cartGrid.appendChild(fragment);
-    updateSubtotalDisplay()
+    updateSubtotalDisplay(products)
 }
 
 // Crea un producto en el DOM del carrito
 function createCartProduct(product) {
-    const {id, title, price, img, quantity} = product;
+    
+    const {id , title, price, img, quantity} = product;
 
     const productDiv = document.createElement('div');
     productDiv.className = 'product';
-
+    
     const split_price = price.toFixed(2).split(".");
-
+        
     productDiv.innerHTML = `
         <div class="product-content">
             <div class="product-details-wrapper">
@@ -66,52 +68,56 @@ function createCartProduct(product) {
             </button>
         </div>`
 
-    addQuantityEvents(productDiv, id);
+    addQuantityEvents(productDiv, product);
+    
     return productDiv;
 }
 
 // Asigna eventos a los botones de cantidad
-function addQuantityEvents(productDiv, productId) {
+function addQuantityEvents(productDiv, product) {
     const decrementBtn = productDiv.querySelector(".decrement");
     const incrementBtn = productDiv.querySelector(".increment");
     const input = productDiv.querySelector(".quantity-input");
     const finalPrice = productDiv.querySelector(".product-price h5");
     const deleteBtn = productDiv.querySelector(".delete-btn");
 
-    const cartItem = cart.find(p => p.id === productId);
-
     incrementBtn.addEventListener("click", () => {
-        cartItem.quantity++;
-        input.value = cartItem.quantity;
-        updatePriceDisplay(input, finalPrice, cartItem.price);
-        updateSubtotalDisplay();
-        updateCart();
+        product.quantity++;
+        input.value = product.quantity;
+        updatePriceDisplay(input, finalPrice, product.price);
+        updateSubtotalDisplay(fullCart);
+        updateProductQuantity(product.id, product.quantity)
     });
 
     decrementBtn.addEventListener("click", () => {
         const current = parseInt(input.value);
+
         if (current > 1) {
-            cartItem.quantity--;
-            input.value = cartItem.quantity;
-            updatePriceDisplay(input, finalPrice, cartItem.price);
-            updateSubtotalDisplay();
-            updateCart();
+            product.quantity--;
+            input.value = current - 1
+            updatePriceDisplay(input, finalPrice, product.price);
+            updateSubtotalDisplay(fullCart);
+            updateProductQuantity(product.id, product.quantity)
         } else {
-            deleteFromCart(cartItem);
-            renderCart(cart);
-            updateCartBtn()
+            removeFromCart(product);
+            fullCart = fullCart.filter(p => p.id !== product.id);
+            updateCartBtn(fullCart)
+            renderCart(fullCart);
+            
             return;
         }
     });
 
     deleteBtn.addEventListener("click", () => {
-        deleteFromCart(cartItem);
-        renderCart(cart);
-        updateCartBtn()
+        removeFromCart(product);
+        fullCart = fullCart.filter(p => p.id !== product.id);
+        updateCartBtn(fullCart)
+        renderCart(fullCart);
+        
     });
 
-    input.value = cartItem.quantity;
-    updatePriceDisplay(input, finalPrice, cartItem.price);
+    input.value = product.quantity;
+    updatePriceDisplay(input, finalPrice, product.price);
 }
 
 // Actualiza el precio en el container del producto
@@ -126,12 +132,13 @@ function updatePriceDisplay(input, finalPrice, unitPrice) {
 }
 
 // Suma todos los productos y muestra el subtotal y total
-function updateSubtotalDisplay() {
-    const subtotal = cart.reduce((acc, p) => acc + p.price * p.quantity, 0);
+function updateSubtotalDisplay(products) {    
+    
+    const subtotal = products.reduce((acc, p) => acc + p.price * p.quantity, 0);
     const [entero, decimales] = subtotal.toLocaleString("es-AR", {
         minimumFractionDigits: 2
     }).split(',');
-
+    
     const subtotalElement = document.getElementById("subtotal-amount");
     const totalElement = document.getElementById("total-amount");
 
@@ -147,15 +154,6 @@ function updateSubtotalDisplay() {
             <span class="price">${entero}<sup>${decimales}</sup></span>
         `;
     }
-}
-
-function deleteFromCart(product) {
-    cart = cart.filter(p => p.id !== product.id);
-    updateCart();
-}
-
-function updateCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
 }
 
 const modal = document.getElementById('modal-confirm');
@@ -190,4 +188,10 @@ document.getElementById('btn-confirm').addEventListener('click', () => {
 // Cancelar / cerrar modal
 document.getElementById('btn-cancel').addEventListener('click', closeModal);
 
-renderCart(cart);
+let fullCart = [];
+
+getFullCart().then(cart => {    
+    fullCart = cart
+    renderCart(fullCart);
+    updateCartBtn(fullCart)
+})

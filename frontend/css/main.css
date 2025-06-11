@@ -397,6 +397,13 @@ p {
     margin-bottom: 10px;
     box-shadow: none;
   }
+
+  .card-content .card-image img {
+    object-fit: cover;
+    
+  }
+
+  
   .card-content .card-text {
     width: 100%;
   }
