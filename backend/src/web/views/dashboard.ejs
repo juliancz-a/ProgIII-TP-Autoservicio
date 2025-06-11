@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <header> 
-        <nav>
-            <p>Dashboard</p>
-        </nav>
-    </header>
-    <main>
-        <% products.forEach(product => { %>
-            <% const {id, title, description, category, price} = product %>
-            <div class="card">
-                <ul>
-                    <li><%= id %></li>
-                    <li><%= title %></li>
-                    <li><%= description %></li>
-                    <li><%= category %></li>
-                    <li><%= price %></li>
-                </ul>
-            </div>
-        <% }) %>
-    </main>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css">
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <header> 
+            <nav>
+                <p>Dashboard</p>
+            </nav>
+        </header>
+        <main>
+            <h2>Bienvenido, <%= username %></h2>
+
+            <% products.forEach(product => { %>
+                <% const {id, title, description, category, price} = product %>
+                <div class="card">
+                    <ul>
+                        <li><%= id %></li>
+                        <li><%= title %></li>
+                        <li><%= description %></li>
+                        <li><%= category %></li>
+                        <li><%= price %></li>
+                    </ul>
+                </div>
+            <% }) %>
+        </main>
+    </body>
 </html>
