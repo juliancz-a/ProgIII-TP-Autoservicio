@@ -14,16 +14,105 @@ let products = [
     "category" : "accessory",
     "price": 27590,
     "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_36943_Mouse_Logitech_G203_Lightsync_RGB_White_e2e81b78-grn.jpg"
-  }]
+  },
+  {
+    "id" : 3,
+    "title": "Joystick ASUS ROG Raikiri Pro OLED Wireless 2.4Ghz Bluetooth PC",
+    "description": "Doble vibración, agarre ergonómico y botones configurables",
+    "category" : "accessory",
+    "price": 255350,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_41806_Joystick_ASUS_ROG_Raikiri_Pro_OLED_Wireless_2.4Ghz_Bluetooth_PC____XBOX_solo_cableado_4336b8fb-grn.jpg"
+  },
+  {
+    "id" : 4,     
+    "title": "Auriculares Logitech G733 Wireless Lightspeed LightSync RGB",
+    "description": "Sonido envolvente, micrófono con cancelación de ruido y almohadillas acolchadas.",
+    "category" : "accessory",
+    "price": 264600,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_21894_Auriculares_Logitech_G733_Wireless_Lightspeed_LightSync_RGB_Lila_29Hs_1dffcd73-grn.jpg"
+  },
+  {
+    "id" : 5,     
+    "title": "Mother ASUS ROG STRIX B550-F GAMING WIFI II",
+    "description": "Soporte para procesadores Intel de 10ª y 11ª generación, DDR4, PCIe 4.0",
+    "category" : "component",
+    "price": 261499,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_32296_Mother_ASUS_ROG_STRIX_B550-F_GAMING_WIFI_II_d770a43e-grn.jpg"
+  },
+  {
+    "id" : 6,     
+    "title": "Disco Solido SSD M.2 WD 1TB Black SN850X Heatsink NVMe PCIe Gen4 x4",
+    "description": "Rendimiento de lectura secuencial: 7300MB/s. Rendimiento de escritura secuencial: 6300MB/s",
+    "category" : "component",
+    "price": 164927,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_44568_Disco_Solido_SSD_M.2_WD_1TB_Black_SN850X_Heatsink_7300MB_s_NVMe_PCIe_Gen4_x4_3a3defa5-grn.jpg"
+  },
+  {
+    "id" : 7,     
+    "title": "Disco Solido SSD M.2 SK Hynix 2TB Platinum P41 NVMe PCIe Gen4 x4",
+    "description": "Velocidades de lectura de hasta 7000 MB/s y velocidades de escritura de hasta 6500 MB/s",
+    "category" : "component",
+    "price": 207650,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_41568_Disco_Solido_SSD_M.2_SK_Hynix_2TB_Platinum_P41_7000MB_s_NVMe_PCIe_Gen4_x4_1e6e0b33-grn.jpg"
+  },
+  {
+    "id" : 8,     
+    "title": "Monitor Gamer ViewSonic VX2428A 24\" 1080p IPS 180Hz FreeSync Premium",
+    "description": "Frecuencia de actualización de 180Hz y un tiempo de respuesta de 0.5ms",
+    "category" : "accessory",
+    "price": 216999,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_40295_Monitor_Gamer_ViewSonic_VX2428A_24__1080p_IPS_180Hz_FreeSync_Premium_3f8b9818-grn.jpg"
+  },
+  {
+    "id" : 9,     
+    "title": "Teclado Mecanico ASUS ROG Strix M603 Falchion Wireless",
+    "description": "60% Wireless 2.4Ghz Bluetooth RGB Swtich RX Blue",
+    "category" : "accessory",
+    "price": 193110,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_41449_Teclado_Mecanico_ASUS_ROG_Strix_M603_Falchion_Wireless_2.4Ghz_Bluetooth_RGB_Swtich_RX_Blue_d3cc5070-grn.jpg"
+  },
+  {
+    "id" : 10,     
+    "title": "Procesador AMD Ryzen 7 9800X3D 5.2GHz Turbo AM5",
+    "description": "NO INCLUYE COOLER - Tecnología AMD 3D V-Cache™ de 2.ª generación.",
+    "category" : "component",
+    "price": 664900,
+    "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_43006_Procesador_AMD_Ryzen_7_9800X3D_5.2GHz_Turbo_AM5_-_No_Incluye_Cooler_ad69d322-grn.jpg"
+  }
+]
 
+const users = [
+  {
+    username: "mase",
+    password: "barcelav1uk"
+  }
+]
 
-const renderDashboard = (req,res) =>{
+const renderDashboard = (req, res) => {
+  const { username } = req.query;
 
-    const data = {
-        products
-    }
+  const data = {
+      username,
+      products
+  }
 
-    res.render('dashboard', data);
+  res.render('dashboard', data);
 }
 
-export default {renderDashboard}
+const renderLogin = (req, res) => {
+  res.render('login');
+}
+
+const validateLoginForm = (req, res) => {
+  const {username, password} = req.body;
+  
+  const user = users.find(u => u.username === username && u.password === password);
+  
+  if (user) {
+    res.redirect(`/dashboard?username=${encodeURIComponent(username)}`);
+  } else {
+    res.render('login', { error: 'Usuario o contraseña incorrectos' });
+  }
+}
+
+export default {renderDashboard, renderLogin, validateLoginForm}

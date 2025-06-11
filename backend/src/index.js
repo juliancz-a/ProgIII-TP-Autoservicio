@@ -19,6 +19,7 @@ console.log(join(__dirname, 'views'));
 app.use(express.json())
 app.use(express.static(join(__dirname, 'public')))
 app.use(cors())
+app.use(express.urlencoded({ extended: true }));
 
 // Routing
 app.use('/products', productRoutes)
