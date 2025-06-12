@@ -1,12 +1,12 @@
 import { fetchProducts } from "./utils/dataService.js";
-import {getCurrentCart, addToCart, isInCart, updateCartBtn} from "./utils/cartManager.js";
-
-const productGrid = document.getElementById('grid');
+import { getCurrentCart, addToCart, isInCart, updateCartBtn } from "./utils/cartManager.js";
+import { showPopup, setLoader} from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "/login.html";   
 }
 
+// Main Functions //
 function renderCards(products) {    
     const fragment = document.createDocumentFragment();
 
@@ -40,7 +40,6 @@ function createCardStructure(product) {
         maximumFractionDigits: 2
     }).split(",");
 
-    
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
@@ -62,23 +61,26 @@ function createCardStructure(product) {
     addButtonsEvents(cardDiv, product)
 
     return cardDiv;
-    
 }
 
 function addButtonsEvents(cardDiv, product) {
+
+    let popupBody = {
+    message : `${product.title} agregado al carrito`,
+    color : '#568a33',
+    icon : 'check'
+    }
 
     const productManager = cardDiv.querySelector('.card-buy');
     const buyBtn = productManager.querySelector('.card-buy-button')
     
     buyBtn.addEventListener('click', () => {
             
-            showPopup(product)            
+            showPopup(popupBody)            
             addToCart(product)
             updateCard(cardDiv, product)
-            updateCartBtn(getCurrentCart())
-
+            updateCartBtn(cart, quantityIcon)
     })
-
 }
 
 function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
@@ -101,42 +103,7 @@ function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
     cardBuy.replaceChildren(buyBtn)
 }
 
-// POP-UPS FOR ITEMS ADDED TO THE CART/REMOVED FROM THE CART/0 QUANTITY SELECTED
-const popupContainer = document.getElementById('popup-container')
-let popupTimeout;
-
-function showPopup(product) {
-   
-    const popup = createPopup(product);
-
-    popupContainer.prepend(popup)
-
-    popupTimeout = setTimeout(() => { // Remove popup after 3s
-        popup.remove(); // se remueve asi mismo del container
-    }, 2000)
-
-}
-
-function createPopup(product) {
-
-    const popup = document.createElement('div');
-    popup.className = 'popup';
-
-    let message = `${product.title} al carrito`;
-    let icon = 'check';
-    
-
-    popup.innerHTML = `
-        <p>${message}</p>
-        <span class="material-symbols-outlined">${icon}</span>
-    `;
-
-    return popup;
-}
-
-const categoryTitle = document.getElementById('category-title')
-
-function setTitle(category) {
+function getMainTitle(category) {
     const titles = {
         'accessory': 'Accesorios',
         'component': 'Componentes de PC',
@@ -158,35 +125,46 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
         renderCards(products)
     })
 
-    categoryTitle.innerText = setTitle(selectedCategory)
+    categoryTitle.innerText = getMainTitle(selectedCategory)
     const selectedBtn = document.querySelector(`.categories-button[value=${selectedCategory}]`)
     selectedBtn.classList.add('selected')
     
 }
+function processQuery() {
+    clearTimeout(debounceTimeout); // Reinicia el temporizador
+
+    debounceTimeout = setTimeout(() => {
+        const query = searchBar.value.trim();
+        executeSearch(query); //función de búsqueda
+    }, 400); // Espera 400 ms desde la última tecla
+}
+
+function executeSearch(query) {
+    fetchProducts().then(data => {
+        let products = data;
+        const filteredItems = products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
+        renderCards(filteredItems);
+    })
+}
+
+// DOM Elements
+const productGrid = document.getElementById('grid');
+
+const categoryTitle = document.getElementById('category-title')
 
 const searchBar = document.getElementById('query');
 let debounceTimeout;
 searchBar.value = '';
 
-searchBar.addEventListener('input', () => {
-    clearTimeout(debounceTimeout); // Reinicia el temporizador
+const quantityIcon = document.createElement('span');
+const cartBtn = document.getElementById('cart-button');
+cartBtn.appendChild(quantityIcon);
 
-    debounceTimeout = setTimeout(() => {
-        const query = searchBar.value.trim();
-        ejecutarBusqueda(query); // Tu función de búsqueda
-    }, 400); // Espera 400 ms desde la última tecla
-});
+// Events
+searchBar.addEventListener('input', processQuery)
 
-function ejecutarBusqueda( query ) {
-    const filteredItems = products.filter((p) => {
-        return p.title.toLowerCase().includes(query.toLowerCase());
-    })
-    renderCards(filteredItems);
-}
-
-//INIT
-
+//INIT FUNCTIONS
 let cart = getCurrentCart();
-
 showCategoryContent()
-updateCartBtn(cart)
+updateCartBtn(cart, quantityIcon)
+setLoader()

@@ -1,16 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const loader = document.getElementById("loader");
-    const content = document.getElementById("main-content");
+import { setLoader } from "./utils/uiHelpers.js";
 
-    window.addEventListener("load", () => {
-        loader.style.opacity = "0";
-        loader.style.pointerEvents = "none";
-        setTimeout(() => {
-            loader.remove();
-            content.style.display = "block";
-        }, 300); 
-    });
-});
+setLoader()
 
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('takeawayName')) {

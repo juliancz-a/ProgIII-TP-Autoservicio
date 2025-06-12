@@ -1,15 +1,4 @@
 ////////////////// NAV BAR TOGGLE LIGHT/DARK MODE BTN /////////////
-document.addEventListener('DOMContentLoaded', () => {
-    const loader = document.getElementById("loader");
-    
-    window.addEventListener("load", () => {
-        loader.style.opacity = "0";
-        loader.style.pointerEvents = "none";
-        setTimeout(() => {
-            loader.remove();
-        }, 300); 
-    });
-});
 
 const toggleBtn = document.getElementById('toggle');
 const body = document.querySelector('body');
@@ -76,7 +65,5 @@ function redirectToCategory(category) {
         window.location.href = url.toString();
     }
 }
-
-////////////// NAV BAR CART BUTTON MANAGEMENT => //////////////////
 
 setDefaultColorSchema()

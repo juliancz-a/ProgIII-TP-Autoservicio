@@ -1,11 +1,11 @@
-import { getCurrentCart, getFullCart, removeFromCart, updateProductQuantity, updateCartBtn } from "./utils/cartManager.js";
-
-const cartGrid = document.getElementById('cart');
+import { getFullCart, removeFromCart, updateProductQuantity, getTotalPrice, updateCartBtn } from "./utils/cartManager.js";
+import { redirectToMain, confirmPurchase, activateModal,  closeModal, setLoader} from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "login.html";
 }
 
+// Cart Functions //
 // Renderiza todos los productos del carrito
 function renderCart(products) {
     cartGrid.innerHTML = '';    
@@ -99,45 +99,43 @@ function addQuantityEvents(productDiv, product) {
             updateSubtotalDisplay(fullCart);
             updateProductQuantity(product.id, product.quantity)
         } else {
-            removeFromCart(product);
-            fullCart = fullCart.filter(p => p.id !== product.id);
-            updateCartBtn(fullCart)
-            renderCart(fullCart);
-            
+            removeProduct(product)
             return;
         }
     });
 
     deleteBtn.addEventListener("click", () => {
-        removeFromCart(product);
-        fullCart = fullCart.filter(p => p.id !== product.id);
-        updateCartBtn(fullCart)
-        renderCart(fullCart);
-        
+        removeProduct(product)
     });
 
     input.value = product.quantity;
     updatePriceDisplay(input, finalPrice, product.price);
 }
 
-// Actualiza el precio en el container del producto
+//Behavior of product removal from the cart
+function removeProduct(product) {
+    removeFromCart(product);
+    fullCart = fullCart.filter(p => p.id !== product.id);
+    updateCartBtn(fullCart, quantityIcon)
+    renderCart(fullCart);
+}
+
+// Actualiza el precio individual en el container del producto
 function updatePriceDisplay(input, finalPrice, unitPrice) {
     const quantity = parseInt(input.value);
     const total = unitPrice * quantity;
-    const [entero, decimales] = total.toLocaleString("es-AR", {
+    
+    const [integer, decimals] = total.toLocaleString("es-AR", {
         minimumFractionDigits: 2
     }).split(',');
 
-    finalPrice.innerHTML = `${entero}<sup>${decimales}</sup>`;
+    finalPrice.innerHTML = `${integer}<sup>${decimals}</sup>`;
 }
 
 // Suma todos los productos y muestra el subtotal y total
 function updateSubtotalDisplay(products) {    
     
-    const subtotal = products.reduce((acc, p) => acc + p.price * p.quantity, 0);
-    const [entero, decimales] = subtotal.toLocaleString("es-AR", {
-        minimumFractionDigits: 2
-    }).split(',');
+    const {integer, decimals} = getTotalPrice(products);
     
     const subtotalElement = document.getElementById("subtotal-amount");
     const totalElement = document.getElementById("total-amount");
@@ -145,53 +143,57 @@ function updateSubtotalDisplay(products) {
     if (subtotalElement) {
         subtotalElement.innerHTML = `
             <span>Subtotal</span>
-            <span class="price">${entero}<sup>${decimales}</sup></span>
+            <span class="price">${integer}<sup>${decimals}</sup></span>
         `;
     }
     if (totalElement) {
         totalElement.innerHTML = `
             <span>Total</span>
-            <span class="price">${entero}<sup>${decimales}</sup></span>
+            <span class="price">${integer}<sup>${decimals}</sup></span>
         `;
     }
 }
 
-const modal = document.getElementById('modal-confirm');
-const modalContent = modal.querySelector('.modal-content');
+// DOM Elements
+const cartGrid = document.getElementById('cart');
 
-function closeModal() {
-    modalContent.classList.add('fade-out');
-    setTimeout(() => {
-        modal.classList.remove('active');
-        modalContent.classList.remove('fade-out');
-    }, 250);
-}
+const quantityIcon = document.createElement('span');
+const cartBtn = document.getElementById('cart-button');
+cartBtn.appendChild(quantityIcon);
 
-document.getElementById('redirect-main').addEventListener('click', () => {
-    window.location.href = './index.html';
-});
-
-// Abrir modal (ejemplo: desde un botón)
-document.getElementById('redirect-checkout').addEventListener('click', () => {
-    document.getElementById('modal-confirm').classList.add('active');
-});
-
-// Confirmar compra
-document.getElementById('btn-confirm').addEventListener('click', () => {
-    // lógica: redireccionar, limpiar carrito, mostrar agradecimiento, etc.
-    console.log('Compra confirmada');
-    setTimeout(() => {
-        window.location.href = "./checkout.html";
-    }, 500)
-});
-
-// Cancelar / cerrar modal
-document.getElementById('btn-cancel').addEventListener('click', closeModal);
-
+// INIT
 let fullCart = [];
-
 getFullCart().then(cart => {    
     fullCart = cart
     renderCart(fullCart);
-    updateCartBtn(fullCart)
+    updateCartBtn(fullCart, quantityIcon)
 })
+
+setLoader()
+
+//Modal Management
+// DOM Elements //
+const modal = document.getElementById('modal-confirm')
+const modalContent = modal.querySelector('.modal-content');
+const checkoutBtn = document.getElementById('redirect-checkout');
+const mainRedirectBtn = document.getElementById('redirect-main')
+const confirmBtn = document.getElementById('btn-confirm');
+const cancelBtn = document.getElementById('btn-cancel');
+
+// Popup Body
+let popupBody = {
+    message: 'Agrega por lo menos un producto para confirmar el pago',
+    icon: 'error',
+    color : '#8a3633',
+    type: 'error'
+}
+
+// Modal Events
+checkoutBtn.addEventListener('click', () => {
+    activateModal(modal, fullCart, popupBody)
+});
+mainRedirectBtn.addEventListener('click', redirectToMain);
+confirmBtn.addEventListener('click', confirmPurchase);
+cancelBtn.addEventListener('click', () => {
+    closeModal(modal, modalContent)
+});
