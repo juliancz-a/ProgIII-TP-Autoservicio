@@ -1,0 +1,69 @@
+:root {
+    --sidebar-size: 250px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-left: var(--sidebar-size);
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--sidebar-size);
+  height: 100vh;
+  background-color: #1a1a2e;
+  color: white;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+.sidebar h2 {
+    padding: 0 1rem;
+}
+
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.sidebar nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  padding: 1rem;
+}
+
+.sidebar nav ul li a:hover {
+  color: #00e5ff;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    margin: 1dvw;
+}
+
+.products-table {
+    border-collapse: collapse;
+    border: 1px solid;
+}
+
+table, th, td {
+  border: 1px solid;
+}

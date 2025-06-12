@@ -7,26 +7,64 @@
         <title>Dashboard</title>
     </head>
     <body>
-        <header> 
+        <aside class="sidebar">
+            <h2>Admin</h2>
             <nav>
-                <p>Dashboard</p>
+                <ul>
+                    <li><a href="">Dashboard</a></li>
+                    <li><a href="">Orders</a></li>
+                    <li><a href="">Products</a></li>
+                </ul>
             </nav>
-        </header>
-        <main>
+        </aside>
+        <main class="main-content">
             <h2>Bienvenido, <%= username %></h2>
-
-            <% products.forEach(product => { %>
-                <% const {id, title, description, category, price} = product %>
-                <div class="card">
-                    <ul>
-                        <li><%= id %></li>
-                        <li><%= title %></li>
-                        <li><%= description %></li>
-                        <li><%= category %></li>
-                        <li><%= price %></li>
-                    </ul>
-                </div>
-            <% }) %>
+            <h4>Productos</h4>
+            <table class="products-table">
+                <thead class="products-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="products-body">
+                    <% if (products.length > 0) { %>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td><%= product.id %></td>
+                                <td><%= product.title %></td>
+                                <td><%= product.description %></td>
+                                <td><%= product.category %></td>
+                                <td>$<%= product.price.toFixed(2) %></td>
+                                <td>
+                                    <% if (product.status) { %>
+                                        <span style="color: green;">Activo</span>
+                                    <% } else { %>
+                                        <span style="color: red;">Inactivo</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <a href="/dashboard/edit/<%= product.id %>">Editar</a> |
+                                    <% if (product.active) { %>
+                                    <a href="/dashboard/disable/<%= product.id %>">Deshabilitar</a>
+                                    <% } else { %>
+                                    <a href="/dashboard/enable/<%= product.id %>">Habilitar</a>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay productos disponibles.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
         </main>
     </body>
 </html>
