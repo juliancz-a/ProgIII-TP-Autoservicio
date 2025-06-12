@@ -19,6 +19,10 @@
     justify-content: center;
 }
 
+.ticket-header p {
+    color: black;
+}
+
 .ticket-buttons {
     display: flex;
     align-items: center;
@@ -31,7 +35,7 @@
     text-decoration: underline;
 }
 
-.product-list {
+.product-table {
     display: flex;
     gap: 2dvh;
     flex-direction: column;
@@ -43,19 +47,39 @@
     padding: 0 1dvw;
 }
 
+.header-item{
+    display: flex;
+    justify-content: space-between;
+}
+ 
 .product-item {
     display: flex;
     justify-content: space-between;
 }
 
-.product-item #title {
+.title {
     width: 60%;
     text-align: left;
 }
 
-.product-item #price {
-    width: 40%;
+.quantity{
+    width: 20%;
+    text-align: left;
+}
+
+.price {
+    width: 20%;
     text-align: right;
+    font-weight: 600;
+}
+
+.table-footer {
+    border-top: solid 1px black;
+}
+
+.footer-item {
+    display: flex;
+    justify-content: space-between;
     font-weight: 600;
 }
 

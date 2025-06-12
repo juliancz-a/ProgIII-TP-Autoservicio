@@ -19,6 +19,7 @@ export async function getFullCart() {
     return fullCart;
 }
 
+//revisar logica addtocart y updateproductquantity
 export function addToCart(product) {
     
     let productInCart = isInCart(product);
@@ -45,6 +46,16 @@ export function removeFromCart(product) {
     saveCart(cart);
 }
 
+export function getTotalPrice(cart) {
+    const total = cart.reduce((acc, p) => acc + p.price * p.quantity, 0);
+    const [integer, decimals] = total.toLocaleString("es-AR", {
+        minimumFractionDigits: 2
+    }).split(',');
+
+    
+    return {integer , decimals}
+}
+
 export function updateProductQuantity(productId, newQty) {
     const item = cart.find(p => p.id === productId);
     if (item) {
@@ -57,22 +68,17 @@ export function isInCart(product) {
     return cart.find(p => p.id === product.id);
 }
 
-const cartBtn = document.getElementById('cart-button');
-const quantityInfo = document.createElement('span');
-cartBtn.appendChild(quantityInfo);
-
-const tabTitle = document.getElementById('tab-title')
-
-export function updateCartBtn(cart) {
+export function updateCartBtn(cart, quantityIcon) {
+    const tabTitle = document.getElementById('tab-title')
     
     if (cart.length > 0){
-        quantityInfo.style.display = "inline"
-        quantityInfo.className = 'quantity'
+        quantityIcon.style.display = "inline"
+        quantityIcon.className = 'quantity'
         tabTitle.textContent = `(${cart.length}) NeonBits`
     } else {
         tabTitle.textContent = `NeonBits`
-            quantityInfo.style.display = "none"
+            quantityIcon.style.display = "none"
     }
 
-    quantityInfo.textContent = cart.length;
+    quantityIcon.textContent = cart.length;
 }
