@@ -4,24 +4,32 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/login.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>Inicio de sesion</title>
     </head>
     <body>
-        <div class="login-section">
-            <h2>Panel de administrador</h2>
-            <form action="/dashboard/login" method="POST">
-                <div class="input-row">
-                    <label for="username">Usuario:</label>
-                    <input type="text" id="username" name="username" placeholder="mase" />
-                </div>
+        <main>
+            <div class="login-section">
+                <h2>Panel de administrador</h2>
+                <form action="/dashboard/login" method="POST">
+                    <div class="input-row">
+                        <label for="username">Usuario:</label>
+                        <input type="text" id="username" name="username" placeholder="mase" />
+                    </div>
 
-                <div class="input-row">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" placeholder="barcelav1uk" />
-                </div>
+                    <div class="input-row">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" placeholder="barcelav1uk" />
+                    </div>
 
-                <button type="submit">Iniciar sesión</button>
-            </form>
+                    <button type="submit">Iniciar sesión</button>
+                </form>
+            </div>
+        </main>
+        <div class="footer">
+            <a href="http://localhost:5501/login.html" class="button return-button"><span class="material-symbols-outlined">identity_platform</span></a>
+            <button class="button autocomplete-button"><span class="material-symbols-outlined">assignment</span></button>
         </div>
     </body>
+    <script src="/main.js"></script>
 </html>
