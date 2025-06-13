@@ -1,17 +1,29 @@
 import productService from '../services/product.service.js'
 
-const getAllProducts = (req, res) => {
-    const products = productService.getAll();
+const productController = {
+    async findAllProducts(req, res) {
 
-    res.status(200).json(products);
+        try {
+            const products = await productService.findAll();
+             res.status(200).json(products);
+        } catch (error) {
+
+            
+            
+        }
+    },
+
+    async create(req, res) {
+
+        try {
+            productService.create(req.body)
+            res.status(201).send('Created')
+        } catch (error) {
+            res.status(500).send('Server failure')
+        }
+
+    } 
+
 }
 
-const toggleProductStatus = (req, res) => {
-    const {id} = req.params;
-
-    const product = productService.toggleStatus(Number(id));
-
-    res.status(200).json(product);
-}
-
-export default {getAllProducts, toggleProductStatus}
+export default productController
