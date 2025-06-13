@@ -11,15 +11,15 @@
             <h2>Admin</h2>
             <nav>
                 <ul>
-                    <li><a href="">Dashboard</a></li>
+                    <li><a class="active" href="">Dashboard</a></li>
                     <li><a href="">Orders</a></li>
                     <li><a href="">Products</a></li>
                 </ul>
             </nav>
         </aside>
         <main class="main-content">
-            <h2>Bienvenido, <%= username %></h2>
-            <h4>Productos</h4>
+            <h1>Bienvenido, <%= username %></h1>
+            <h2>Productos</h2>
             <table class="products-table">
                 <thead class="products-head">
                     <tr>
@@ -41,19 +41,15 @@
                                 <td><%= product.description %></td>
                                 <td><%= product.category %></td>
                                 <td>$<%= product.price.toFixed(2) %></td>
-                                <td>
-                                    <% if (product.status) { %>
-                                        <span style="color: green;">Activo</span>
-                                    <% } else { %>
-                                        <span style="color: red;">Inactivo</span>
-                                    <% } %>
+                                <td class="<%= product.status ? 'status-active' : 'status-inactive' %>">
+                                    <%= product.status ? 'Activo' : 'Inactivo' %>
                                 </td>
-                                <td>
-                                    <a href="/dashboard/edit/<%= product.id %>">Editar</a> |
+                                <td class="actions">
+                                    <button href="/dashboard/edit/<%= product.id %>">Editar</button>
                                     <% if (product.active) { %>
-                                    <a href="/dashboard/disable/<%= product.id %>">Deshabilitar</a>
+                                        <button href="/dashboard/disable/<%= product.id %>">Deshabilitar</button>
                                     <% } else { %>
-                                    <a href="/dashboard/enable/<%= product.id %>">Habilitar</a>
+                                        <button href="/dashboard/enable/<%= product.id %>">Habilitar</button>
                                     <% } %>
                                 </td>
                             </tr>

@@ -14,7 +14,7 @@ let products = [
     "description": "8000 DPI, iluminación RGB personalizable",
     "category" : "accessory",
     "price": 27590,
-    "status": true,
+    "status": false,
     "img": "https://imagenes.compragamer.com/productos/compragamer_Imganen_general_36943_Mouse_Logitech_G203_Lightsync_RGB_White_e2e81b78-grn.jpg"
   },
   {
