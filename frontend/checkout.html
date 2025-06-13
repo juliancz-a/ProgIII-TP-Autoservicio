@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/checkout.css">
+    <link rel="shortcut icon" href="./img/logo_window.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title id="tab-title">NeonBits | Cart</title>
+</head>
+<body class="dark-mode">
+    <div id="loader">
+        <div class="loader-spinner"></div>
+    </div>
+    <header>
+        <nav class="nav-bar">
+            <div class="logo">
+                <a id="logo" href="/">
+                    <img class="logo-img" src="./img/logo_navbar.png" alt="NEONBITS">
+                </a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="ticket-container" id="ticket">
+            <h1>Gracias por tu compra, <span id="client-name"></span>!</h1>
+            <div class="ticket-header">
+                <p>Fecha: <span id="purchase-date"></span></p>
+                <p>Empresa: NEONBITS</p>
+            </div>
+
+            <h2 class="ticket-title">Productos</h2>
+            <table id="product-table" class="product-table">
+                <thead class="table-header">
+                    <tr class="header-item">
+                        <th class="title">Producto</th>
+                        <th class="quantity">Cantidad</th>
+                        <th class="price">Total</th>
+                    </tr>
+                </thead>
+                <tbody class="table-content">
+                    <!-- Dynamic content from Cart -->
+                </tbody>
+                <tfoot class="table-footer">
+                    <tr class="footer-item">
+                        <td>Total</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <span id="total-price"></span>
+
+            <div class="ticket-buttons">
+                <button id="ticket-btn">Generar ticket</button>
+                <button id="exit-btn">Salir</button>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 NEONBITS. Todos los derechos reservados.</p>
+        <div class="github-links">
+            <a title="Eliminar" href="https://github.com/juliancz-a" target="_blank"><img class="github-icon" src="./img/github.png" alt="">Caceres Julián</a>
+            <a href="https://github.com/maaaseee" target="_blank"><img class="github-icon" src="./img/github.png" alt="">Aieta Federico</a>
+        </div>
+        <div class="footer-links">
+            <a href="#">Términos</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Ayuda</a>
+        </div>
+    </footer>
+    <script type="module" src="./js/ticket.js"></script>
+</body>
+</html>

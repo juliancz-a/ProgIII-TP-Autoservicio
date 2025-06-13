@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <aside class="sidebar">
+            <h2>Admin</h2>
+            <nav>
+                <ul>
+                    <li><a class="active" href="">Dashboard</a></li>
+                    <li><a href="">Orders</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="/login"><p>Logout</p><span class="material-symbols-outlined">logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <h1>Bienvenido, <%= username %></h1>
+            <h2>Productos</h2>
+            <table class="products-table">
+                <thead class="products-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="products-body">
+                    <% if (products.length > 0) { %>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td><%= product.id %></td>
+                                <td><%= product.title %></td>
+                                <td><%= product.description %></td>
+                                <td><%= product.category %></td>
+                                <td>$<%= product.price.toFixed(2) %></td>
+                                <td class="<%= product.status ? 'status-active' : 'status-inactive' %>">
+                                    <%= product.status ? 'Activo' : 'Inactivo' %>
+                                </td>
+                                <td class="actions">
+                                    <button class="edit-product" data-id="<%= product.id %>">Editar</button>
+                                    <button class="toggle-product" data-id="<%= product.id %>">Cambiar estado</button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay productos disponibles.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </main>
+    </body>
+    <script src="/dashboard.js"></script>
+</html>

@@ -1,0 +1,84 @@
+import { fetchProducts, getCart, saveCart } from "./dataService.js";
+
+let cart = getCart();
+
+export function getCurrentCart() {
+    return cart;
+}
+
+export async function getFullCart() {
+    const productsDb = await fetchProducts()
+    
+    const fullCart = getCart().map(cartItem => {
+        const productData = productsDb.find(p => p.id === cartItem.id);
+        return  {
+            ...productData,
+            quantity: cartItem.quantity
+        }
+    })
+    return fullCart;
+}
+
+//revisar logica addtocart y updateproductquantity
+export function addToCart(product) {
+    
+    let productInCart = isInCart(product);
+
+    if(productInCart) {
+        productInCart.quantity++;
+        const index = cart.findIndex(p => p.id === product.id);
+        cart[index].quantity = productInCart.quantity;
+
+    } else {
+        cart.push({id : product.id,
+                    quantity : 1});
+    }
+
+    saveCart(cart);
+}
+
+export function removeFromCart(product) {
+    
+    cart = cart.filter((p) => {
+        return p.id !== product.id
+    })
+    
+    saveCart(cart);
+}
+
+export function getTotalPrice(cart) {
+    const total = cart.reduce((acc, p) => acc + p.price * p.quantity, 0);
+    const [integer, decimals] = total.toLocaleString("es-AR", {
+        minimumFractionDigits: 2
+    }).split(',');
+
+    
+    return {integer , decimals}
+}
+
+export function updateProductQuantity(productId, newQty) {
+    const item = cart.find(p => p.id === productId);
+    if (item) {
+        item.quantity = newQty;
+    }
+    saveCart(cart);
+}
+
+export function isInCart(product) {
+    return cart.find(p => p.id === product.id);
+}
+
+export function updateCartBtn(cart, quantityIcon) {
+    const tabTitle = document.getElementById('tab-title')
+    
+    if (cart.length > 0){
+        quantityIcon.style.display = "inline"
+        quantityIcon.className = 'quantity'
+        tabTitle.textContent = `(${cart.length}) NeonBits`
+    } else {
+        tabTitle.textContent = `NeonBits`
+            quantityIcon.style.display = "none"
+    }
+
+    quantityIcon.textContent = cart.length;
+}

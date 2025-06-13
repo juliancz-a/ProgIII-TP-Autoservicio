@@ -1,3 +1,7 @@
+import { setLoader } from "./utils/uiHelpers.js";
+
+setLoader()
+
 document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('takeawayName')) {
         window.location.href = "/";

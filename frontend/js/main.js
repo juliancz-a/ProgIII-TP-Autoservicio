@@ -1,20 +1,12 @@
-const productGrid = document.getElementById('grid');
-
-let products = [];
+import { fetchProducts } from "./utils/dataService.js";
+import { getCurrentCart, addToCart, isInCart, updateCartBtn } from "./utils/cartManager.js";
+import { showPopup, setLoader} from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
-    window.location.href = "/login.html";
-    
+    window.location.href = "/login.html";   
 }
 
-// Fetch data from local DB
-const getProducts = async () => {
-    const response = await fetch('./db/products.json')
-    const data = await response.json()
-    
-    return data
-}
-
+// Main Functions //
 function renderCards(products) {    
     const fragment = document.createDocumentFragment();
 
@@ -26,32 +18,20 @@ function renderCards(products) {
     }
     
     for(const product of products) {
-        let actualProduct;
-        let productInCard = isInCart(product)
-        
-        
-        if (productInCard) {
-            actualProduct = productInCard;
-        } else {
-            actualProduct = product;
-        }
+    
+        const cardDiv = createCardStructure(product)
 
-        const cardDiv = createCardStructure(actualProduct)
-
-        if(productInCard) {
-            updateCard(cardDiv, productInCard)
+        if(isInCart(product)) {
+            updateCard(cardDiv, product)
         }
         
         fragment.appendChild(cardDiv);
-        
-
     }
 
     productGrid.replaceChildren(fragment);
 }
 
-function createCardStructure(product) {
-
+function createCardStructure(product) {    
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
 
@@ -60,7 +40,6 @@ function createCardStructure(product) {
         maximumFractionDigits: 2
     }).split(",");
 
-    
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
@@ -82,57 +61,27 @@ function createCardStructure(product) {
     addButtonsEvents(cardDiv, product)
 
     return cardDiv;
-    
 }
 
 function addButtonsEvents(cardDiv, product) {
+
+    let popupBody = {
+    message : `${product.title} agregado al carrito`,
+    color : '#568a33',
+    icon : 'check'
+    }
 
     const productManager = cardDiv.querySelector('.card-buy');
     const buyBtn = productManager.querySelector('.card-buy-button')
     
     buyBtn.addEventListener('click', () => {
             
-            showPopup(product)
-
+            showPopup(popupBody)            
             addToCart(product)
             updateCard(cardDiv, product)
-            updateCartBtn()
-
+            updateCartBtn(cart, quantityIcon)
     })
-
 }
-
-function addToCart(product) {
-    let productInCart = isInCart(product);
-
-
-    if(productInCart) {
-        productInCart.quantity++;
-        const index = cart.findIndex(p => p.id === product.id);
-        cart[index].quantity = productInCart.quantity;
-
-    } else {
-        product.quantity = 1;
-        cart.push(product)
-    }
-    updateCart();
-
-}
-
-function removeFromCart(product) {
-    
-    cart = cart.filter((p) => {
-        return p.id != product.id
-    })
-    
-    updateCart();
-}
-
-function updateCart() {
-    const jsonCart = JSON.stringify(cart)
-    localStorage.setItem('cart', jsonCart)
-}
-
 
 function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
     cardDiv.classList.add('card-added');
@@ -142,70 +91,26 @@ function updateCard(cardDiv, product) { // Updating CardDiv if is in the cart
     const currentQuantity = document.createElement('span');
     const quantityWrapper = document.createElement('div');
     quantityWrapper.className = 'quantityWrapper'
+
     quantityWrapper.appendChild(currentQuantity);
     buyBtn.appendChild(quantityWrapper)
     
-    currentQuantity.innerText = `${product.quantity}`
+    let productInCart = isInCart(product);
+
+    currentQuantity.innerText = `${productInCart.quantity}`
     currentQuantity.classList = 'added';
 
     cardBuy.replaceChildren(buyBtn)
 }
 
-function isInCart(product) {
-    return productAdded = cart.find(p => p.id === product.id);
-}
+function getMainTitle(category) {
+    const titles = {
+        'accessory': 'Accesorios',
+        'component': 'Componentes de PC',
+        'featured': 'Nuestros productos'
+    };
 
-
-// POP-UPS FOR ITEMS ADDED TO THE CART/REMOVED FROM THE CART/0 QUANTITY SELECTED
-const popupContainer = document.getElementById('popup-container')
-let popupTimeout;
-
-function showPopup(product) {
-   
-    const popup = createPopup(product);
-
-    popupContainer.prepend(popup)
-
-    popupTimeout = setTimeout(() => { // Remove popup after 3s
-        popup.remove(); // se remueve asi mismo del container
-    }, 2000)
-
-}
-
-function createPopup(product) {
-
-    const popup = document.createElement('div');
-    popup.className = 'popup';
-
-    let message = `${product.title} al carrito`;
-    let icon = 'check';
-    
-
-    popup.innerHTML = `
-        <p>${message}</p>
-        <span class="material-symbols-outlined">${icon}</span>
-    `;
-
-    return popup;
-}
-
-const categoryTitle = document.getElementById('category-title')
-function setTitle(category) {
-    let content;
-    
-    switch (category) {
-        case 'accessory':
-            content = 'Accesorios'  
-            break
-        case 'component':
-            content = 'Componentes de PC'
-            break
-        default:
-            content = 'Nuestros productos'
-            break
-
-    }
-    return content
+    return titles[category] || 'Nuestros productos';
 }
 
 function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
@@ -214,41 +119,52 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
 
     if (!selectedCategory) selectedCategory = 'featured'; 
     
-    getProducts().then(data => {
-        products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
+    fetchProducts().then(data => {
+        let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
         
         renderCards(products)
     })
 
-    categoryTitle.innerText = setTitle(selectedCategory)
+    categoryTitle.innerText = getMainTitle(selectedCategory)
     const selectedBtn = document.querySelector(`.categories-button[value=${selectedCategory}]`)
     selectedBtn.classList.add('selected')
     
 }
+function processQuery() {
+    clearTimeout(debounceTimeout); // Reinicia el temporizador
+
+    debounceTimeout = setTimeout(() => {
+        const query = searchBar.value.trim();
+        executeSearch(query); //función de búsqueda
+    }, 400); // Espera 400 ms desde la última tecla
+}
+
+function executeSearch(query) {
+    fetchProducts().then(data => {
+        let products = data;
+        const filteredItems = products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
+        renderCards(filteredItems);
+    })
+}
+
+// DOM Elements
+const productGrid = document.getElementById('grid');
+
+const categoryTitle = document.getElementById('category-title')
 
 const searchBar = document.getElementById('query');
 let debounceTimeout;
 searchBar.value = '';
 
-searchBar.addEventListener('input', () => {
-    clearTimeout(debounceTimeout); // Reinicia el temporizador
+const quantityIcon = document.createElement('span');
+const cartBtn = document.getElementById('cart-button');
+cartBtn.appendChild(quantityIcon);
 
-    debounceTimeout = setTimeout(() => {
-        const query = searchBar.value.trim();
-        ejecutarBusqueda(query); // Tu función de búsqueda
-    }, 400); // Espera 400 ms desde la última tecla
-});
+// Events
+searchBar.addEventListener('input', processQuery)
 
-function ejecutarBusqueda( query ) {
-    const filteredItems = products.filter((p) => {
-        return p.title.toLowerCase().includes(query.toLowerCase());
-    })
-    renderCards(filteredItems);
-}
-
-// BRING CART FROM LOCAL STORAGE
-let cart = JSON.parse(localStorage.getItem('cart')) || []
-
-//INIT
+//INIT FUNCTIONS
+let cart = getCurrentCart();
 showCategoryContent()
-
+updateCartBtn(cart, quantityIcon)
+setLoader()

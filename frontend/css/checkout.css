@@ -1,0 +1,99 @@
+.ticket-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 3dvh auto;
+    background-color: aliceblue;
+    max-width: 1200px;
+    padding: 1rem 2rem;
+}
+
+.ticket-header {
+    display: flex;
+    gap: 10%;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-header p {
+    color: black;
+}
+
+.ticket-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 5%;
+}
+
+#client-name {
+    text-decoration: underline;
+}
+
+.product-table {
+    display: flex;
+    gap: 2dvh;
+    flex-direction: column;
+    width: 100%;
+    list-style: none;
+    text-decoration: none;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding: 0 1dvw;
+}
+
+.header-item{
+    display: flex;
+    justify-content: space-between;
+}
+ 
+.product-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    width: 60%;
+    text-align: left;
+}
+
+.quantity{
+    width: 20%;
+    text-align: left;
+}
+
+.price {
+    width: 20%;
+    text-align: right;
+    font-weight: 600;
+}
+
+.table-footer {
+    border-top: solid 1px black;
+}
+
+.footer-item {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+#exit-btn,
+#ticket-btn {
+    padding: 5px 15px;
+    font-size: 1rem;
+}
+
+#ticket-btn {
+    background-color: rgb(247, 54, 54);
+    outline: 0;
+}
+
+#ticket-btn:hover {
+    opacity: 0.8;
+}

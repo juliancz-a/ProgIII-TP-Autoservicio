@@ -6,15 +6,20 @@
     <title>Retiro de Pedido</title>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/login.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="shortcut icon" href="./img/logo_window.png" type="image/x-icon">
 </head>
 <body class="login-body">
+    <div id="loader">
+        <div class="loader-spinner"></div>
+    </div>
     <header class="nav-bar">
         <div class="logo">
-            <a href="/">
+            <a id="logo" href="/">
                 <img class="logo-img" src="./img/logo_navbar.png" alt="NEONBITS">
             </a>
         </div>
+        <a class="admin-button" href="http://localhost:5000/dashboard/login"> <span class="material-symbols-outlined"> admin_panel_settings</span></a>
     </header>
     <main class="login-container">
         <section class="login-section">
@@ -38,6 +43,6 @@
             <a href="#">Ayuda</a>
         </div>
     </footer>
-  <script src="./js/login-form.js"></script>
+  <script type="module" src="./js/login-form.js"></script>
 </body>
 </html>

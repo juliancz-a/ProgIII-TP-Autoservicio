@@ -10,10 +10,13 @@
     <title id="tab-title">NeonBits | Cart</title>
 </head>
 <body class="dark-mode">
+    <div id="loader">
+        <div class="loader-spinner"></div>
+    </div>
     <header>
         <nav class="nav-bar">
             <div class="logo">
-                <a href="/">
+                <a id="logo" href="/">
                     <img class="logo-img" src="./img/logo_navbar.png" alt="NEONBITS">
                 </a>
             </div>
@@ -55,7 +58,6 @@
                 </div>
             </div>
             <div class="nav-control">
-                <input type="checkbox" name="" id="toggle">
                 <div class="hamburger-menu" id="hamburger">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -86,8 +88,8 @@
                             </ul>
                         </div>
                         <div class="cart-options">
-                            <a href="./index.html"><button class="back-shop">Seguir comprando</button></a>
-                            <a href=""><button class="redirect-checkout">Continuar a metodo de pago</button></a>
+                            <button id="redirect-main" class="redirect-main">Seguir comprando</button>
+                            <button id="redirect-checkout" class="redirect-checkout">Continuar con metodo de pago</button>
                         </div>
                     </div>
                 </section>
@@ -106,9 +108,21 @@
             <a href="#">Ayuda</a>
         </div>
     </footer>
+    <!-- Modal de Confirmación -->
+    <div id="modal-confirm" class="modal-overlay">
+        <div class="modal-content">
+            <h2>¿Confirmar compra?</h2>
+            <p>Estás por dirigirte a la seccion de pago. ¿Quiere continuar?</p>
+            <div class="modal-buttons">
+                <button id="btn-confirm" class="confirm">Confirmar</button>
+                <button id="btn-cancel" class="cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Popup -->
     <div id="popup-container" class="popup-container">
     </div>
-    <script src="./js/cart.js"></script>
-    <script src="./js/nav-bar.js"></script>
+    <script type="module" src="./js/cart.js"></script>
+    <script src="./js/utils/nav-bar.js"></script>
 </body>
 </html>

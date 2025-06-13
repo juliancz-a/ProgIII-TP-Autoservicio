@@ -16,92 +16,12 @@ h1 {
   text-shadow: 0 0 5px rgba(229, 229, 255, 0.3);
 }
 
-p {
-  color: var(--main-text);
-}
 
 .container {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3vh;
-}
-
-.slider-container {
-  width: 100%;
-  max-width: 1000px;
-  overflow: hidden;
-  border-radius: 10px;
-  position: relative;
-}
-
-.slider {
-  display: flex;
-  width: 100%;
-  transition: transform 1s ease-in-out;
-  will-change: transform;
-}
-
-.slide {
-  flex: 0 0 100%; /* hace que cada slide tenga 100% del ancho del contenedor */
-}
-
-.slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  user-select: none;
-}
-
-.prev-slide, .next-slide {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #af40ff89;
-  border: none;
-  font-size: 1.2rem;
-  color: white;
-  cursor: pointer;
-  padding: 0.5rem;
-  z-index: 2;
-  border-radius: 5px;
-  transition: 300ms;
-}
-
-.prev-slide { left: 10px; }
-.next-slide { right: 10px; }
-
-.prev-slide:hover, .next-slide:hover {
-  background: var(--categories-hover);
-}
-
-.indicators {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
-
-.indicator {
-  width: 25px;
-  height: 10px;
-  background-color: rgba(255,255,255,0.5);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.575);
-}
-
-.indicator:hover {
-  background-color: var(--categories-hover);
-}
-
-.indicator.active {
-  background-color: var(--main-shadow);
 }
 
 /* PRODUCTS GRID */
@@ -166,6 +86,10 @@ p {
   display: flex;
 }
 
+.light-mode .container .title-wrapper h2 {
+  color: #111;
+}
+
 .card-content .card-text {
   width: 50%;
   display: flex;
@@ -209,9 +133,9 @@ p {
   box-shadow: rgba(154, 55, 198, 0.4) 5px 5px, rgba(154, 55, 198, 0.3) 10px 10px,
     rgba(154, 55, 198, 0.2) 15px 15px, rgba(154, 55, 198, 0.1) 20px 20px,
     rgba(240, 46, 170, 0.05) 25px 25px;
-  border-radius: 5px;
+  border-radius: 6px;
   user-select: none;
-  border: 1px solid var(--main-shadow);
+  border: 2px solid rgba(154, 55, 198, 0.8);
 }
 
 .card-content .card-image img {
@@ -317,59 +241,6 @@ p {
 
 }
 
-/* POPUPS */
-.popup-container {
-  width: 200px;
-  bottom: 20px;
-  left: 20px;
-  position: fixed;
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 5px;
-  z-index: 100;
-
-}
-.popup {
-
-  padding: 12px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgb(86, 138, 51);
-  border-radius: 8px;
-  box-shadow: 0px 0px 5px -3px #111;
-  animation: slideIn 0.3s ease, fadeOut 0.5s ease 1.5s forwards;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.error {
-  background-color: rgb(138, 54, 51);
-}
-
-.undo {
-  background-color: rgb(138, 132, 51);
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-}
-
 @media(max-width : 480px) {
   .card {
     width: 90%;
@@ -394,6 +265,13 @@ p {
     margin-bottom: 10px;
     box-shadow: none;
   }
+
+  .card-content .card-image img {
+    object-fit: cover;
+    
+  }
+
+  
   .card-content .card-text {
     width: 100%;
   }
