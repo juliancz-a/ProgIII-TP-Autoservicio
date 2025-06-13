@@ -12,8 +12,6 @@ const PORT = app.get('PORT')
 app.set('view engine', 'ejs')
 app.set('views', join(__dirname, 'views'))
 
-console.log(join(__dirname, 'views'));
-
 
 // App middlewares
 app.use(express.json())
