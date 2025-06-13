@@ -15,7 +15,7 @@
                     <li><a class="active" href="">Dashboard</a></li>
                     <li><a href="">Orders</a></li>
                     <li><a href="">Products</a></li>
-                    <li><a href="/dashboard/login"><p>Logout</p><span class="material-symbols-outlined">logout</span></a></li>
+                    <li><a href="/login"><p>Logout</p><span class="material-symbols-outlined">logout</span></a></li>
                 </ul>
             </nav>
         </aside>
@@ -47,12 +47,8 @@
                                     <%= product.status ? 'Activo' : 'Inactivo' %>
                                 </td>
                                 <td class="actions">
-                                    <button href="/dashboard/edit/<%= product.id %>">Editar</button>
-                                    <% if (product.active) { %>
-                                        <button href="/dashboard/disable/<%= product.id %>">Deshabilitar</button>
-                                    <% } else { %>
-                                        <button href="/dashboard/enable/<%= product.id %>">Habilitar</button>
-                                    <% } %>
+                                    <button class="edit-product" data-id="<%= product.id %>">Editar</button>
+                                    <button class="toggle-product" data-id="<%= product.id %>">Cambiar estado</button>
                                 </td>
                             </tr>
                         <% }) %>
@@ -65,4 +61,5 @@
             </table>
         </main>
     </body>
+    <script src="/dashboard.js"></script>
 </html>
