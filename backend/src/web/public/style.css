@@ -52,10 +52,17 @@ body {
   color: var(--accent-primary);
 }
 
+.sidebar nav {
+    height: 100%;
+}
 .sidebar nav ul {
+  height: 100%;
   list-style: none;
   padding: 0;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .sidebar nav ul li {
@@ -69,6 +76,17 @@ body {
   display: block;
   padding: 1rem 1.5rem;
   transition: 0.2s ease;
+}
+
+.sidebar nav ul li:last-child {
+  margin-top: auto;
+}
+
+.sidebar nav ul li a:last-child {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
 }
 
 .sidebar nav ul li a.active {
