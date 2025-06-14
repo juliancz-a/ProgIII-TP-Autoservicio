@@ -154,13 +154,14 @@ tbody tr:hover {
   background-color: #2f333f;
 }
 
-.status-active {
-  color: var(--success);
+
+.status {
+  color: var(--danger);
   font-weight: bold;
 }
 
-.status-inactive {
-  color: var(--danger);
+.status-active {
+  color: var(--success);
   font-weight: bold;
 }
 

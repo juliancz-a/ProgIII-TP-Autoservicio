@@ -43,12 +43,12 @@
                                 <td><%= product.description %></td>
                                 <td><%= product.category %></td>
                                 <td>$<%= product.price.toFixed(2) %></td>
-                                <td class="<%= product.status ? 'status-active' : 'status-inactive' %>">
-                                    <%= product.status ? 'Activo' : 'Inactivo' %>
+                                <td class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
+                                    <%= product.enabled ? 'Activo' : 'Inactivo' %> 
                                 </td>
                                 <td class="actions">
-                                    <button class="edit-product" data-id="<%= product.id %>">Editar</button>
-                                    <button class="toggle-product" data-id="<%= product.id %>">Cambiar estado</button>
+                                    <button class="edit-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Editar</button>
+                                    <button class="toggle-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Cambiar estado</button>
                                 </td>
                             </tr>
                         <% }) %>
@@ -61,5 +61,5 @@
             </table>
         </main>
     </body>
-    <script src="/dashboard.js"></script>
+    <script type="module" src="/dashboard.js"></script>
 </html>
