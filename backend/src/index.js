@@ -25,9 +25,9 @@ app.get('/', (req, res) => {
 });
 
 // Routing
-app.use('/', authRoutes);
-app.use('/products', productRoutes);
-app.use('/dashboard', panelRoutes);
+app.use('/', authRoutes); //SSR
+app.use('/dashboard', panelRoutes); //SSR
+app.use('/products', productRoutes); //API
 
 // App listen
 app.listen(PORT, () => {
