@@ -20,8 +20,6 @@ class productService {
     async create(body) {
       const product = new Product(null, body.title, body.description, body.category, body.price, body.img, body.enabled);
 
-      console.log(product);
-      
       productDao.create(product)
     }
 

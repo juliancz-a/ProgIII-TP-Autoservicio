@@ -31,10 +31,23 @@ class productDao {
         await db.execute(query, [title, description, category, price, img, enabled, id]);
     }
 
-    async toggleEnabledById(id, enabled) { 
+    async toggleEnabledById(id, enabled) {         
         const query = 'UPDATE products SET enabled = ? WHERE id = ?';
         await db.execute(query, [enabled, id]);
     }
+
+    // async toggleEnabledProducts() {
+
+    //     if (enabled) {
+    //         const query = `UPDATE products SET enabled = 1 WHERE id = (${ids})`;
+    //         await db.execute(query, [enabled, id]);
+
+    //     } else {
+    //         const query = `UPDATE products SET enabled = 0 WHERE id IN (${ids})`;
+    //         await db.execute(query, [enabled, id]);
+    //     }
+
+    // }
 
     async deleteById(id) {
 
