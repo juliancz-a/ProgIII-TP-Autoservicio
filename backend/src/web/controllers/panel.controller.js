@@ -5,7 +5,7 @@ const renderDashboard = (req, res) => {
 
   if (!username) return res.redirect('/login');
 
-  const products = productService.getAll();
+  const products = productService.findAll();
 
   res.render('dashboard', {
     username,
