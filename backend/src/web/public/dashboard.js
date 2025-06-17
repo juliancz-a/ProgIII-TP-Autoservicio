@@ -30,3 +30,12 @@ toggleButtons.forEach(btn => {
     });
 });
 
+const hamburgerBtn = document.getElementById('hamburger');
+const navBtns = document.getElementById('nav-buttons')
+const sidebar = document.querySelector('.sidebar');
+
+hamburgerBtn.addEventListener('click', () => {
+    hamburgerBtn.classList.toggle('active') 
+    navBtns.classList.toggle('active')
+    sidebar.classList.toggle('active')
+})
