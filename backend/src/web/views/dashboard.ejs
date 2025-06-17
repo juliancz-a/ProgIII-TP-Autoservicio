@@ -10,8 +10,13 @@
     <body>
         <aside class="sidebar">
             <h2>Admin</h2>
+            <div class="hamburger-menu" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
             <nav>
-                <ul>
+                <ul id="nav-buttons" class="nav-buttons">
                     <li><a class="active" href="">Dashboard</a></li>
                     <li><a href="">Orders</a></li>
                     <li><a href="">Products</a></li>
@@ -38,15 +43,14 @@
                     <% if (products.length > 0) { %>
                         <% products.forEach(product => { %>
                             <tr>
-                                <td><%= product.id %></td>
-                                <td><%= product.title %></td>
-                                <td><%= product.description %></td>
-                                <td><%= product.category %></td>
-                                <td>$<%= product.price.toFixed(2) %></td>
-                                <td class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
-                                    <%= product.enabled ? 'Activo' : 'Inactivo' %> 
-                                </td>
-                                <td class="actions">
+                                <td data-label="ID"><%= product.id %></td>
+                                <td data-label="Título"><%= product.title %></td>
+                                <td data-label="Descripción"><%= product.description %></td>
+                                <td data-label="Categoría"><%= product.category %></td>
+                                <td data-label="Precio">$<%= product.price.toFixed(2) %></td>
+                                <td data-label="Estado" class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
+                                    <%= product.enabled ? 'Activo' : 'Inactivo' %> </td>
+                                <td data-label="Acciones" class="actions">
                                     <button class="edit-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Editar</button>
                                     <button class="toggle-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Cambiar estado</button>
                                 </td>
