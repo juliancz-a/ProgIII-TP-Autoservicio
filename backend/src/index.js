@@ -20,11 +20,12 @@ app.use(express.static(join(__dirname, 'public')))
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 
+
+// Routing
 app.get('/', (req, res) => {
   res.redirect('/login');
 });
 
-// Routing
 app.use('/', authRoutes); //SSR
 app.use('/dashboard', panelRoutes); //SSR
 app.use('/products', productRoutes); //API
