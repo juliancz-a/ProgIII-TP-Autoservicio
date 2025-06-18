@@ -5,4 +5,6 @@ const router = Router();
 
 router.get('/', panelController.renderDashboard);
 
+router.get('/edit/:id', panelController.renderProductForm);
+
 export default router;
