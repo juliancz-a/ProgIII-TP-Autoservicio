@@ -13,7 +13,11 @@ class productDao {
         const query = 'SELECT * FROM products WHERE id = ?';
         const [rows] = await db.execute(query, [id])
 
-        return rows;
+        if (rows.length === 0 || rows.length > 1) {
+            return;
+        }
+
+        return rows[0];
     }
 
     async create(product) {
