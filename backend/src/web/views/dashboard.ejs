@@ -51,7 +51,7 @@
                                 <td data-label="Estado" class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
                                     <%= product.enabled ? 'Activo' : 'Inactivo' %> </td>
                                 <td data-label="Acciones" class="actions">
-                                    <button class="edit-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Editar</button>
+                                    <button class="edit-product" data-id="<%= product.id %>">Editar</button>
                                     <button class="toggle-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Cambiar estado</button>
                                 </td>
                             </tr>

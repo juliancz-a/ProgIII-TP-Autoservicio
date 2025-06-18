@@ -13,6 +13,21 @@ const renderDashboard = async (req, res) => {
   });
 };
 
+const renderProductForm = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { username } = req.query;
+
+  if (!username) return res.redirect('/login');
+
+  const product = await productService.findById(id);
+  
+  res.render('product-form', {
+    product,
+    username
+  })
+}
+
 export default {
-  renderDashboard
+  renderDashboard,
+  renderProductForm
 }

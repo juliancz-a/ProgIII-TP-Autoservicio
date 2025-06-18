@@ -12,9 +12,21 @@ class productService {
     }
 
     async findById(id) {
-      const productDb = await productDao.findById(id)
+      const productDb = await productDao.findById(id);
 
-      return new Product(productDb[0]);
+      if (!productDb || productDb.length === 0) {
+        return;
+      }
+  
+      return new Product(
+        productDb.id,
+        productDb.title,
+        productDb.description,
+        productDb.category,
+        productDb.price,
+        productDb.img,
+        Boolean(productDb.enabled)
+      );
     }
 
     async create(body) {
