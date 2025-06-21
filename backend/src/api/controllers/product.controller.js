@@ -54,10 +54,10 @@ class ProductController {
         try {
             const enabled = req.body.enabled;
             const id = req.params.id;
-            productService.toggleEnabledById(id, enabled)
+            
+            productService.patchEnabledById(id, enabled)
 
             res.status(200).json('Patched')
-            
         } catch (error) {
             res.status(500).json('Server failure')
         }

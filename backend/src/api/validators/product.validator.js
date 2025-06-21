@@ -56,15 +56,14 @@ const productValidator = {
     },
 
     validateNumberField(content, field) {
-    const {fieldName, minValue} = this.fieldsCfg[field];
+        const {fieldName, minValue} = this.fieldsCfg[field];
 
-        if (!content || content === undefined || !validator.isNumeric(String(content))) {
+        if (!content || !validator.isNumeric(String(content))) {
             throw new Error(`El campo ${fieldName} es obligatorio.`);
         }
 
         if (content < minValue) { // parseamos para asegurarnos de que es un datatype float/number
             throw new Error(`El campo ${fieldName} debe tener un valor mayor a ${minValue}.`);
-
         };
     }
 };

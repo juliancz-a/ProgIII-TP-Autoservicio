@@ -27,7 +27,24 @@ const renderProductForm = async (req, res) => {
   })
 }
 
+const validateProductForm = async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { username } = req.query;
+  const formProduct = req.body;
+
+  if (!username) return res.redirect('/login');
+
+  await productService.updateById(id, formProduct);
+  const product = await productService.getById(id);
+
+  res.render('product-form', {
+    product,
+    username
+  })
+}
+
 export default {
   renderDashboard,
-  renderProductForm
+  renderProductForm,
+  validateProductForm
 }
