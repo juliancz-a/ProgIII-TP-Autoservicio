@@ -1,41 +1,30 @@
 import productDao from "../dao/product.dao.js"
-import { Product } from "../models/product.model.js"
+import productValidator from "../validators/product.validator.js";
 
-class productService {
+class ProductService {
 
-    async findAll() {
-      const productsDb = await productDao.findAll();
-
-      return productsDb.map((product) => {
-        return new Product(product.id, product.title, product.description, product.category, product.price, product.img, product.enabled)
-      });
+    async getAll() {
+      return await productDao.findAll();
     }
 
-    async findById(id) {
-      const productDb = await productDao.findById(id);
+    async getAllAndIsEnabled() {
+      return await productDao.findAllAndIsEnabled;
+    }
 
-      if (!productDb || productDb.length === 0) {
-        return;
-      }
-  
-      return new Product(
-        productDb.id,
-        productDb.title,
-        productDb.description,
-        productDb.category,
-        productDb.price,
-        productDb.img,
-        Boolean(productDb.enabled)
-      );
+    async getById(id) {
+      const productDb = await productDao.findById(id);
+      if (!productDb) throw new Error(`Producto con id: ${id} no encontrado`)
+
+      return productDb;
     }
 
     async create(body) {
-      const product = new Product(null, body.title, body.description, body.category, body.price, body.img, body.enabled);
-
-      productDao.create(product)
+      productValidator.validateProduct(body);
+      return await productDao.create(product)
     }
 
-    async updateById(id, product) {
+    async updateById(id, body) {
+      productValidator.validateProduct(body);
       productDao.updateById(id, product)
     }
 
@@ -49,4 +38,4 @@ class productService {
 
   }
 
-export default new productService();
+export default new ProductService();

@@ -1,63 +1,38 @@
-import db from "../config/dbConfig.js";
+import {Product} from "../models/index.js";
 
-class productDao {
+class ProductDao {
 
     async findAll() {
-        const query = 'SELECT * FROM products';
-        const [rows] = await db.query(query);
-        
-        return rows;
+        return await Product.findAll()
+    }
+
+    async findAllAndIsEnabled() {
+        return await Product.findAll({where : {enabled : 1}})
     }
 
     async findById(id) {
-        const query = 'SELECT * FROM products WHERE id = ?';
-        const [rows] = await db.execute(query, [id])
-
-        if (rows.length === 0 || rows.length > 1) {
-            return;
-        }
-
-        return rows[0];
+        return await Product.findByPk(id);
     }
 
     async create(product) {
-        const {title, description, category, enabled, price, img} = product;
-
-        const query = 'INSERT INTO products (title, description, category, price, img, enabled) VALUES (?, ?, ?, ?, ?, ?)';
-        await db.execute(query, [title, description, category, price, img, enabled]);
+        return await Product.create(product);
     }
 
     async updateById(id, product) {
-
-        const {title, description, category, enabled, price, img} = product;
-
-        const query = 'UPDATE products SET title = ?, description = ?, category = ?, price = ?, img = ?, enabled = ? WHERE id = ?';
-        await db.execute(query, [title, description, category, price, img, enabled, id]);
+        return await Product.update(product, {
+            where : {id : id}
+        })
     }
 
     async toggleEnabledById(id, enabled) {         
-        const query = 'UPDATE products SET enabled = ? WHERE id = ?';
-        await db.execute(query, [enabled, id]);
+        return await Product.update(enabled, {
+            where : {id : id}
+        })
     }
 
-    // async toggleEnabledProducts() {
-
-    //     if (enabled) {
-    //         const query = `UPDATE products SET enabled = 1 WHERE id = (${ids})`;
-    //         await db.execute(query, [enabled, id]);
-
-    //     } else {
-    //         const query = `UPDATE products SET enabled = 0 WHERE id IN (${ids})`;
-    //         await db.execute(query, [enabled, id]);
-    //     }
-
-    // }
-
     async deleteById(id) {
-
-        const query = 'DELETE FROM products WHERE id = ?'
-        await db.execute(query, [id]);
+        return await Product.destroy({where : {id : id}})
     }
 }
 
-export default new productDao();
+export default new ProductDao();
