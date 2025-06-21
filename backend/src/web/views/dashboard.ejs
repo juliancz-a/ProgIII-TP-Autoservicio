@@ -47,7 +47,7 @@
                                 <td data-label="ID"><%= product.id %></td>
                                 <td data-label="Título"><%= product.title %></td>
                                 <td data-label="Descripción"><%= product.description %></td>
-                                <td data-label="Categoría"><%= product.category %></td>
+                                <td data-label="Categoría"><%= product.category.charAt(0).toUpperCase() + product.category.slice(1) %></td>
                                 <td data-label="Precio">$<%= product.price.toFixed(2) %></td>
                                 <td data-label="Estado" class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
                                     <%= product.enabled ? 'Activo' : 'Inactivo' %> </td>

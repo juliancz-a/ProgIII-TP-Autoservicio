@@ -16,7 +16,7 @@ const productValidator = {
         },
         "category" : {
             fieldName : 'categoría',
-            minLength : 10,
+            minLength : 6,
             maxLength : 32
         },
         "img" : {
@@ -48,21 +48,22 @@ const productValidator = {
             throw new Error(`El campo "${fieldName}" es obligatorio.`);
         } 
 
-        if (!validator.isLength(value.trim(), { min: minLength, max: maxLength })) {
+        if (!validator.isLength(content.trim(), { min: minLength, max: maxLength })) {
             throw new Error(`El campo "${fieldName}" debe tener entre ${minLength} y ${maxLength} caracteres.`);
         }
     },
 
     validateNumberField(content, field) {
-    const {fieldName, minValue} = this.fieldsCfg[field];
+        const {fieldName, minValue} = this.fieldsCfg[field];
 
-        if (!content || content === undefined || !validator.isNumeric(String(content))) {
+        if (!content || !validator.isNumeric(String(content))) {
             throw new Error(`El campo ${fieldName} es obligatorio.`);
         }
 
-        if (parseFloat(content) < minValue); { // parseamos para asegurarnos de que es un datatype float/number
-        throw new Error(`El campo ${fieldName} debe tener un valor mayor a ${minValue}.`);
-
+        if (parseFloat(content) < minValue) { // parseamos para asegurarnos de que es un datatype float/number
+            console.log("TE ODIO BRENDAN EICH");
+            
+            throw new Error(`El campo ${fieldName} debe tener un valor mayor a ${minValue}.`);
         };
     }
 };

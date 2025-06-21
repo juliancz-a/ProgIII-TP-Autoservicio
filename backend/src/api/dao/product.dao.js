@@ -19,13 +19,13 @@ class ProductDao {
     }
 
     async updateById(id, product) {
-        return await Product.update(product, {
+        return await Product.update({ ...product }, {
             where : {id : id}
         })
     }
 
     async toggleEnabledById(id, enabled) {         
-        return await Product.update(enabled, {
+        return await Product.update({ enabled }, {
             where : {id : id}
         })
     }

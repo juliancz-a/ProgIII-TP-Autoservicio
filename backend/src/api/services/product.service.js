@@ -8,7 +8,7 @@ class ProductService {
     }
 
     async getAllAndIsEnabled() {
-      return await productDao.findAllAndIsEnabled;
+      return await productDao.findAllAndIsEnabled();
     }
 
     async getById(id) {
@@ -20,16 +20,16 @@ class ProductService {
 
     async create(body) {
       productValidator.validateProduct(body);
-      return await productDao.create(product)
+      return await productDao.create(body)
     }
 
     async updateById(id, body) {
       productValidator.validateProduct(body);
-      productDao.updateById(id, product)
+      await productDao.updateById(id, body)
     }
 
-    async toggleEnabledById(id, enabled) {
-      productDao.toggleEnabledById(id, enabled)
+    async patchEnabledById(id, enabled) {
+      await productDao.toggleEnabledById(id, enabled)
     }
 
     async deleteById(id) {

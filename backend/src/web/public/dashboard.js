@@ -8,11 +8,12 @@ const cancelBtn = document.getElementById('btn-cancel');
 let currentToggleBtn;
 const toggleButtons = document.querySelectorAll('.toggle-product');
 const enabledText = document.querySelectorAll('.status-active, .status-inactive')
+const editButtons = document.querySelectorAll('.edit-product');
 
 // Modal functions
 function activateModal() {
-    modal.classList.add('active');
-    renderModalContent()
+  modal.classList.add('active');
+  renderModalContent();
 }
 
 function renderModalContent() {
@@ -22,50 +23,69 @@ function renderModalContent() {
 }
 
 function closeModal() {
-    modalContent.classList.add('fade-out');
-    setTimeout(() => {
-      modal.classList.remove('active');
-      modalContent.classList.remove('fade-out');
-      const p = modalContent.querySelector('p');
-      if (p) {
-        modalContent.removeChild(p)
-      }
-    }, 250);
+  modalContent.classList.add('fade-out');
+  setTimeout(() => {
+    modal.classList.remove('active');
+    modalContent.classList.remove('fade-out');
+    const p = modalContent.querySelector('p');
+    if (p) {
+      modalContent.removeChild(p)
+    }
+  }, 250);
 }
 
 function confirm() {
-    const id = currentToggleBtn.dataset.id; // producto id
-    const enabled = currentToggleBtn.value == 0 ? 1 : 0; // status
-    const enabledText = document.querySelector(`[data-id="${id}"]`);
-    
-    const cfg = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        enabled : enabled
-      }),
-    };
-    
-    enabledText.classList.toggle('status-active')
+  const id = currentToggleBtn.dataset.id; // producto id
+  const enabled = currentToggleBtn.value !== "true";
+  const enabledText = document.querySelector(`[data-id="${id}"]`);
+  
+  const cfg = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      enabled
+    })
+  };
+  
+  if (enabled) {
+    enabledText.classList.add("status-active");
+    enabledText.innerHTML = "Activo";
+  } else {
+    enabledText.classList.remove("status-active");
+    enabledText.innerHTML = "Inactivo";
+  }
 
-    if (enabledText.className === 'status') {
-        enabledText.innerHTML = 'Inactivo'
-    } else {
-        enabledText.innerHTML = 'Activo'
-    }
-    
-    fetch(`https://neonbits.up.railway.app/products/${id}`, cfg)
-    closeModal()
+  fetch(`/products/${id}`, cfg)
+    .then(res => {
+      if (!res.ok) throw new Error("Error al actualizar el estado");
+      
+      currentToggleBtn.value = String(enabled); // mantenerlo como string "true"/"false"
+      closeModal();
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error al actualizar el producto.");
+    });
 }
 
 // Events
 toggleButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentToggleBtn = btn;
-      activateModal()
-    });
+  btn.addEventListener('click', () => {
+    currentToggleBtn = btn;
+    activateModal()
+  });
+});
+
+editButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const productId = button.dataset.id;
+    const currentUrl = new URL(window.location.href);
+    const username = currentUrl.searchParams.get("username");
+
+    window.location.href = `/dashboard/edit/${productId}?username=${username}`;
+  });
 });
   
 confirmBtn.addEventListener('click', confirm);
@@ -78,7 +98,7 @@ const navBtns = document.getElementById('nav-buttons')
 const sidebar = document.querySelector('.sidebar');
 
 hamburgerBtn.addEventListener('click', () => {
-    hamburgerBtn.classList.toggle('active') 
-    navBtns.classList.toggle('active')
-    sidebar.classList.toggle('active')
+  hamburgerBtn.classList.toggle('active') 
+  navBtns.classList.toggle('active')
+  sidebar.classList.toggle('active')
 })
