@@ -1,9 +1,9 @@
 import productService from '../services/product.service.js'
 
-class productController {
+class ProductController {
     findAllProducts = async (req, res)  => {
         try {
-            const products = await productService.findAll();
+            const products = await productService.getAll();
 
             res.status(200).json(products);
         } catch (error) {
@@ -16,7 +16,7 @@ class productController {
     findProductById = async (req, res)  => {
         try {
             let id = req.params.id;
-            const product = await productService.findById(id);
+            const product = await productService.getById(id);
 
             res.status(200).json(product);
         } catch (error) {
@@ -78,4 +78,4 @@ class productController {
 
 }
 
-export default new productController();
+export default new ProductController();
