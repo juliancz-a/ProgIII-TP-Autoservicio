@@ -10,7 +10,7 @@ Product.hasMany(SaleDetail, {
 })
 
 SaleDetail.belongsTo(Product, {
-    foreignKey: 'sale_id',
+    foreignKey: 'product_id',
     as: 'products'
 })
 

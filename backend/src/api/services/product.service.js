@@ -20,12 +20,12 @@ class ProductService {
 
     async create(body) {
       productValidator.validateProduct(body);
-      return await productDao.create(product)
+      return await productDao.create(body)
     }
 
     async updateById(id, body) {
       productValidator.validateProduct(body);
-      productDao.updateById(id, product)
+      productDao.updateById(id, body)
     }
 
     async toggleEnabledById(id, enabled) {

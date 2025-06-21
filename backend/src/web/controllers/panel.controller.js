@@ -5,7 +5,7 @@ const renderDashboard = async (req, res) => {
 
   if (!username) return res.redirect('/login');
 
-  const products = await productService.findAll();
+  const products = await productService.getAll();
 
   res.render('dashboard', {
     username,
@@ -19,7 +19,7 @@ const renderProductForm = async (req, res) => {
 
   if (!username) return res.redirect('/login');
 
-  const product = await productService.findById(id);
+  const product = await productService.getById(id);
   
   res.render('product-form', {
     product,

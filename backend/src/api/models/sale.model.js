@@ -13,14 +13,10 @@ const Sale = sequelize.define('sale', {
         type : DataTypes.STRING(256),
         allowNull : false
     },
-    date : {
-        type : DataTypes.DATE,
-        allowNull : false
-    },
     total : {
         type : DataTypes.INTEGER,
         allowNull : false
     }
-}, {tableName : 'sales'})
+}, {tableName : 'sales', timestamps : true, updatedAt: false})
 
 export default Sale

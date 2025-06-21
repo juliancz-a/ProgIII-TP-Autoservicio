@@ -3,6 +3,9 @@ import saleController from "../controllers/sale.controller.js";
 
 const router = Router();
 
-router.get('/', saleController.getAll)
+router.get('/', saleController.getAllSales);
+router.get('/', saleController.getSaleById);
+
+router.post('/', saleController.createSale)
 
 export default router;
