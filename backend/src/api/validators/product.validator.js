@@ -16,7 +16,7 @@ const productValidator = {
         },
         "category" : {
             fieldName : 'categoría',
-            minLength : 10,
+            minLength : 5,
             maxLength : 32
         },
         "img" : {
@@ -43,12 +43,14 @@ const productValidator = {
 
     validateStringField(content, field) {
         const {fieldName, minLength, maxLength} = this.fieldsCfg[field];
+        console.log(fieldName);
+        
 
         if (!content || validator.isEmpty(content.trim())) {
             throw new Error(`El campo "${fieldName}" es obligatorio.`);
         } 
 
-        if (!validator.isLength(value.trim(), { min: minLength, max: maxLength })) {
+        if (!validator.isLength(content.trim(), { min: minLength, max: maxLength })) {
             throw new Error(`El campo "${fieldName}" debe tener entre ${minLength} y ${maxLength} caracteres.`);
         }
     },
@@ -60,8 +62,8 @@ const productValidator = {
             throw new Error(`El campo ${fieldName} es obligatorio.`);
         }
 
-        if (parseFloat(content) < minValue); { // parseamos para asegurarnos de que es un datatype float/number
-        throw new Error(`El campo ${fieldName} debe tener un valor mayor a ${minValue}.`);
+        if (content < minValue) { // parseamos para asegurarnos de que es un datatype float/number
+            throw new Error(`El campo ${fieldName} debe tener un valor mayor a ${minValue}.`);
 
         };
     }

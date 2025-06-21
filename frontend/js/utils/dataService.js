@@ -1,8 +1,21 @@
 export async function fetchProducts() {
-    const response = await fetch('https://neonbits.up.railway.app/products')
+    const response = await fetch('http://localhost:5000/products')
     const data = await response.json()
     
     return data
+}
+
+export async function createSale(data) {
+    const dataJson =  JSON.stringify(data);
+
+    const cfg = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body : dataJson
+    }
+    await fetch('http://localhost:5000/sales', cfg)
 }
 
 export function getCart() {
