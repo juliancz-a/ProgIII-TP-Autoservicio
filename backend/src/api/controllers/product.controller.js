@@ -1,7 +1,7 @@
 import productService from '../services/product.service.js'
 
 class ProductController {
-    findAllProducts = async (req, res)  => {
+    getAllProducts = async (req, res)  => {
         try {
             const products = await productService.getAll();
 
@@ -13,7 +13,7 @@ class ProductController {
         }
     }
 
-    findProductById = async (req, res)  => {
+    getProductById = async (req, res)  => {
         try {
             let id = req.params.id;
             const product = await productService.getById(id);

@@ -1,4 +1,5 @@
-import { getFullCart, removeFromCart, updateProductQuantity, getTotalPrice, updateCartBtn } from "./utils/cartManager.js";
+import { getFullCart, removeFromCart, updateProductQuantity, getTotalPrice, updateCartBtn, getSaleBody } from "./utils/cartManager.js";
+import { createSale } from "./utils/dataService.js";
 import { redirectToMain, confirmPurchase, activateModal,  closeModal, setLoader} from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
@@ -188,12 +189,18 @@ let popupBody = {
     type: 'error'
 }
 
+
+
 // Modal Events
 checkoutBtn.addEventListener('click', () => {
     activateModal(modal, fullCart, popupBody)
 });
 mainRedirectBtn.addEventListener('click', redirectToMain);
-confirmBtn.addEventListener('click', confirmPurchase);
+confirmBtn.addEventListener('click', async () => {
+    confirmPurchase();
+    createSale(await getSaleBody())
+});
 cancelBtn.addEventListener('click', () => {
     closeModal(modal, modalContent)
 });
+

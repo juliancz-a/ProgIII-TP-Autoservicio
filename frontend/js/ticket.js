@@ -12,9 +12,9 @@ setLoader()
 const clientName = document.getElementById("client-name");
 const purchaseDate = document.getElementById("purchase-date");
 const exitBtn = document.getElementById('exit-btn');
-const tableContent = document.querySelector('.table-content')
-const tableFooterItem = document.querySelector('.footer-item')
-const logoBtn = document.getElementById('logo')
+const tableContent = document.querySelector('.table-content');
+const tableFooterItem = document.querySelector('.footer-item');
+const logoBtn = document.getElementById('logo');
 
 // Mapping data to DOM Elements
 clientName.textContent = getUser();
