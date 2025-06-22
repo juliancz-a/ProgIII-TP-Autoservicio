@@ -17,11 +17,11 @@ import sequelize from '../../config/db.js';
 
 class SaleDao {
     async findAll() {
-        return await Sale.findAll({ include: 'sale_details' });
+        return await Sale.findAll({ include: [{model : SaleDetail, as : 'sale_details'}]});
     }
 
     async findById(id) {
-        return await Sale.findByPk(id, { include: 'sale_details' });
+        return await Sale.findByPk(id, { include: [{model : SaleDetail, as : 'sale_details'}]});
     }
     
     async create(saleBody) {

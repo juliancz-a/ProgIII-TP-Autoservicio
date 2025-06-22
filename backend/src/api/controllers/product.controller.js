@@ -13,6 +13,18 @@ class ProductController {
         }
     }
 
+    getAllProductsOnCart = async (req, res)  => {
+        try {
+            const ids = req.body.ids  
+            const products = await productService.getAllByIds(ids);
+
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json('Server failure!');
+            console.log(error);
+        }
+    }
+
     getProductById = async (req, res)  => {
         try {
             let id = req.params.id;
@@ -25,12 +37,14 @@ class ProductController {
 
     }
 
+  
+
     createProduct = async (req, res)  => {
         try {
             const product = req.body;
             productService.create(product)
 
-            res.status(201).json('Created')
+            res.status(201).json('Product was created successfully');
         } catch (error) {
             res.status(500).json('Server failure')
         }

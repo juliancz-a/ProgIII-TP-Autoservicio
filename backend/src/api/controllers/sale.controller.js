@@ -21,7 +21,7 @@ class SaleController {
         }
     }
 
-     async createSale(req, res) {
+    async createSale(req, res) {
         try {
             const sale = await saleDao.create(req.body)
             res.status(201).json(sale);

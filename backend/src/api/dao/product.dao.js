@@ -10,6 +10,10 @@ class ProductDao {
         return await Product.findAll({where : {enabled : 1}})
     }
 
+    async findAllByIds(ids) {
+        return await Product.findAll({where : {id : ids}})
+    }
+
     async findById(id) {
         return await Product.findByPk(id);
     }

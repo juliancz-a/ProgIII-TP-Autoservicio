@@ -19,7 +19,7 @@
             <nav>
                 <ul id="nav-buttons" class="nav-buttons">
                     <li><a class="active" href="">Dashboard</a></li>
-                    <li><a href="">Orders</a></li>
+                    <li><a href="/dashboard/sales?username=<%= username %>">Orders</a></li>
                     <li><a href="">Products</a></li>
                     <li><a href="/login"><p>Logout</p><span class="material-symbols-outlined">logout</span></a></li>
                 </ul>
@@ -28,8 +28,8 @@
         <main class="main-content">
             <h1>Bienvenido, <%= username %></h1>
             <h2>Productos</h2>
-            <table class="products-table">
-                <thead class="products-head">
+            <table class="table">
+                <thead class="table-head">
                     <tr>
                         <th>ID</th>
                         <th>Título</th>
@@ -40,7 +40,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="products-body">
+                <tbody class="table-body">
                     <% if (products.length > 0) { %>
                         <% products.forEach(product => { %>
                             <tr>
