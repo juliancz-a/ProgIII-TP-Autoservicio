@@ -11,6 +11,10 @@ class ProductService {
       return await productDao.findAllAndIsEnabled();
     }
 
+    async getAllByIds(ids) {
+      return await productDao.findAllByIds(ids);
+    }
+
     async getById(id) {
       const productDb = await productDao.findById(id);
       if (!productDb) throw new Error(`Producto con id: ${id} no encontrado`)

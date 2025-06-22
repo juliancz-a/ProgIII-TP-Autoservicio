@@ -7,6 +7,8 @@ router.get('/', panelController.renderDashboard);
 
 router.get('/edit/:id', panelController.renderProductForm);
 
+router.get('/sales', panelController.renderSales)
+
 router.post('/edit/:id', panelController.validateProductForm);
 
 export default router;

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="/user.png" type="image/x-icon"><link rel="shortcut icon" href="/user.png" type="image/x-icon">
+        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <title>Ventas</title>
+    </head>
+    <body>
+        <aside class="sidebar">
+            <h2>Admin</h2>
+            <div class="hamburger-menu" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <nav>
+                <ul id="nav-buttons" class="nav-buttons">
+                    <li><a href="/dashboard?username=<%= username %>">Dashboard</a></li>
+                    <li><a class="active" href="">Orders</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="/login"><p>Logout</p><span class="material-symbols-outlined">logout</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <h1>Bienvenido, <%= username %></h1>
+            <h2>Ventas</h2>
+            <table class="table">
+                <thead class="table-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <% if (sales.length > 0) { %>
+                        <% sales.forEach(sale => { %>
+                            <tr>
+                                <td data-label="ID"><%= sale.id %></td>
+                                <td data-label="Cliente"><%= sale.client_name %></td>
+                                <td data-label="Total">$<%= sale.total %></td>
+                                <td data-label="Fecha"><%= sale.createdAt %></td>
+                                <td data-label="Acciones" class="actions">
+                                    <button value="<%= sale.id %>" class="view-details">Ver detalles</button>
+                                </td>
+                            </tr>
+                            <tr class="sale-details-row" data-id="<%=sale.id%>">
+                                <td colspan="5">
+                                    <table class="table nested-table">
+                                        <thead class="table-head nested-table-head">
+                                            <tr>
+                                                <th>ID Producto</th>
+                                                <th>Nombre Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio Unitario</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% sale.sale_details.forEach(saleDetail => {%>
+                                                <tr class="table-body nested-table-body">
+                                                    <td data-label="ID producto"><%=saleDetail.dataValues.product_id%></td>
+                                                    <td data-label="Nombre producto"><%=saleDetail.dataValues.product_name%></td>
+                                                    <td data-label="Cantidad"><%=saleDetail.dataValues.quantity%></td>
+                                                    <td data-label="Precio unitario">$<%=saleDetail.dataValues.unit_price%></td>
+                                                </tr>
+                                            <% })%>  
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>                            
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay ventas disponibles.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </main>
+    </body>
+        <script type="module" src="/sales.js"></script>
+</html>

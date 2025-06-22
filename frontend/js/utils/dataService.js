@@ -5,15 +5,28 @@ export async function fetchProducts() {
     return data
 }
 
-export async function createSale(data) {
-    const dataJson =  JSON.stringify(data);
-
+export async function fetchCartProducts(ids) {
     const cfg = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body : dataJson
+        body : JSON.stringify({ids : ids})
+    }
+
+    const response = await fetch('http://localhost:5000/products/cart', cfg);
+    const data = await response.json();
+
+    return data;
+}
+
+export async function createSale(data) {
+    const cfg = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body : JSON.stringify(data)
     }
     await fetch('http://localhost:5000/sales', cfg)
 }

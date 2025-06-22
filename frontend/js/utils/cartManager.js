@@ -1,4 +1,4 @@
-import { fetchProducts, getCart, saveCart, getUser} from "./dataService.js";
+import {getCart, saveCart, getUser, fetchCartProducts} from "./dataService.js";
 
 let cart = getCart();
 
@@ -7,9 +7,10 @@ export function getCurrentCart() {
 }
 
 export async function getFullCart() {
-    const productsDb = await fetchProducts() //check
+    const ids = cart.map(item => item.id)    
+    const productsDb = await fetchCartProducts(ids)    
     
-    const fullCart = getCart().map(cartItem => {
+    const fullCart = cart.map(cartItem => {
         const productData = productsDb.find(p => p.id === cartItem.id);
         return  {
             ...productData,
@@ -18,20 +19,6 @@ export async function getFullCart() {
     })
     return fullCart;
 }
-
-// const body = {
-//     client_name : 'Julian',
-//     total : 2500,
-//     products : [
-//         {
-//             id : 1,
-//             title : "Joystick",
-//             unit_price : 1250,
-//             quantity : 2
-//         }
-//     ]
-
-// }
 
 export async function getSaleBody() {
     const cart = await getFullCart();
