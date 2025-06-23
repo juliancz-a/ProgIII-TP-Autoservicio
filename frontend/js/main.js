@@ -122,7 +122,10 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
     fetchProducts().then(data => {
         let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
         
-        renderCards(products)
+        renderCards(products);
+    }).catch(err => {
+        console.log("NO LLEGA");
+        console.log(err);
     })
 
     categoryTitle.innerText = getMainTitle(selectedCategory)

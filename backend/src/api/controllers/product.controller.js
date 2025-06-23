@@ -13,6 +13,17 @@ class ProductController {
         }
     }
 
+    getAllProductsEnabled = async (req, res) => {
+        try {
+            const products = await productService.getAllAndIsEnabled();
+
+            res.status(200).json(products);
+        } catch (error) {
+            res.status(500).json('Server failure!')
+            console.log(error);
+        }
+    }
+
     getAllProductsOnCart = async (req, res)  => {
         try {
             const ids = req.body.ids  
