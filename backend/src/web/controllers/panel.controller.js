@@ -25,7 +25,18 @@ const renderProductForm = async (req, res) => {
   res.render('product-form', {
     product,
     username
-  })
+  });
+}
+
+const renderNewProductForm = async (req, res) => {
+  const { username } = req.query;
+
+  if (!username) return res.redirect('/login');
+  
+  res.render('product-form', {
+    product: null,
+    username
+  });
 }
 
 const renderSales = async (req, res) => {
@@ -57,9 +68,22 @@ const validateProductForm = async (req, res) => {
   })
 }
 
+const validateNewProductForm = async (req, res) => {
+  const { username } = req.query;
+  const formProduct = req.body;
+  
+  if (!username) return res.redirect('/login');
+
+  const newProduct = await productService.create(formProduct);
+
+  res.redirect(`/dashboard/edit/${newProduct.dataValues.id}?username=${encodeURIComponent(username)}`);
+}
+
 export default {
   renderDashboard,
   renderProductForm,
+  renderNewProductForm,
   renderSales,
-  validateProductForm
+  validateProductForm,
+  validateNewProductForm
 }

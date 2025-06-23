@@ -60,7 +60,6 @@ h1 {
   gap: 40px;
   margin-top: 25px;
   margin-bottom: 50px;
-  
 }
 
 .card {
@@ -104,7 +103,9 @@ h1 {
 }
 
 .card-text .title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  text-align: left;
+  text-justify: inter-word;
 }
 
 .card-text .title::after {
@@ -119,7 +120,7 @@ h1 {
 .card-text .description {
   font-size: 0.8rem;
   opacity: 0.6;
-  text-align: justify;
+  text-align: left;
   text-justify: inter-word;
   line-height: 1.4;
   padding: 2px;

@@ -1,6 +1,6 @@
 export async function fetchProducts() {
-    const response = await fetch('http://localhost:5000/products')
-    const data = await response.json()
+    const response = await fetch('http://localhost:5000/products/enabled');
+    const data = await response.json();
     
     return data
 }

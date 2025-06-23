@@ -28,7 +28,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 input[type=number] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .form-container {
@@ -162,11 +162,7 @@ input[type=number] {
 .status {
   display: inline-block;
   padding: 10px 20px;
-  border: 2px solid
-}
-
-.status-toggle {
-  
+  border: 2px solid;
 }
 
 .status-active {
@@ -204,6 +200,7 @@ input[type=number] {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  min-width: 25%;
 }
 
 .product-preview img {

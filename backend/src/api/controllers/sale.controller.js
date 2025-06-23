@@ -1,11 +1,20 @@
 import saleDao from "../dao/sale.dao.js";
+import formatUtils from "../utils/formatUtils.js";
 
 class SaleController {
 
     async getAllSales(req, res) {
         try {
-            const sales = await saleDao.findAll()
-            res.status(200).json(sales);
+            const sales = await saleDao.findAll();
+
+            const salesFormatted = sales.map(sale => (
+                {
+                    ...sale,
+                    creationDate: formatUtils.formatDate(sale.createdAt)
+                }
+            ))
+
+            res.status(200).json(salesFormatted);
         } catch (error) {
             res.status(500).json('Server failure');
         }

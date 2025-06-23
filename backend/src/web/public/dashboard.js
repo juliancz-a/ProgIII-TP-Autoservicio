@@ -3,12 +3,20 @@ const modal = document.getElementById('modal-confirm')
 const modalContent = modal.querySelector('.modal-content');
 const confirmBtn = document.getElementById('btn-confirm');
 const cancelBtn = document.getElementById('btn-cancel');
+const createBtn = document.getElementById('new-product-btn')
 
 // Table products DOM
 let currentToggleBtn;
 const toggleButtons = document.querySelectorAll('.toggle-product');
 const enabledText = document.querySelectorAll('.status-active, .status-inactive')
 const editButtons = document.querySelectorAll('.edit-product');
+
+createBtn.addEventListener('click', () => {
+  const currentUrl = new URL(window.location.href);
+  const username = currentUrl.searchParams.get("username");
+
+  window.location.href = `/dashboard/create?username=${username}`;
+})
 
 // Modal functions
 function activateModal() {
