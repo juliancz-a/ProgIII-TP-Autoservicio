@@ -1,29 +1,29 @@
-import saleDao from "../dao/sale.dao.js";
-import formatUtils from "../utils/formatUtils.js";
+import saleService from "../services/sale.service.js";
+import formatUtils from "../utils/formatUtils.js"
 
 class SaleController {
 
-    async getAllSales(req, res) {
+    getAllSales = async (req, res) => {
         try {
-            const sales = await saleDao.findAll();
+            const sales = await saleService.getAll();
 
-            const salesFormatted = sales.map(sale => (
-                {
-                    ...sale,
-                    creationDate: formatUtils.formatDate(sale.createdAt)
-                }
-            ))
+            const salesFormatted = sales.map(({ dataValues }) => ({
+                ...dataValues,
+                formattedDate: formatUtils.formatDate(dataValues.createdAt),
+                formattedPrice: formatUtils.formatPrice(dataValues.total)[0]
+            }));
 
             res.status(200).json(salesFormatted);
         } catch (error) {
             res.status(500).json('Server failure');
+            console.log(error);
         }
     }
 
     async getSaleById(req, res) {
         try {
             const {id} = req.params;
-            const sale = await saleDao.findById(id);
+            const sale = await saleService.getById(id);
             res.status(200).json(sale);
         } catch (error) {
             res.status(500).json('Server failure', error);
@@ -32,7 +32,7 @@ class SaleController {
 
     async createSale(req, res) {
         try {
-            const sale = await saleDao.create(req.body)
+            const sale = await saleService.create(req.body)
             res.status(201).json(sale);
         } catch (error) {
             res.status(500).json('Server failure', error);

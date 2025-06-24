@@ -38,7 +38,6 @@ class ProductService {
     async deleteById(id) {
       productDao.deleteById(id);
     }
-
   }
 
 export default new ProductService();

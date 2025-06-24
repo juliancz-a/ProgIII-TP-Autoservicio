@@ -9,7 +9,6 @@ class ProductController {
         } catch (error) {
             res.status(500).json('Server failure!')
             console.log(error);
-            
         }
     }
 

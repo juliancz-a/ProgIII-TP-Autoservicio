@@ -44,8 +44,8 @@
                             <tr>
                                 <td data-label="ID"><%= sale.id %></td>
                                 <td data-label="Cliente"><%= sale.client_name %></td>
-                                <td data-label="Total">$<%= sale.total %></td>
-                                <td data-label="Fecha"><%= sale.createdAt %></td>
+                                <td data-label="Total">$<%= sale.formattedPrice %></td>
+                                <td data-label="Fecha"><%= sale.formattedDate %></td>
                                 <td data-label="Acciones" class="actions">
                                     <button value="<%= sale.id %>" class="view-details">Ver detalles</button>
                                 </td>

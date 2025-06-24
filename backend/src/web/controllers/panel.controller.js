@@ -1,5 +1,6 @@
 import productService from "../../api/services/product.service.js";
-import saleDao from "../../api/dao/sale.dao.js";
+import saleService from "../../api/services/sale.service.js"
+import formatUtils from "../../api/utils/formatUtils.js";
 
 const renderDashboard = async (req, res) => {
   const { username } = req.query;
@@ -44,7 +45,13 @@ const renderSales = async (req, res) => {
 
   if (!username) return res.redirect('/login');
 
-  const sales = await saleDao.findAll()
+  const dbSales = await saleService.getAll();
+
+  const sales = dbSales.map(sale => ({
+    ...sale.dataValues,
+    formattedDate: formatUtils.formatDate(sale.createdAt),
+    formattedPrice: formatUtils.formatPrice(sale.total)[0]
+  }));
 
   res.render('sales', {
     username,
