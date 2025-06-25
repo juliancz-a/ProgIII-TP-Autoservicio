@@ -1,7 +1,8 @@
 function formatDate(date) {
   return new Intl.DateTimeFormat('es-AR', {
     dateStyle: 'long',
-    timeStyle: 'short',
+    timeStyle: 'medium',
+    hour12: false
   }).format(new Date(date));
 }
 

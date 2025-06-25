@@ -3,15 +3,23 @@ import saleService from "../../api/services/sale.service.js"
 import formatUtils from "../../api/utils/formatUtils.js";
 
 const renderDashboard = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;     // página actual
+  const limit = parseInt(req.query.limit) || 10;  // ítems por página
+  const offset = (page - 1) * limit;
   const { username } = req.query;
 
   if (!username) return res.redirect('/login');
 
-  const products = await productService.getAll();
+  const { count, rows } = await productService.getAll(limit, offset);
 
   res.render('dashboard', {
     username,
-    products,
+    pagination: {
+      totalItems: count,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+      products: rows
+    }
   });
 };
 
@@ -41,13 +49,16 @@ const renderNewProductForm = async (req, res) => {
 }
 
 const renderSales = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;     // página actual
+  const limit = parseInt(req.query.limit) || 10;  // ítems por página
+  const offset = (page - 1) * limit;
   const { username } = req.query;
 
   if (!username) return res.redirect('/login');
 
-  const dbSales = await saleService.getAll();
+  const { count, rows } = await saleService.getAll(limit, offset);
 
-  const sales = dbSales.map(sale => ({
+  const sales = rows.map(sale => ({
     ...sale.dataValues,
     formattedDate: formatUtils.formatDate(sale.createdAt),
     formattedPrice: formatUtils.formatPrice(sale.total)[0]
@@ -55,7 +66,12 @@ const renderSales = async (req, res) => {
 
   res.render('sales', {
     username,
-    sales,
+    pagination: {
+      totalItems: count,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+      sales
+    }
   });
 }
 

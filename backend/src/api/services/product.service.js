@@ -3,8 +3,8 @@ import productValidator from "../validators/product.validator.js";
 
 class ProductService {
 
-    async getAll() {
-      return await productDao.findAll();
+    async getAll(limit, offset) {
+      return await productDao.findAll(limit, offset);
     }
 
     async getAllAndIsEnabled() {

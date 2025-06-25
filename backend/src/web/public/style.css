@@ -123,15 +123,11 @@ body {
   display: flex;
   flex-direction: column;
   margin: 2rem 5rem;
+  gap: 3dvh;
 }
 
 .main-content h1 {
-  margin-bottom: 2rem;
   color: var(--accent-primary);
-}
-
-.main-content h2 {
-  margin-bottom: 1rem;
 }
 
 #new-product-btn {
@@ -172,7 +168,7 @@ body {
 
 .table-head th {
   color: var(--accent-primary);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 1px solid #444;
@@ -312,6 +308,48 @@ tbody tr:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.pagination-previous,
+.pagination-pages,
+.pagination-next {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.pagination a {
+  padding: 8px 14px;
+  text-decoration: none;
+  border: 1px solid var(--accent-primary);
+  border-radius: 6px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent-primary);
+  background-color: transparent;
+  transition: 0.2s ease-in-out;
+}
+
+.pagination a span.material-symbols-outlined {
+  vertical-align: middle;
+}
+
+.pagination a:hover {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+.pagination a.active {
+  background-color: #ea580c;
+  color: white;
+  border-color: #ea580c;
+}
+
 
 @keyframes modalFadeIn {
   0% {
