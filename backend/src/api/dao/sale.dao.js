@@ -16,8 +16,14 @@ import sequelize from '../../config/db.js';
 // }
 
 class SaleDao {
-    async findAll() {
-        return await Sale.findAll({ include: [{model : SaleDetail, as : 'sale_details'}]});
+    async findAll(limit, offset) {
+        return await Sale.findAndCountAll({
+            limit,
+            offset,
+            order: [['createdAt', 'ASC']], 
+            include: [{model : SaleDetail, as : 'sale_details'}],
+            distinct: true
+        });
     }
 
     async findById(id) {

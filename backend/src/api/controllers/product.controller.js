@@ -3,9 +3,18 @@ import productService from '../services/product.service.js'
 class ProductController {
     getAllProducts = async (req, res)  => {
         try {
-            const products = await productService.getAll();
+            const page = parseInt(req.query.page) || 1;     // página actual
+            const limit = parseInt(req.query.limit) || 10;  // ítems por página
+            const offset = (page - 1) * limit;
 
-            res.status(200).json(products);
+            const { count, rows } = await productService.getAll(limit, offset);
+
+            res.status(200).json({
+                totalItems: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page,
+                products: rows
+            });
         } catch (error) {
             res.status(500).json('Server failure!')
             console.log(error);

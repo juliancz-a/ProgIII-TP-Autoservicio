@@ -2,8 +2,12 @@ import {Product} from "../models/index.js";
 
 class ProductDao {
 
-    async findAll() {
-        return await Product.findAll()
+    async findAll(limit, offset) {
+        return await Product.findAndCountAll({
+            limit,
+            offset,
+            order: [['createdAt', 'ASC']]
+        });
     }
 
     async findAllAndIsEnabled() {

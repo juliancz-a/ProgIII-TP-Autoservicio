@@ -5,15 +5,24 @@ class SaleController {
 
     getAllSales = async (req, res) => {
         try {
-            const sales = await saleService.getAll();
+            const page = parseInt(req.query.page) || 1;     // página actual
+            const limit = parseInt(req.query.limit) || 10;  // ítems por página
+            const offset = (page - 1) * limit;
 
-            const salesFormatted = sales.map(({ dataValues }) => ({
+            const { count, rows } =  await saleService.getAll(limit, offset);
+
+            const salesFormatted = rows.map(({ dataValues }) => ({
                 ...dataValues,
                 formattedDate: formatUtils.formatDate(dataValues.createdAt),
                 formattedPrice: formatUtils.formatPrice(dataValues.total)[0]
             }));
 
-            res.status(200).json(salesFormatted);
+            res.status(200).json({
+                totalItems: count,
+                totalPages: Math.ceil(count / limit),
+                currentPage: page,
+                sales: salesFormatted
+            });
         } catch (error) {
             res.status(500).json('Server failure');
             console.log(error);
