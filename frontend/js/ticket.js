@@ -1,12 +1,9 @@
 import { getFullCart , getTotalPrice} from "./utils/cartManager.js";
 import { getUser, getCurrentDate, restartService } from "./utils/dataService.js";
-import { setLoader } from "./utils/uiHelpers.js";
 
 getFullCart().then(cart => {
     renderTicket(cart)
 })
-
-setLoader()
 
 // DOM Elements 
 const clientName = document.getElementById("client-name");
