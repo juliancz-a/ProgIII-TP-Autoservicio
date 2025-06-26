@@ -2,16 +2,31 @@ import {Product} from "../models/index.js";
 
 class ProductDao {
 
-    async findAll(limit, offset) {
+    async findAll(limit = 10, offset = 0) {
         return await Product.findAndCountAll({
             limit,
             offset,
-            order: [['createdAt', 'ASC']]
+            order: [
+                ['createdAt', 'ASC']
+            ]
         });
     }
 
-    async findAllAndIsEnabled() {
-        return await Product.findAll({where : {enabled : 1}})
+    async findAllAndIsEnabled(limit = 10, offset = 0, category = null) {
+        const where = { enabled: true };
+        
+        if (category) {
+            where.category = category;
+        }
+
+        return await Product.findAndCountAll({
+            limit,
+            offset,
+            order: [
+                ['createdAt', 'ASC']
+            ],
+            where
+        });
     }
 
     async findAllByIds(ids) {

@@ -3,14 +3,20 @@ import saleService from "../../api/services/sale.service.js"
 import formatUtils from "../../api/utils/formatUtils.js";
 
 const renderDashboard = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;     // página actual
-  const limit = parseInt(req.query.limit) || 10;  // ítems por página
-  const offset = (page - 1) * limit;
   const { username } = req.query;
 
   if (!username) return res.redirect('/login');
+  
+  const page = parseInt(req.query.page) || 1;     // página actual
+  const limit = parseInt(req.query.limit) || 10;  // ítems por página
+  const offset = (page - 1) * limit;
 
   const { count, rows } = await productService.getAll(limit, offset);
+
+  const products = rows.map(product => ({
+    ...product.dataValues,
+    formattedPrice: formatUtils.formatPrice(product.price)
+  })) 
 
   res.render('dashboard', {
     username,
@@ -18,7 +24,7 @@ const renderDashboard = async (req, res) => {
       totalItems: count,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
-      products: rows
+      products
     }
   });
 };
@@ -49,19 +55,20 @@ const renderNewProductForm = async (req, res) => {
 }
 
 const renderSales = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;     // página actual
-  const limit = parseInt(req.query.limit) || 10;  // ítems por página
-  const offset = (page - 1) * limit;
   const { username } = req.query;
 
   if (!username) return res.redirect('/login');
+
+  const page = parseInt(req.query.page) || 1;     // página actual
+  const limit = parseInt(req.query.limit) || 10;  // ítems por página
+  const offset = (page - 1) * limit;
 
   const { count, rows } = await saleService.getAll(limit, offset);
 
   const sales = rows.map(sale => ({
     ...sale.dataValues,
     formattedDate: formatUtils.formatDate(sale.createdAt),
-    formattedPrice: formatUtils.formatPrice(sale.total)[0]
+    formattedPrice: formatUtils.formatPrice(sale.total)
   }));
 
   res.render('sales', {
