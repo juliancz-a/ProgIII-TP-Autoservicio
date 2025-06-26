@@ -16,7 +16,6 @@ h1 {
   text-shadow: 0 0 5px rgba(229, 229, 255, 0.3);
 }
 
-
 .container {
   width: 100%;
   display: flex;
@@ -205,19 +204,19 @@ h1 {
     320deg,
     rgba(0, 77, 139, 0.767),
     rgba(83, 0, 83, 0.541)
-    );
+  );
     
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .card-buy-button:hover {
-    background-color: #451459;
-    transform: scale(1.05);
-  }
+  background-color: #451459;
+  transform: scale(1.05);
+}
   
 
 .card-added {
-    background-image: linear-gradient(144deg, #ffc340, #f3428c 50%, #db3551);
+  background-image: linear-gradient(144deg, #ffc340, #f3428c 50%, #db3551);
 }
 
 .quantityWrapper {
@@ -235,7 +234,6 @@ h1 {
   padding: 0.5rem;
   display: flex;
   gap: 1rem;
-  background-color: #1a1a2e;
   border-radius: 10px;
   margin-bottom: 25px;
 }
@@ -243,12 +241,18 @@ h1 {
 .pagination .page-item {
   text-decoration: none;
   padding: 0.5rem 1rem;
+  background-color: #1a1a2e;
   border: 1px solid rgba(255, 42, 110, 0.741);
   box-shadow: 0 0 5px rgba(255, 42, 110, 0.351);
   color: #ff2a6d;
   font-weight: bold;
   transition: 250ms;
   border-radius: 10px;
+  user-select: none;
+}
+
+.pagination .page-item.active {
+  color: green;
 }
 
 .pagination .page-item:hover {
@@ -258,13 +262,12 @@ h1 {
 }
 
 .added {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    padding: 5px;
-    color: white;
-    background-image: linear-gradient(144deg, #4340ff, #424ef3 50%, #3582db);
-
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  padding: 5px;
+  color: white;
+  background-image: linear-gradient(144deg, #4340ff, #424ef3 50%, #3582db);
 }
 
 @media(max-width : 480px) {
@@ -294,9 +297,7 @@ h1 {
 
   .card-content .card-image img {
     object-fit: cover;
-    
   }
-
   
   .card-content .card-text {
     width: 100%;

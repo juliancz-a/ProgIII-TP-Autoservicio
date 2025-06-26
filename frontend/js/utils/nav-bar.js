@@ -8,7 +8,6 @@ const ball = document.querySelector('.ball');
 
 toggleBtn.addEventListener('change', () => {
     updateColorSchema();
-
 })
 
 function updateColorSchema() {
