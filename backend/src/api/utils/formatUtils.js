@@ -10,7 +10,7 @@ function formatPrice(price) {
   return price.toLocaleString("es-AR", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
-  }).split(",");
+  }).split(",")[0];
 }
 
 export default {

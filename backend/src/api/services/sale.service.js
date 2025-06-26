@@ -2,7 +2,7 @@ import saleDao from "../dao/sale.dao.js";
 
 class SaleService {
 
-    async getAll(limit, offset) { 
+    async getAll(limit = 10, offset = 0) { 
         return await saleDao.findAll(limit, offset);
     }
 

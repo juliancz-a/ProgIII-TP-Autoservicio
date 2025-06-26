@@ -49,7 +49,7 @@
                                 <td data-label="Título"><%= product.title %></td>
                                 <td data-label="Descripción"><%= product.description %></td>
                                 <td data-label="Categoría"><%= product.category.charAt(0).toUpperCase() + product.category.slice(1) %></td>
-                                <td data-label="Precio">$<%= product.price.toFixed(2) %></td>
+                                <td data-label="Precio">$<%= product.formattedPrice %></td>
                                 <td data-label="Estado" class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
                                     <%= product.enabled ? 'Activo' : 'Inactivo' %> </td>
                                 <td data-label="Acciones" class="actions">
@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="pagination-pages">
-                        <% const start = Math.max(1, pagination.currentPage - 2); %>
-                        <% const end = Math.min(pagination.totalPages, pagination.currentPage + 2); %>
+                        <% const start = Math.max(1, pagination.currentPage - 3); %>
+                        <% const end = Math.min(pagination.totalPages, pagination.currentPage + 3); %>
                         <% for (let i = start; i <= end; i++) { %>
                         <a href="?page=<%= i %>&username=<%= username %>" class="<%= pagination.currentPage === i ? 'active' : '' %>">
                             <%= i %>

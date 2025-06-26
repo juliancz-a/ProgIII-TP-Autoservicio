@@ -3,12 +3,12 @@ import productValidator from "../validators/product.validator.js";
 
 class ProductService {
 
-    async getAll(limit, offset) {
+    async getAll(limit = 10, offset = 0) {
       return await productDao.findAll(limit, offset);
     }
 
-    async getAllAndIsEnabled() {
-      return await productDao.findAllAndIsEnabled();
+    async getAllAndIsEnabled(limit = 10, offset = 0, category = null) {
+      return await productDao.findAllAndIsEnabled(limit, offset, category);
     }
 
     async getAllByIds(ids) {

@@ -181,7 +181,7 @@ th {
 tbody td {
   color: var(--text-muted);
   border-bottom: 1px solid #333;
-  font-size: 0.95rem;
+  font-size: 1.03rem;
 }
 
 tbody tr:hover {
@@ -207,7 +207,7 @@ tbody tr:hover {
 }
 
 .actions button {
-  font-size: 0.9rem;
+  font-size: 1rem;
   padding: 6px 10px;
   border-radius: 4px;
   border: none;
@@ -215,6 +215,7 @@ tbody tr:hover {
   font-weight: 600;
   transition: background 0.2s;
   width: 100%;
+  color: black;
 }
 
 .actions button:hover {
@@ -223,12 +224,10 @@ tbody tr:hover {
 
 .actions button:first-child {
   background-color: #008CBA;
-  color: #fff;
 }
 
 .actions button:last-child {
   background-color: var(--success);
-  color: #fff;
 }
 
 .modal-overlay {

@@ -16,7 +16,7 @@ import sequelize from '../../config/db.js';
 // }
 
 class SaleDao {
-    async findAll(limit, offset) {
+    async findAll(limit = 10, offset = 0) {
         return await Sale.findAndCountAll({
             limit,
             offset,

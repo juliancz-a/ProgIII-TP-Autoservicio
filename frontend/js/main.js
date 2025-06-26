@@ -113,26 +113,67 @@ function getMainTitle(category) {
     return titles[category] || 'Nuestros productos';
 }
 
+function renderPagination(pagination) {
+    const paginationContainer = document.getElementById('pagination');
+    if (!paginationContainer || !pagination) return;
+
+    const { currentPage, totalPages } = pagination;
+
+    const fragment = document.createDocumentFragment();
+
+    if (currentPage > 1) {
+        const prev = createPaginationLink(currentPage - 1, '<');
+        fragment.appendChild(prev);
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = createPaginationLink(i, i);
+        if (i === currentPage) pageBtn.classList.add('active');
+        fragment.appendChild(pageBtn);
+    }
+
+    if (currentPage < totalPages) {
+        const next = createPaginationLink(currentPage + 1, '>');
+        fragment.appendChild(next);
+    }
+
+    paginationContainer.replaceChildren(fragment);
+}
+
+function createPaginationLink(page, label) {
+    const link = document.createElement('a');
+    const params = new URLSearchParams(window.location.search);
+    params.set('page', page);
+
+    link.href = `?${params.toString()}`;
+    link.className = 'page-item'
+    link.textContent = label;
+
+    return link;
+}
+
+
 function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
     const params = new URLSearchParams(window.location.search) //URLSearchParams => obj con los params
     let selectedCategory = params.get('category'); // accessory / component / featured (all)
-
-    if (!selectedCategory) selectedCategory = 'featured'; 
+    let currentPage = parseInt(params.get('page')) || 1;
     
-    fetchProducts().then(data => {
-        let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
-        
+    fetchProducts(currentPage, selectedCategory).then(data => {
+        let products = data.products;
+
         renderCards(products);
+        renderPagination(data.pagination)
     }).catch(err => {
-        console.log("NO LLEGA");
         console.log(err);
     })
 
-    categoryTitle.innerText = getMainTitle(selectedCategory)
-    const selectedBtn = document.querySelector(`.categories-button[value=${selectedCategory}]`)
-    selectedBtn.classList.add('selected')
-    
+    const fallbackCategory = selectedCategory || 'featured';
+
+    categoryTitle.innerText = getMainTitle(selectedCategory);
+    const selectedBtn = document.querySelector(`.categories-button[value=${fallbackCategory || 'feature'}]`)
+    selectedBtn.classList.add('selected');
 }
+
 function processQuery() {
     clearTimeout(debounceTimeout); // Reinicia el temporizador
 

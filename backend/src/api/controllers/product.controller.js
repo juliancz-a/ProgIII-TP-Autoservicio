@@ -4,7 +4,7 @@ class ProductController {
     getAllProducts = async (req, res)  => {
         try {
             const page = parseInt(req.query.page) || 1;     // página actual
-            const limit = parseInt(req.query.limit) || 10;  // ítems por página
+            const limit = parseInt(req.query.limit) || 12;  // ítems por página
             const offset = (page - 1) * limit;
 
             const { count, rows } = await productService.getAll(limit, offset);
@@ -23,9 +23,26 @@ class ProductController {
 
     getAllProductsEnabled = async (req, res) => {
         try {
-            const products = await productService.getAllAndIsEnabled();
+            const page = parseInt(req.query.page) || 1;     // página actual
+            const limit = parseInt(req.query.limit) || 12;  // ítems por página
+            const category = req.query.category;
+            console.log(category);
+            
 
-            res.status(200).json(products);
+            const offset = (page - 1) * limit;
+
+            const { count, rows } = await productService.getAllAndIsEnabled(limit, offset, category);
+            
+            const totalPages = Math.ceil(count / limit);
+
+            res.status(200).json({
+                products: rows,
+                pagination: {
+                    totalItems: count,
+                    currentPage: page,
+                    totalPages
+                }
+            });
         } catch (error) {
             res.status(500).json('Server failure!')
             console.log(error);
