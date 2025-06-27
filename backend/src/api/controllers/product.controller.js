@@ -26,8 +26,6 @@ class ProductController {
             const page = parseInt(req.query.page) || 1;     // página actual
             const limit = parseInt(req.query.limit) || 12;  // ítems por página
             const category = req.query.category;
-            console.log(category);
-            
 
             const offset = (page - 1) * limit;
 
@@ -72,8 +70,6 @@ class ProductController {
         }
 
     }
-
-  
 
     createProduct = async (req, res)  => {
         try {

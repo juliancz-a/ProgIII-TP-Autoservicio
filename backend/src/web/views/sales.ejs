@@ -39,8 +39,8 @@
                     </tr>
                 </thead>
                 <tbody class="table-body">
-                    <% if (pagination.sales.length > 0) { %>
-                        <% pagination.sales.forEach(sale => { %>
+                    <% if (sales.length > 0) { %>
+                        <% sales.forEach(sale => { %>
                             <tr>
                                 <td data-label="ID"><%= sale.id %></td>
                                 <td data-label="Cliente"><%= sale.client_name %></td>
@@ -67,7 +67,7 @@
                                                     <td data-label="ID producto"><%=saleDetail.dataValues.product_id%></td>
                                                     <td data-label="Nombre producto"><%=saleDetail.dataValues.product_name%></td>
                                                     <td data-label="Cantidad"><%=saleDetail.dataValues.quantity%></td>
-                                                    <td data-label="Precio unitario">$<%=saleDetail.dataValues.unit_price%></td>
+                                                    <td data-label="Precio unitario">$<%=saleDetail.formattedPrice%></td>
                                                 </tr>
                                             <% })%>  
                                         </tbody>
@@ -81,33 +81,9 @@
                         </tr>
                     <% } %>
                 </tbody>
-            </table>
-            <% if (pagination.sales) { %>
-                <div class="pagination">
-                    <div class="pagination-previous">
-                        <% if (pagination.currentPage > 1) { %>
-                            <a href="?page=1&username=<%= username %>"><span class="material-symbols-outlined">first_page</span></a>
-                            <a href="?page=<%= pagination.currentPage - 1 %>&username=<%= username %>"><span class="material-symbols-outlined">chevron_left</span></a>
-                        <% } %>
-                    </div>
-
-                    <div class="pagination-pages">
-                        <% const start = Math.max(1, pagination.currentPage - 2); %>
-                        <% const end = Math.min(pagination.totalPages, pagination.currentPage + 2); %>
-                        <% for (let i = start; i <= end; i++) { %>
-                        <a href="?page=<%= i %>&username=<%= username %>" class="<%= pagination.currentPage === i ? 'active' : '' %>">
-                            <%= i %>
-                        </a>
-                        <% } %>
-                    </div>
-
-                    <div class="pagination-next">
-                        <% if (pagination.currentPage < pagination.totalPages) { %>
-                            <a href="?page=<%= pagination.currentPage + 1 %>&username=<%= username %>"><span class="material-symbols-outlined">chevron_right</span></a>
-                            <a href="?page=<%= pagination.totalPages %>&username=<%= username %>"><span class="material-symbols-outlined">last_page</span></a>
-                        <% } %>
-                    </div>
-                </div> 
+            </table> 
+            <% if (sales) { %>
+                <%- include('./partials/pagination.ejs') %>
             <% } %>
         </main>
     </body>

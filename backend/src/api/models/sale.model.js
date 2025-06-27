@@ -14,7 +14,7 @@ const Sale = sequelize.define('sale', {
         allowNull : false
     },
     total : {
-        type : DataTypes.INTEGER,
+        type : DataTypes.DOUBLE(15,2),
         allowNull : false
     }
 }, {tableName : 'sales', timestamps : true, updatedAt: false})

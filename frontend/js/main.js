@@ -159,9 +159,8 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
     let currentPage = parseInt(params.get('page')) || 1;
     
     fetchProducts(currentPage, selectedCategory).then(data => {
-        let products = data.products;
 
-        renderCards(products);
+        renderCards(data.products);
         renderPagination(data.pagination)
     }).catch(err => {
         console.log(err);
@@ -185,8 +184,7 @@ function processQuery() {
 
 function executeSearch(query) {
     fetchProducts().then(data => {
-        let products = data;
-        const filteredItems = products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
+        const filteredItems = data.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
         renderCards(filteredItems);
     })
 }
