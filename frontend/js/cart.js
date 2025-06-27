@@ -1,6 +1,6 @@
 import { getFullCart, removeFromCart, updateProductQuantity, getTotalPrice, updateCartBtn, getSaleBody } from "./utils/cartManager.js";
 import { createSale } from "./utils/dataService.js";
-import { redirectToMain, confirmPurchase, activateModal,  closeModal, setLoader} from "./utils/uiHelpers.js";
+import { redirectToMain, confirmPurchase, activateModal,  closeModal } from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "login.html";
@@ -169,8 +169,6 @@ getFullCart().then(cart => {
     renderCart(fullCart);
     updateCartBtn(fullCart, quantityIcon)
 })
-
-setLoader()
 
 //Modal Management
 // DOM Elements //

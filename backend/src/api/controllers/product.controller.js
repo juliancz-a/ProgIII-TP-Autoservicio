@@ -10,10 +10,12 @@ class ProductController {
             const { count, rows } = await productService.getAll(limit, offset);
 
             res.status(200).json({
-                totalItems: count,
-                totalPages: Math.ceil(count / limit),
-                currentPage: page,
-                products: rows
+                products: rows,
+                pagination: {
+                    totalItems: count,
+                    totalPages: Math.ceil(count / limit),
+                    currentPage: page,
+                }
             });
         } catch (error) {
             res.status(500).json('Server failure!')

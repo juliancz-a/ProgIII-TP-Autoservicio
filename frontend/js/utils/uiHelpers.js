@@ -47,24 +47,24 @@ function closeModal(modal, modalContent) {
 
 function confirmPurchase() {
     setTimeout(() => {
-            window.location.href = "./checkout.html";
-        }, 500)
+        window.location.href = "./checkout.html";
+    }, 500)
 }
 
 // LOADING SPINNER MANAGEMENT
-function setLoader() {
-    document.addEventListener('DOMContentLoaded', () => {
-        const loader = document.getElementById("loader");
+// function setLoader() {
+//     document.addEventListener('DOMContentLoaded', () => {
+//         const loader = document.getElementById("loader");
         
-        window.addEventListener("load", () => {
-            loader.style.opacity = "0";
-            loader.style.pointerEvents = "none";
-            setTimeout(() => {
-                loader.remove();
-            }, 300); 
-        });
-    });
+//         window.addEventListener("load", () => {
+//             loader.style.opacity = "0";
+//             loader.style.pointerEvents = "none";
+//             setTimeout(() => {
+//                 loader.remove();
+//             }, 300); 
+//         });
+//     });
 
-}
+// }
 
-export {showPopup, closeModal, confirmPurchase, redirectToMain, activateModal, setLoader}
+export {showPopup, closeModal, confirmPurchase, redirectToMain, activateModal}

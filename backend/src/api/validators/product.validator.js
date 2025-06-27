@@ -8,7 +8,6 @@ const productValidator = {
             minLength : 10,
             maxLength : 256
         },
-
         "description" : {
             fieldName : 'descripción',
             minLength : 10,
@@ -37,7 +36,6 @@ const productValidator = {
         this.validateStringField(description, "description");
         this.validateStringField(category, "category");
         this.validateStringField(img, "img");
-
         this.validateNumberField(price, "price");
     },
 

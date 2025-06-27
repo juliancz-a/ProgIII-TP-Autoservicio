@@ -555,26 +555,30 @@ main {
   filter: drop-shadow(0 0 3px var(--accent-secondary)) drop-shadow(0 0 5px var(--accent));
 }
 
-#loader {
+.spinner-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #1a1a2e; /* o blanco si es light */
+  background-color: rgba(0, 0, 0, 0.395); /* Fondo semi-transparente */
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 9999;
 }
 
-.loader-spinner {
+.spinner {
   border: 7px solid rgba(255, 255, 255, 0.1);
   border-top: 7px solid #ff2a6d; /* tu color acento */
   border-radius: 50%;
   width: 80px;
   height: 80px;
   animation: spin 1s linear infinite;
+}
+
+.hidden {
+  display: none;
 }
 
 /* POPUPS */
@@ -590,7 +594,6 @@ main {
 
 }
 .popup {
-
   padding: 12px;
 
   display: flex;
@@ -620,7 +623,6 @@ main {
     transform: translateY(20px);
   }
 }
-
 
 @keyframes spin {
   to {
