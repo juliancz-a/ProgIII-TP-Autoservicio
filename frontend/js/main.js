@@ -170,10 +170,8 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
     showSpinner();
 
     fetchProducts(currentPage, selectedCategory).then(data => {
-        let products = data.products;
-
-        renderCards(products);
-        renderPagination(data.pagination);
+        renderCards(data.products);
+        renderPagination(data.pagination)
     }).catch(err => {
         console.error("Error al cargar productos", err);
         renderEmptySite();
@@ -207,8 +205,7 @@ function hideSpinner() {
 
 function executeSearch(query) {
     fetchProducts().then(data => {
-        let products = data.products;
-        const filteredItems = products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
+        const filteredItems = data.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
         renderCards(filteredItems);
     }).catch(err => {
         console.error("Error en la búsqueda", err);

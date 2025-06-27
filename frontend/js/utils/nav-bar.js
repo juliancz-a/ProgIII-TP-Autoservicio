@@ -1,3 +1,5 @@
+import { restartService } from "./dataService.js";
+
 ////////////////// NAV BAR TOGGLE LIGHT/DARK MODE BTN /////////////
 
 const toggleBtn = document.getElementById('toggle');
@@ -32,10 +34,12 @@ const categoriesBtns = document.getElementsByClassName('categories-button')
 ////////////////// NAV BAR HAMBURGUER BUTTON  => //////////////////
 const hamburguerBtn = document.getElementById('hamburger');
 const navContent = document.getElementById('nav-content')
+const navCategories = document.getElementById('nav-categories')
 
 hamburguerBtn.addEventListener('click', () => {
-    hamburguerBtn.classList.toggle('active') //cambiar clase de los elementos mobile a active
-    navContent.classList.toggle('active')
+    hamburguerBtn.classList.toggle('active'); //cambiar clase de los elementos mobile a active
+    navContent.classList.toggle('active');
+    navCategories.classList.toggle('active');
 })
 
 ////////////////// NAV BAR CATEGORIES BUTTONS => //////////////////
@@ -50,6 +54,10 @@ for (const btn of categoriesBtns) {
         
     })
 }
+
+////////////////// NAV BAR LOGOUT BUTTON  //////////////////
+const logoutBtn = document.getElementById('logout-button')
+logoutBtn.addEventListener('click', restartService);
 
 //establecer direccion url a dirigir - establecer parametro en la URL con la categoria
 function redirectToCategory(category) {

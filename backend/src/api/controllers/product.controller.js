@@ -73,8 +73,6 @@ class ProductController {
 
     }
 
-  
-
     createProduct = async (req, res)  => {
         try {
             const product = req.body;

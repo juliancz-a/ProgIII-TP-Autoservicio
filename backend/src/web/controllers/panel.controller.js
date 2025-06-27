@@ -17,14 +17,15 @@ const renderDashboard = async (req, res) => {
     ...product.dataValues,
     formattedPrice: formatUtils.formatPrice(product.price)
   })) 
+  
 
   res.render('dashboard', {
     username,
+    products,
     pagination: {
       totalItems: count,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
-      products
     }
   });
 };
@@ -71,13 +72,19 @@ const renderSales = async (req, res) => {
     formattedPrice: formatUtils.formatPrice(sale.total)
   }));
 
+  sales.forEach(sale => {
+    sale.sale_details = sale.sale_details.map(saleDetail => ({
+      ...saleDetail,
+      formattedPrice : formatUtils.formatPrice(saleDetail.dataValues.unit_price)
+  }))})
+  
   res.render('sales', {
     username,
+    sales,
     pagination: {
       totalItems: count,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
-      sales
     }
   });
 }
