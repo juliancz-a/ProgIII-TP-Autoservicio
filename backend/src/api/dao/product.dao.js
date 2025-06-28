@@ -1,4 +1,4 @@
-import {Product} from "../models/index.js";
+import {Product, Image} from "../models/index.js";
 
 class ProductDao {
 
@@ -25,16 +25,17 @@ class ProductDao {
             order: [
                 ['createdAt', 'ASC']
             ],
+            include: [{model : Image, as : 'images'}],
             where
         });
     }
 
     async findAllByIds(ids) {
-        return await Product.findAll({where : {id : ids}})
+        return await Product.findAll({where : {id : ids}, include: [{model : Image, as : 'images'}]})
     }
 
     async findById(id) {
-        return await Product.findByPk(id);
+        return await Product.findByPk(id, {include: [{model : Image, as : 'images'}]});
     }
 
     async create(product) {

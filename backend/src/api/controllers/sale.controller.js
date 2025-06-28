@@ -24,7 +24,7 @@ class SaleController {
                 sales: salesFormatted
             });
         } catch (error) {
-            res.status(500).json('Server failure');
+            res.status(500).json({ message: "Internal server error", err: error.message });
             console.log(error);
         }
     }
@@ -35,7 +35,7 @@ class SaleController {
             const sale = await saleService.getById(id);
             res.status(200).json(sale);
         } catch (error) {
-            res.status(500).json('Server failure', error);
+            res.status(500).json({ message: "Internal server error", err: error.message });
         }
     }
 
@@ -44,9 +44,7 @@ class SaleController {
             const sale = await saleService.create(req.body)
             res.status(201).json(sale);
         } catch (error) {
-            res.status(500).json('Server failure', error);
-            console.log(error);
-            
+            res.status(500).json({ message: "Internal server error", err: error.message });
         }
     }
 }

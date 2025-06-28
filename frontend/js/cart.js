@@ -33,7 +33,7 @@ function renderCart(products) {
 // Crea un producto en el DOM del carrito
 function createCartProduct(product) {
     
-    const {id , title, price, img, quantity} = product;
+    const {id , title, price, images, quantity} = product;
 
     const productDiv = document.createElement('div');
     productDiv.className = 'product';
@@ -44,7 +44,7 @@ function createCartProduct(product) {
         <div class="product-content">
             <div class="product-details-wrapper">
                 <div class="product-image">
-                    <img draggable="false" src="${img}" alt="${title}">
+                    <img draggable="false" src="${images.url}" alt="${title}">
                 </div>
                 <div class="product-details">
                     <p class="product-title">${title}</p>

@@ -62,17 +62,13 @@ input[type=number] {
   gap: 10px;
 }
 
-.form-group label {
+.form-group .input-label {
   font-size: 1.2rem;
   font-weight: bold;
-}
-
-.form-group .input-label {
   padding: 0 0.8rem;
 }
 
-.form-group input,
-.form-group textarea {
+.form-group input {
     padding: 0.7rem 0.8rem;
     background-color: var(--bg-dark);
     color: var(--text-main);
@@ -82,9 +78,12 @@ input[type=number] {
     font-size: 1rem;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
+.form-group input::placeholder {
   color: #aaa;
+}
+
+.form-group input:hover, .form-group select:hover{
+  background-color: var(--bg-light);
 }
 
 .form-group select {
@@ -102,6 +101,56 @@ input[type=number] {
   background-repeat: no-repeat;
   background-position: right 0.8rem center;
   background-size: 1rem;
+}
+
+.form-group .drop-area {
+    display: block;
+    background-color: #ffffff;
+    border: 2px dashed #94a3b8;
+    border-radius: 1rem;
+    padding: 3rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.drop-area:hover {
+  border-color: #2563eb;
+  background-color: #f6fbff;
+}
+
+.drop-area .upload-image {
+  width: 64px;
+  height: auto;
+  fill: #2563eb;
+  margin-bottom: 1rem;
+}
+
+.drop-area.dragover {
+  transform: scale(1.03);
+  border-color: #2563eb;
+  background-color: #f6fbff;
+}
+
+.drop-area .drop-text {
+  font-size: 1rem;
+  color: #374151;
+}
+
+.drop-area .drop-text span {
+  font-weight: bold;
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.drop-area .drop-subtext {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+#fileInput {
+  text-align: center;
 }
 
 .status-radio input[type="radio"] {
@@ -194,7 +243,7 @@ input[type=number] {
   padding: 16px;
   border-radius: 8px;
   width: fit-content;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   color: #f1f1f1;
   display: flex;
   flex-direction: column;

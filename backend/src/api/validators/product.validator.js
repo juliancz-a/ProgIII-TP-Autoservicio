@@ -18,11 +18,6 @@ const productValidator = {
             minLength : 5,
             maxLength : 32
         },
-        "img" : {
-            fieldName : "imagen",
-            minLength : 10,
-            maxLength : 256
-        },
         "price" : {
             fieldName : "precio",
             minValue : 1
@@ -30,12 +25,11 @@ const productValidator = {
     },
 
     validateProduct(product) {
-        const {title, description, category, price, img} = product;
+        const {title, description, category, price} = product;
 
         this.validateStringField(title, "title");
         this.validateStringField(description, "description");
         this.validateStringField(category, "category");
-        this.validateStringField(img, "img");
         this.validateNumberField(price, "price");
     },
 

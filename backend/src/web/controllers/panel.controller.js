@@ -94,26 +94,36 @@ const validateProductForm = async (req, res) => {
   const { username } = req.query;
   const formProduct = req.body;
 
+  console.log(formProduct);
+  
+
   if (!username) return res.redirect('/login');
 
-  await productService.updateById(id, formProduct);
-  const product = await productService.getById(id);
+  try {
+    await productService.updateById(id, formProduct);
+    const product = await productService.getById(id);
+    res.status(200).json({message: 'producto actualizado con éxito', payload: product, action : 'updated'})
+  } catch (error) {
+    res.status(500).json({message : 'server failure', error : error})
+    console.error(error)  
+  }
 
-  res.render('product-form', {
-    product,
-    username
-  })
 }
 
 const validateNewProductForm = async (req, res) => {
   const { username } = req.query;
   const formProduct = req.body;
-  
+    
   if (!username) return res.redirect('/login');
 
-  const newProduct = await productService.create(formProduct);
+  try {
+    const newProduct = await productService.create(formProduct);
+    res.status(201).json({ message: 'Product was created successfully', payload: newProduct, action : 'created'});
+  } catch (error) {
+    res.status(500).json({message : 'server failure', error : error})
+    console.error(error)  
+  }
 
-  res.redirect(`/dashboard/edit/${newProduct.dataValues.id}?username=${encodeURIComponent(username)}`);
 }
 
 export default {
