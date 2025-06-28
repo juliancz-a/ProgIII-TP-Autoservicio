@@ -3,6 +3,8 @@ import cors from 'cors';
 import { __dirname, join } from './web/utils/config.js';
 import productRoutes from './api/routes/product.routes.js'
 import saleRoutes from './api/routes/sale.routes.js'
+import imageRoutes from './api/routes/image.routes.js'
+import userRoutes from './api/routes/user.routes.js'
 import panelRoutes from './web/routes/panel.routes.js'
 import authRoutes from './web/routes/auth.routes.js'
 import env from './config/env.js';
@@ -31,9 +33,11 @@ app.get('/', (req, res) => {
 });
 
 app.use('/', authRoutes); //SSR Routing
-app.use('/dashboard', panelRoutes); //SSR Routing
+app.use('/dashboard', panelRoutes); 
 app.use('/products', productRoutes); //API Routing
-app.use('/sales', saleRoutes) //API Routing
+app.use('/sales', saleRoutes) 
+app.use('/images', imageRoutes)
+app.use('/users', userRoutes)
 
 // App listen
 app.listen(PORT, () => {

@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
+
 dotenv.config() 
+
 
 export default {
     port : process.env.PORT,
@@ -10,5 +12,5 @@ export default {
         password : process.env.DB_PASS,
         database : process.env.DB_NAME
     },
-    cors : { origin : process.env.CORS_ORIGIN }
+    cors : { origin : process.env.CORS_ORIGIN },
 }

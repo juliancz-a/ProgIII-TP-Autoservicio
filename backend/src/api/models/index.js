@@ -1,12 +1,23 @@
 import Product from "./product.model.js";
 import Sale from "./sale.model.js";
 import SaleDetail from "./saleDetail.model.js";
+import Image from "./image.model.js";
+import User from "./user.model.js";
 
-
-///// ASSOCIATION INIT /////
+///// ASSOCIATIONS INIT /////
 Product.hasMany(SaleDetail, {
     foreignKey : 'product_id',
     as: 'sale_details'
+})
+
+Product.hasOne(Image, {
+    foreignKey: 'id',
+    as: 'images'
+})
+
+Sale.hasMany(SaleDetail, {
+    foreignKey : 'sale_id',
+    as : 'sale_details' // Associated table
 })
 
 SaleDetail.belongsTo(Product, {
@@ -15,14 +26,9 @@ SaleDetail.belongsTo(Product, {
 })
 
 
-Sale.hasMany(SaleDetail, {
-    foreignKey : 'sale_id',
-    as : 'sale_details' // Associated table
-})
-
 SaleDetail.belongsTo(Sale, {
     foreignKey : 'sale_id',
     as: 'sale' // father table
 })
 
-export {Product, Sale, SaleDetail}
+export {Product, Sale, SaleDetail, Image, User}

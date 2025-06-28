@@ -6,6 +6,8 @@ export async function fetchProducts(page = 1, category = null) {
 
     const response = await fetch(`http://localhost:5000/products/enabled?${params.toString()}`);
     const data = await response.json();
+    console.log(data);
+    
     
     return data;
 }

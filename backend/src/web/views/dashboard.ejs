@@ -5,7 +5,7 @@
         <title>Dashboard</title>
     </head>
     <body>
-        <%- include('./partials/sidebar.ejs') %>
+        <%- include('./partials/sidebar.ejs', {activePage : 'dashboard'}) %>
         <main class="main-content">
             <h1>Bienvenido, <%= username %></h1>
             <h2>Productos</h2>
@@ -60,5 +60,5 @@
             </div>
         </div>
     </body>
-    <script type="module" src="/dashboard.js"></script>
+    <script type="module" src="/js/dashboard.js"></script>
 </html>
