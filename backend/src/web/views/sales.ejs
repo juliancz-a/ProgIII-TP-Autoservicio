@@ -31,30 +31,6 @@
                                     <button value="<%= sale.id %>" class="view-details">Ver detalles</button>
                                 </td>
                             </tr>
-                            <tr class="sale-details-row" data-id="<%=sale.id%>">
-                                <td colspan="5">
-                                    <table class="table nested-table">
-                                        <thead class="table-head nested-table-head">
-                                            <tr>
-                                                <th>ID Producto</th>
-                                                <th>Nombre Producto</th>
-                                                <th>Cantidad</th>
-                                                <th>Precio Unitario</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <% sale.sale_details.forEach(saleDetail => {%>
-                                                <tr class="table-body nested-table-body">
-                                                    <td data-label="ID producto"><%=saleDetail.dataValues.product_id%></td>
-                                                    <td data-label="Nombre producto"><%=saleDetail.dataValues.product_name%></td>
-                                                    <td data-label="Cantidad"><%=saleDetail.dataValues.quantity%></td>
-                                                    <td data-label="Precio unitario">$<%=saleDetail.formattedPrice%></td>
-                                                </tr>
-                                            <% })%>  
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>                            
                         <% }) %>
                     <% } else { %>
                         <tr>
@@ -67,6 +43,13 @@
                 <%- include('./partials/pagination.ejs') %>
             <% } %>
         </main>
+        <!-- Modal  -->
+        <div id="modal-overlay" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-body"></div>
+                <div class="modal-buttons"></div>
+            </div>
+        </div>
     </body>
         <script type="module" src="/js/sales.js"></script>
 </html>

@@ -1,10 +1,12 @@
+const API_URL = 'http://localhost:5000/api'
+
 export async function fetchProducts(page = 1, category = null) {
     const params = new URLSearchParams();
     params.append('page', page);
     
     if (category) params.append('category', category);
 
-    const response = await fetch(`http://localhost:5000/products/enabled?${params.toString()}`);
+    const response = await fetch(`${API_URL}/products/enabled?${params.toString()}`);
     const data = await response.json();
     console.log(data);
     
@@ -21,7 +23,7 @@ export async function fetchCartProducts(ids) {
         body : JSON.stringify({ids : ids})
     }
 
-    const response = await fetch('http://localhost:5000/products/cart', cfg);
+    const response = await fetch(`${API_URL}/products/cart`, cfg);
     const data = await response.json();
 
     return data;
@@ -35,7 +37,7 @@ export async function createSale(data) {
         },
         body : JSON.stringify(data)
     }
-    await fetch('http://localhost:5000/sales', cfg)
+    await fetch(`${API_URL}/sales`, cfg)
 }
 
 export function getCart() {

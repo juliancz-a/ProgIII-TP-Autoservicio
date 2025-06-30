@@ -5,7 +5,7 @@ class ProductController {
         try {
             const page = parseInt(req.query.page) || 1;     // página actual
             const limit = parseInt(req.query.limit) || 12;  // ítems por página
-            const offset = (page - 1) * limit;
+            const offset = (page - 1) * limit; //skips por pagina (primera pagina 0 skips)
 
             const { count, rows } = await productService.getAll(limit, offset);
 

@@ -265,3 +265,28 @@ input[type=number] {
   margin: 0;
   text-align: center;
 }
+
+@media (max-width: 1024px) {
+  .product-form section {
+    flex-direction: column;
+  }
+  
+  .product-inputs .form-group:last-child {
+    display: flex;
+    align-items: center;
+  }
+
+  .status-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .status-radio {
+    margin: 0;
+  }
+
+  .product-form .product-preview {
+    width: 100%;
+  }
+}

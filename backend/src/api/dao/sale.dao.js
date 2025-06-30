@@ -21,7 +21,6 @@ class SaleDao {
             limit,
             offset,
             order: [['createdAt', 'ASC']], 
-            include: [{model : SaleDetail, as : 'sale_details'}],
             distinct: true
         });
     }
