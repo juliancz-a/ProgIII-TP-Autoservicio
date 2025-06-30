@@ -1,4 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
+import { setupHamburguerMenu } from "./uiHelpers.js";
 
 const dropArea = document.getElementById('drop-area');
 const fileInput = document.getElementById('fileInput');
@@ -179,3 +180,5 @@ function validateEntries (fields) {
         alert(`Campos incompletos:\n${uncompleteFields}`)
     }
 }
+
+setupHamburguerMenu()

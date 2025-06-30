@@ -34,10 +34,10 @@ app.get('/', (req, res) => {
 
 app.use('/', authRoutes); //SSR Routing
 app.use('/dashboard', panelRoutes); 
-app.use('/products', productRoutes); //API Routing
-app.use('/sales', saleRoutes) 
-app.use('/images', imageRoutes)
-app.use('/users', userRoutes)
+app.use('/api/products', productRoutes); //API Routing
+app.use('/api/sales', saleRoutes) 
+app.use('/api/images', imageRoutes)
+app.use('/api/users', userRoutes)
 
 // App listen
 app.listen(PORT, () => {

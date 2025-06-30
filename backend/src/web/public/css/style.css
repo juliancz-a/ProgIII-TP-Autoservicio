@@ -34,6 +34,13 @@ body {
   color: var(--text-main);
 }
 
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+}
+
 .sidebar {
   position: fixed;
   left: 0;
@@ -150,7 +157,6 @@ body {
   border-collapse: collapse;
   background-color: var(--bg-light);
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -243,27 +249,47 @@ tbody tr:hover {
 
 .modal-overlay.active {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modal-content {
+.modal {
+  max-width: 750px;
+  width: 90%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   background: var(--bg-dark);
   color: var(--text-main);
   padding: 3rem 2rem;
   border-radius: 12px;
-  max-width: 600px;
-  width: 90%;
   text-align: center;
   box-shadow:  0 10px rgba(0, 0, 0, 0.3);
   animation: modalFadeIn 0.3s ease forwards;
 }
 
-.modal-content.fade-out {
+
+.modal.fade-out {
   animation: modalFadeOut 0.25s ease forwards;
 }
 
-.modal-content p {
-  margin-bottom: 2rem;
-  font-size: 1.5rem;
+.modal .modal-body {
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-body table {
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.modal-body p {
+  font-size:  1.5rem;
 }
 
 .modal-buttons {
@@ -286,23 +312,23 @@ tbody tr:hover {
   text-align: center;
 }
 
-.modal-buttons .confirm {
+.modal-buttons .btn-confirm {
   background-color: var(--danger);
   color: var(--text-main)
 }
 
-.modal-buttons .cancel {
+.modal-buttons .btn-cancel {
   background-color: var(--bg-light);
   color: var(--text-main)
 }
 
-.modal-buttons .confirm:hover {
+.modal-buttons .btn-confirm:hover {
   opacity: 0.9;
   box-shadow: 0 0 10px rgba(255, 42, 109, 0.4);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
 }
 
-.modal-buttons .cancel:hover {
+.modal-buttons .btn-cancel:hover {
   opacity: 0.9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
@@ -379,19 +405,9 @@ tbody tr:hover {
   background-color: var(--bg-light-2);
 }
 
-.sale-details-row.active {
-  display: table-row;
-}
-
-.sale-details-row .nested-table {
-  width: 100%;
-  
-}
-
 .nested-table-head {
   background-color: var(--bg-light);
 }
-
 
 @media (max-width: 1024px) {
   .table,
@@ -417,6 +433,7 @@ tbody tr:hover {
     flex-direction: column;
     background-color: var(--bg-dark);
     gap: 5px;
+
   }
 
   .table tr {
@@ -453,6 +470,7 @@ tbody tr:hover {
     justify-content: space-between;
   }
 }
+
 
 
 
@@ -527,5 +545,13 @@ tbody tr:hover {
     width: 200px;
   }
 
+}
 
+@media (max-width: 478px) {
+  
+  .nested-table-body td {
+    padding-left: 15px;
+    padding-top: 45px;
+    text-align: left;
+  }
 }

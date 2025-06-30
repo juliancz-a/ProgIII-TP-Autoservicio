@@ -71,12 +71,6 @@ const renderSales = async (req, res) => {
     formattedDate: formatUtils.formatDate(sale.createdAt),
     formattedPrice: formatUtils.formatPrice(sale.total)
   }));
-
-  sales.forEach(sale => {
-    sale.sale_details = sale.sale_details.map(saleDetail => ({
-      ...saleDetail,
-      formattedPrice : formatUtils.formatPrice(saleDetail.dataValues.unit_price)
-  }))})
   
   res.render('sales', {
     username,
