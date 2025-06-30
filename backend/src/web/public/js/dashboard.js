@@ -1,4 +1,6 @@
-import { activateModal, closeModal, setupHamburguerMenu} from "./uiHelpers.js";
+import { setupHamburguerMenu } from "./ui/hamburguerMenu.js";
+import { activateModal, closeModal} from "./ui/modalManager.js";
+
 
 //Current Button Selected for toggling status
 let currentToggleBtn;
