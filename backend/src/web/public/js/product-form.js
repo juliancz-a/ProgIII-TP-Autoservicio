@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
-import { setupHamburguerMenu } from "./uiHelpers.js";
+import { setupHamburguerMenu } from "./ui/hamburguerMenu.js";
 
 const dropArea = document.getElementById('drop-area');
 const fileInput = document.getElementById('fileInput');

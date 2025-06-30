@@ -1,4 +1,5 @@
-import { activateModal, closeModal, setupHamburguerMenu} from "./uiHelpers.js";
+import { activateModal, closeModal} from "./ui/modalManager.js";
+import { setupHamburguerMenu } from "./ui/hamburguerMenu.js";
 
 const detailsButtons = document.querySelectorAll('.view-details');
 
