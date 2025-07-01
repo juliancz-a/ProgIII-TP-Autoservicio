@@ -120,7 +120,6 @@ const productForm = document.getElementById('product-form');
 
 productForm.addEventListener('submit', async(evn) => {
     evn.preventDefault();
-    validateEntries([evn.target[0], evn.target[1], evn.target[3], evn.target[4]])
 
     const formData = new FormData(productForm);
     const file = fileInput.files[0];
@@ -129,16 +128,22 @@ productForm.addEventListener('submit', async(evn) => {
         return;
     }
 
+    console.log(formData);
+    
     try {
-        const res = await fetch('/api/products', {
+        productValidator.validateProduct({title: evn.target[0].value, description: evn.target[1].value, category: evn.target[2].value, price: evn.target[3].value})
+        const res = await fetch('/api/products/', {
             method: 'POST',
             body: formData
         });
+        
+        const data = await res.json();
 
-        if (!res.ok) throw new Error('Error creando producto');
-        const result = await res.json();
-        const productId = result.payload.id;
+        if (!res.ok) throw new Error(data.message);
+        
+        const productId = data.payload.id;
 
+        alert('éxito')
         window.location.href = `/dashboard/edit/${productId}${window.location.search}`;
         
     } catch(error) {
@@ -148,12 +153,4 @@ productForm.addEventListener('submit', async(evn) => {
 
 })
 
-function validateEntries (product) {
-    try {        
-        productValidator.validateProduct(product)
-    } catch (error) {        
-        throw error;
-  }
-}
-  
 setupHamburguerMenu()

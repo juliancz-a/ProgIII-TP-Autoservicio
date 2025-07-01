@@ -1,7 +1,6 @@
 import productDao from "../dao/product.dao.js";
 import imageDao from "../dao/image.dao.js";
 import sequelize from "../../config/db.js";
-import productValidator from "../validators/product.validator.js";
 import streamifier from 'streamifier';
 import cloudinary from '../../config/cloudinary.js';
 

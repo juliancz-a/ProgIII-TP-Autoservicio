@@ -36,7 +36,9 @@ const productValidator = {
         
         const { fieldName, minLength, maxLength } = this.fieldsCfg[field];
 
-        if (!content) throw new Error(`El campo "${fieldName}" es obligatorio.`);
+        if (!content) {
+            throw new Error(`El campo "${fieldName}" es obligatorio.`);
+        }
         
         if (content.trim() === '') throw new Error(`El campo "${fieldName}" es obligatorio.`);
 
