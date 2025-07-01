@@ -8,7 +8,8 @@ class ProductDao {
             offset,
             order: [
                 ['createdAt', 'ASC']
-            ]
+            ],
+            include: [{model : Image, as : 'images'}]
         });
     }
 
@@ -35,11 +36,15 @@ class ProductDao {
     }
 
     async findById(id) {
-        return await Product.findByPk(id, {include: [{model : Image, as : 'images'}]});
+        return await Product.findByPk(id, 
+            {include: [
+                {model : Image, as : 'images'}
+            ]}
+        );
     }
 
-    async create(product) {
-        return await Product.create(product);
+    async create(product, options = {}) {
+        return await Product.create(product, options);
     }
 
     async updateById(id, product) {

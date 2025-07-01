@@ -8,6 +8,10 @@ const Image = sequelize.define("image", {
         primaryKey: true,
         allowNull: false,
     },
+    product_id: { // 👈 FK que apunta al producto
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: true,
