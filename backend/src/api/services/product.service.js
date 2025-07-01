@@ -28,8 +28,6 @@ class ProductService {
     async create(body) {
       const { title, description, category, price, enabled, imageFile } = body;
 
-      productValidator.validateProduct({ title, description, category, price });
-
       const uploadResult = await new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream({
           folder: 'images',

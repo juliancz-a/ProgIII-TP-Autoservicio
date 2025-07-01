@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 import { setupHamburguerMenu } from "./ui/hamburguerMenu.js";
+import productValidator from "./productValidator.js";
 
 const dropArea = document.getElementById('drop-area');
 const fileInput = document.getElementById('fileInput');
@@ -119,7 +120,6 @@ const productForm = document.getElementById('product-form');
 
 productForm.addEventListener('submit', async(evn) => {
     evn.preventDefault();
-
     validateEntries([evn.target[0], evn.target[1], evn.target[3], evn.target[4]])
 
     const formData = new FormData(productForm);
@@ -136,32 +136,24 @@ productForm.addEventListener('submit', async(evn) => {
         });
 
         if (!res.ok) throw new Error('Error creando producto');
-
         const result = await res.json();
         const productId = result.payload.id;
 
         window.location.href = `/dashboard/edit/${productId}${window.location.search}`;
         
     } catch(error) {
+        alert(error.message)
         console.error(`${error.name} - ${error.message}`);
     }
 
 })
 
-function validateEntries (fields) {
-    let uncompleteFields = '';
-
-    fields.forEach(field => {
-        console.log(field.value);
-        
-        if(!field.value) {
-            uncompleteFields += `${field.name}\n`
-        }
-    })
-    
-    if (uncompleteFields != '') {
-        alert(`Campos incompletos:\n${uncompleteFields}`)
-    }
+function validateEntries (product) {
+    try {        
+        productValidator.validateProduct(product)
+    } catch (error) {        
+        throw error;
+  }
 }
-
+  
 setupHamburguerMenu()

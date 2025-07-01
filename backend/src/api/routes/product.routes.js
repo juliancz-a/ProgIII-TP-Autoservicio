@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import multer from "multer";
 import productController from '../controllers/product.controller.js';
+import { productMiddleware } from '../../api/middlewares/validator.middleware.js';
+// Enviar multer sin archivos para parsear multipart/form-adta
+import upload from "../../api/middlewares/multer.middleware.js";
 
 const router = Router();
 const upload = multer();

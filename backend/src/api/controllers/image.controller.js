@@ -56,9 +56,6 @@ class ImageController {
             res.status(500).json({ message: "Error interno del servidor", err: error.message });
         }
     };
-
 }
 
 export default new ImageController();
-
-
