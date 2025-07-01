@@ -25,7 +25,6 @@ SaleDetail.belongsTo(Product, {
     as: 'products'
 })
 
-
 SaleDetail.belongsTo(Sale, {
     foreignKey : 'sale_id',
     as: 'sale' // father table

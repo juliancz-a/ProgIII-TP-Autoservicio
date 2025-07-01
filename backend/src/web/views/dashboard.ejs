@@ -2,61 +2,42 @@
 <html lang="en">
     <head>
         <%- include('./partials/html-head.ejs') %>
+        <link rel="stylesheet" href="/css/dashboard.css">
         <title>Dashboard</title>
     </head>
     <body>
         <%- include('./partials/sidebar.ejs', {activePage : 'dashboard'}) %>
         <main class="main-content">
             <h1>Bienvenido, <%= username %></h1>
-            <h2>Productos</h2>
-            <button id="new-product-btn">Nuevo producto</button>
-            <table class="table">
-                <thead class="table-head">
-                    <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Descripción</th>
-                        <th>Categoría</th>
-                        <th>Precio</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="table-body">
-                    <% if (products.length > 0) { %>
-                        <% products.forEach(product => { %>
-                            <tr>
-                                <td data-label="ID"><%= product.id %></td>
-                                <td data-label="Título"><%= product.title %></td>
-                                <td data-label="Descripción"><%= product.description %></td>
-                                <td data-label="Categoría"><%= product.category.charAt(0).toUpperCase() + product.category.slice(1) %></td>
-                                <td data-label="Precio">$<%= product.formattedPrice %></td>
-                                <td data-label="Estado" class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
-                                    <%= product.enabled ? 'Activo' : 'Inactivo' %> </td>
-                                <td data-label="Acciones" class="actions">
-                                    <button class="edit-product" data-id="<%= product.id %>">Editar</button>
-                                    <button class="toggle-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Cambiar estado</button>
-                                </td>
-                            </tr>
-                        <% }) %>
-                    <% } else { %>
-                        <tr>
-                            <td colspan="7">No hay productos disponibles.</td>
-                        </tr>
-                    <% } %>
-                </tbody>
-            </table>
-            <% if (products) { %>
-                <%- include('./partials/pagination.ejs') %>
-            <% } %>
+            <h2>Explorar</h2>
+            <section class="menu">
+                <a href="/dashboard/products?username=<%= username %>" class="card">
+                    <div class="card-body">
+                        <p class="card-title">Productos</p>
+                        <div class="card-image">
+                            <img src="/img/products.png" alt="" srcset="">
+                        </div>
+                    </div>
+                </a>
+                <a href="/dashboard/sales?username=<%= username %>" class="card">
+                    <div class="card-body">
+                        <p class="card-title">Ventas</p>
+                        <div class="card-image">
+                            <img src="/img/sales.png" alt="" srcset="">
+                        </div>
+                    </div>
+                </a>
+                <a href="/dashboard/users?username=<%= username %>" class="card">
+                    <div class="card-body">
+                        <p class="card-title">Usuarios</p>
+                        <div class="card-image">
+                            <img src="/img/users.png" alt="" srcset="">
+                        </div>
+                    </div>
+                </a>
+
+                </div>
+            </section>
         </main>
-        <!-- Modal  -->
-        <div id="modal-overlay" class="modal-overlay">
-            <div class="modal">
-                <div class="modal-body"></div>
-                <div class="modal-buttons"></div>
-            </div>
-        </div>
     </body>
-    <script type="module" src="/js/dashboard.js"></script>
 </html>

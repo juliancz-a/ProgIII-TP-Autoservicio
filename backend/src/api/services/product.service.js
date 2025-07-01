@@ -1,5 +1,5 @@
 import productDao from "../dao/product.dao.js"
-import productValidator from "../validators/product.validator.js";
+import productValidator from "../../web/public/js/productValidator.js";
 
 class ProductService {
 
@@ -22,8 +22,14 @@ class ProductService {
     }
 
     async create(body) {
-      productValidator.validateProduct(body);
-      return await productDao.create(body)
+      try {
+        productValidator.validateProduct(body);
+        return await productDao.create(body)
+        
+      } catch (error) {
+        console.log("Product has invalid data", error);
+        throw error
+      }
     }
 
     async updateById(id, body) {

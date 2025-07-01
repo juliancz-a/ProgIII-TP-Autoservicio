@@ -2,7 +2,19 @@ import productService from "../../api/services/product.service.js";
 import saleService from "../../api/services/sale.service.js"
 import formatUtils from "../../api/utils/formatUtils.js";
 
+
 const renderDashboard = async (req, res) => {
+  const { username } = req.query;
+
+  if (!username) return res.redirect('/login');
+
+  res.render('dashboard', {
+    username
+  });
+}
+
+
+const renderProducts = async (req, res) => {
   const { username } = req.query;
 
   if (!username) return res.redirect('/login');
@@ -19,7 +31,7 @@ const renderDashboard = async (req, res) => {
   })) 
   
 
-  res.render('dashboard', {
+  res.render('products', {
     username,
     products,
     pagination: {
@@ -83,48 +95,10 @@ const renderSales = async (req, res) => {
   });
 }
 
-const validateProductForm = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { username } = req.query;
-  const formProduct = req.body;
-
-  console.log(formProduct);
-  
-
-  if (!username) return res.redirect('/login');
-
-  try {
-    await productService.updateById(id, formProduct);
-    const product = await productService.getById(id);
-    res.status(200).json({message: 'producto actualizado con éxito', payload: product, action : 'updated'})
-  } catch (error) {
-    res.status(500).json({message : 'server failure', error : error})
-    console.error(error)  
-  }
-
-}
-
-const validateNewProductForm = async (req, res) => {
-  const { username } = req.query;
-  const formProduct = req.body;
-    
-  if (!username) return res.redirect('/login');
-
-  try {
-    const newProduct = await productService.create(formProduct);
-    res.status(201).json({ message: 'Product was created successfully', payload: newProduct, action : 'created'});
-  } catch (error) {
-    res.status(500).json({message : 'server failure', error : error})
-    console.error(error)  
-  }
-
-}
-
 export default {
   renderDashboard,
+  renderProducts,
   renderProductForm,
   renderNewProductForm,
-  renderSales,
-  validateProductForm,
-  validateNewProductForm
+  renderSales
 }

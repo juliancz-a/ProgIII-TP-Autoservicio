@@ -52,6 +52,7 @@ input[type=number] {
 
 .product-form section {
   display: flex;
+  justify-content: center;
 }
 
 .form-group {
@@ -231,7 +232,7 @@ input[type=number] {
   flex-direction: column;
 
   gap: 1.2rem;
-  width: 100%;
+  width: 90%;
   padding: 1rem;
 
   background-color: var(--bg-light);
@@ -242,19 +243,17 @@ input[type=number] {
   background-color: #1f2937;
   padding: 16px;
   border-radius: 8px;
-  width: fit-content;
+  min-width: 200px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   color: #f1f1f1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  min-width: 25%;
 }
 
 .product-preview img {
-  max-width: 300px;
-  border-radius: 6px;
+  width: 100%;
 }
 
 .product-preview h5 {
@@ -269,6 +268,7 @@ input[type=number] {
 @media (max-width: 1024px) {
   .product-form section {
     flex-direction: column;
+    align-items: center;
   }
   
   .product-inputs .form-group:last-child {

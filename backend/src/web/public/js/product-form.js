@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 import { setupHamburguerMenu } from "./ui/hamburguerMenu.js";
+import productValidator from "./productValidator.js";
 
 const dropArea = document.getElementById('drop-area');
 const fileInput = document.getElementById('fileInput');
@@ -119,18 +120,18 @@ const productForm = document.getElementById('product-form');
 
 productForm.addEventListener('submit', async(evn) => {
     evn.preventDefault();
-    // validateEntries([evn.target[0], evn.target[1], evn.target[3], evn.target[4]])
-
+    
     const formData = new FormData(productForm);
     formData.delete('image');
-
+    
     try {
+        validateEntries({title : evn.target[0].value, description: evn.target[1].value, category: evn.target[3].value, price: evn.target[4].validateProduct})
         // IMAGE UPLOADING PROCESS
         const file = fileInput.files[0];
         const imageForm = new FormData();
         imageForm.append('image', file);
 
-        const imageResponse = await fetch('/images', {
+        const imageResponse = await fetch('/api/images', {
             method: 'POST',
             body: imageForm
         });
@@ -147,11 +148,10 @@ productForm.addEventListener('submit', async(evn) => {
             method: 'POST',
             body: formData
         });
-
         
-        if (!productRes.ok) throw new Error('Error creando producto');
-
         const productData = await productRes.json();
+        
+        if (!productRes.ok) throw new Error(productData.message);
 
         if (productData.action === 'created') {
             window.location.href =`/dashboard/edit/${productData.payload.id}${window.location.search}`
@@ -160,25 +160,17 @@ productForm.addEventListener('submit', async(evn) => {
         }
         
     } catch(error) {
-        console.error(error);
+        alert(error.message)
     }
 
 })
 
-function validateEntries (fields) {
-    let uncompleteFields = '';
-
-    fields.forEach(field => {
-        console.log(field.value);
-        
-        if(!field.value) {
-            uncompleteFields += `${field.name}\n`
-        }
-    })
-    
-    if (uncompleteFields != '') {
-        alert(`Campos incompletos:\n${uncompleteFields}`)
-    }
+function validateEntries (product) {
+    try {        
+        productValidator.validateProduct(product)
+    } catch (error) {        
+        throw error;
 }
 
+}
 setupHamburguerMenu()

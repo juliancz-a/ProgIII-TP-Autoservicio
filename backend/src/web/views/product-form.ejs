@@ -10,7 +10,7 @@
         <main class="main-content">
             <div class="form-container">
                 <form 
-                    action="<%= product ? `/dashboard/edit/${product.id}?username=${encodeURIComponent(username)}` : `/dashboard/create?username=${encodeURIComponent(username)}` %>"
+                    action="<%= product ? `/api/products/edit/${product.id}?username=${encodeURIComponent(username)}` : `/api/products/create?username=${encodeURIComponent(username)}` %>"
                     method="POST" 
                     class="product-form"
                     enctype="multipart/form-data"

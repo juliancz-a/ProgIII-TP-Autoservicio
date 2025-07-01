@@ -76,10 +76,6 @@ class ProductController {
     createProduct = async (req, res)  => {
         try {
             const {title, description, category, price, image_id} = req.body;
-            console.log("body de la request");
-            
-            console.log(req.body);
-            
             productService.create({title, description, category, price, image_id})
 
             res.status(201).json('Product was created successfully');
