@@ -75,15 +75,29 @@ class ProductController {
 
     createProduct = async (req, res)  => {
         try {
-            const {title, description, category, price, image_id} = req.body;
-            console.log("body de la request");
+            const {title, description, category, price, enabled} = req.body;
             
-            console.log(req.body);
-            
-            productService.create({title, description, category, price, image_id})
+            const file = req.file;
 
-            res.status(201).json('Product was created successfully');
+            if (!file) {
+                return res.status(400).json({ message: 'No se subió ninguna imagen' });
+            }
+            
+            const product = await productService.create({
+                title, 
+                description, 
+                category, 
+                price, 
+                enabled,
+                imageFile: file
+            });
+
+            res.status(201).json({
+                message: 'Product was created successfully',
+                payload: product
+            });
         } catch (error) {
+            console.error('Error en creación de producto:', error);
             res.status(500).json({ message: "Internal server error", err: error.message });
         }
     }

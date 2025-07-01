@@ -1,7 +1,9 @@
-import {Router} from 'express';
+import { Router } from 'express';
+import multer from "multer";
 import productController from '../controllers/product.controller.js';
 
 const router = Router();
+const upload = multer();
 
 router.get('/', productController.getAllProducts);
 
@@ -11,7 +13,7 @@ router.post('/cart', productController.getAllProductsOnCart);
 
 router.get('/:id', productController.getProductById);
 
-router.post('/', productController.createProduct);
+router.post('/', upload.single('image'), productController.createProduct);
 
 router.put('/:id', productController.updateProductById);
 

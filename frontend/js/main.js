@@ -47,7 +47,7 @@ function createCardStructure(product) {
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
-                    <img draggable="false" src="${product.images.url}" alt="${product.title}">
+                    <img draggable="false" src="${product.images[0].url}" alt="${product.title}">
                 </div>
                 <div class="card-text">
                     <p class="title">${product.title}</p>
@@ -171,6 +171,7 @@ function showCategoryContent() { // Location => tiene informacion de la URL actu
 
     fetchProducts(currentPage, selectedCategory).then(data => {
         renderCards(data.products);
+        console.log(data.products);
         renderPagination(data.pagination)
     }).catch(err => {
         console.error("Error al cargar productos", err);

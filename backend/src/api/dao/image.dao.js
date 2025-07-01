@@ -9,8 +9,12 @@ class ImageDao {
         return await Image.findByPk(id)
     }
 
-    async upload(image) {
-        return await Image.create(image);
+    async upload(image, options = {}) {
+        return await Image.create(image, options);
+    }
+
+    async bulkCreate(images, options = {}) {
+        return await Image.bulkCreate(images, options);
     }
 
     async update(image) {

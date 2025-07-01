@@ -119,48 +119,31 @@ const productForm = document.getElementById('product-form');
 
 productForm.addEventListener('submit', async(evn) => {
     evn.preventDefault();
-    // validateEntries([evn.target[0], evn.target[1], evn.target[3], evn.target[4]])
+
+    validateEntries([evn.target[0], evn.target[1], evn.target[3], evn.target[4]])
 
     const formData = new FormData(productForm);
-    formData.delete('image');
+    const file = fileInput.files[0];
+    if (!file || !isValidFile(file)) {
+        alert("Por favor, seleccione una imagen válida.");
+        return;
+    }
 
     try {
-        // IMAGE UPLOADING PROCESS
-        const file = fileInput.files[0];
-        const imageForm = new FormData();
-        imageForm.append('image', file);
-
-        const imageResponse = await fetch('/images', {
-            method: 'POST',
-            body: imageForm
-        });
-
-        if (!imageResponse.ok) throw new Error('Error subiendo imagen');
-
-        const imageData = await imageResponse.json();
-        console.log(imageData);
-
-        // FULL PRODUCT UPLOADING PROCESS
-        formData.append('image_id', imageData.payload.id)
-
-        const productRes = await fetch(productForm.action, {
+        const res = await fetch('/api/products', {
             method: 'POST',
             body: formData
         });
 
-        
-        if (!productRes.ok) throw new Error('Error creando producto');
+        if (!res.ok) throw new Error('Error creando producto');
 
-        const productData = await productRes.json();
+        const result = await res.json();
+        const productId = result.payload.id;
 
-        if (productData.action === 'created') {
-            window.location.href =`/dashboard/edit/${productData.payload.id}${window.location.search}`
-        } else {
-            alert('Producto actualizado con éxito')
-        }
+        window.location.href = `/dashboard/edit/${productId}${window.location.search}`;
         
     } catch(error) {
-        console.error(error);
+        console.error(`${error.name} - ${error.message}`);
     }
 
 })

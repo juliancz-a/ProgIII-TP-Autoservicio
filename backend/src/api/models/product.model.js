@@ -23,14 +23,6 @@ const Product = sequelize.define('product', {
         type : DataTypes.DOUBLE(10,2),
         allowNull : false,
     },
-    image_id : {
-        type : DataTypes.INTEGER,
-        foreignKey : {
-            model : "images",
-            key : "id"
-        },
-        allowNull : false
-    },
     enabled : {
         type : DataTypes.BOOLEAN,
         allowNull : false,

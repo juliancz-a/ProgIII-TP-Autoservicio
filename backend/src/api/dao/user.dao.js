@@ -10,11 +10,11 @@ class UserDao {
     }
 
     async create(user) {
-        return await User.create(User);
+        return await User.create(user);
     }
 
     async update(user) {
-        return await User.update(User);
+        return await User.update(user);
     }
 
     async deleteById(id) {
