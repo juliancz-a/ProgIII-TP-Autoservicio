@@ -1,5 +1,9 @@
-import productDao from "../dao/product.dao.js"
-import productValidator from "../../web/public/js/productValidator.js";
+import productDao from "../dao/product.dao.js";
+import imageDao from "../dao/image.dao.js";
+import sequelize from "../../config/db.js";
+import productValidator from "../validators/product.validator.js";
+import streamifier from 'streamifier';
+import cloudinary from '../../config/cloudinary.js';
 
 class ProductService {
 
@@ -22,14 +26,38 @@ class ProductService {
     }
 
     async create(body) {
-      try {
-        productValidator.validateProduct(body);
-        return await productDao.create(body)
-        
-      } catch (error) {
-        console.log("Product has invalid data", error);
-        throw error
-      }
+      const { title, description, category, price, enabled, imageFile } = body;
+
+      const uploadResult = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream({
+          folder: 'images',
+          resource_type: 'image'
+        }, (err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        });
+
+        streamifier.createReadStream(imageFile.buffer).pipe(stream);
+      });
+
+      return await sequelize.transaction(async (t) => {
+          const product = await productDao.create({
+            title,
+            description,
+            category,
+            price: parseFloat(price),
+            enabled: enabled === 'true'
+          }, { transaction: t });
+
+          await imageDao.upload({
+            name: imageFile.originalname,
+            url: uploadResult.secure_url,
+            product_id: product.id
+          }, { transaction: t });
+
+          return product;
+        }
+      );
     }
 
     async updateById(id, body) {

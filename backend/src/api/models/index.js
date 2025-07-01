@@ -10,10 +10,20 @@ Product.hasMany(SaleDetail, {
     as: 'sale_details'
 })
 
-Product.hasOne(Image, {
-    foreignKey: 'id',
-    as: 'images'
-})
+// Product.hasOne(Image, {
+//     foreignKey: 'id',
+//     as: 'images'
+// })
+
+Product.hasMany(Image, {
+  foreignKey: 'product_id',
+  as: 'images' // alias para usar en include
+});
+
+Image.belongsTo(Product, {
+  foreignKey: 'product_id',
+  as: 'product'
+});
 
 Sale.hasMany(SaleDetail, {
     foreignKey : 'sale_id',

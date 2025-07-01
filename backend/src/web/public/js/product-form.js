@@ -120,47 +120,30 @@ const productForm = document.getElementById('product-form');
 
 productForm.addEventListener('submit', async(evn) => {
     evn.preventDefault();
-    
+    validateEntries([evn.target[0], evn.target[1], evn.target[3], evn.target[4]])
+
     const formData = new FormData(productForm);
-    formData.delete('image');
-    
+    const file = fileInput.files[0];
+    if (!file || !isValidFile(file)) {
+        alert("Por favor, seleccione una imagen válida.");
+        return;
+    }
+
     try {
-        validateEntries({title : evn.target[0].value, description: evn.target[1].value, category: evn.target[3].value, price: evn.target[4].validateProduct})
-        // IMAGE UPLOADING PROCESS
-        const file = fileInput.files[0];
-        const imageForm = new FormData();
-        imageForm.append('image', file);
-
-        const imageResponse = await fetch('/api/images', {
-            method: 'POST',
-            body: imageForm
-        });
-
-        if (!imageResponse.ok) throw new Error('Error subiendo imagen');
-
-        const imageData = await imageResponse.json();
-        console.log(imageData);
-
-        // FULL PRODUCT UPLOADING PROCESS
-        formData.append('image_id', imageData.payload.id)
-
-        const productRes = await fetch(productForm.action, {
+        const res = await fetch('/api/products', {
             method: 'POST',
             body: formData
         });
-        
-        const productData = await productRes.json();
-        
-        if (!productRes.ok) throw new Error(productData.message);
 
-        if (productData.action === 'created') {
-            window.location.href =`/dashboard/edit/${productData.payload.id}${window.location.search}`
-        } else {
-            alert('Producto actualizado con éxito')
-        }
+        if (!res.ok) throw new Error('Error creando producto');
+        const result = await res.json();
+        const productId = result.payload.id;
+
+        window.location.href = `/dashboard/edit/${productId}${window.location.search}`;
         
     } catch(error) {
         alert(error.message)
+        console.error(`${error.name} - ${error.message}`);
     }
 
 })
@@ -170,7 +153,7 @@ function validateEntries (product) {
         productValidator.validateProduct(product)
     } catch (error) {        
         throw error;
+  }
 }
-
-}
+  
 setupHamburguerMenu()
