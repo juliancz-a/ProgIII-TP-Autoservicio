@@ -2,14 +2,13 @@ import {Product, Image} from "../models/index.js";
 
 class ProductDao {
 
-    async findAll(limit = 10, offset = 0) {
+    async findAll(limit = 10, offset = 0, where) {
         return await Product.findAndCountAll({
             limit,
             offset,
-            order: [
-                ['createdAt', 'ASC']
-            ],
-            include: [{model : Image, as : 'images'}]
+            order: [['createdAt', 'ASC']],
+            include: [{model : Image, as : 'images'}],
+            where
         });
     }
 

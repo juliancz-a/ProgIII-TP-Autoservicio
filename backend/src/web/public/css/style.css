@@ -141,6 +141,53 @@ body.no-scroll {
   font-size: 3rem;
 }
 
+.input-section {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input-section .search-bar {
+  display: flex;
+  width: 70%;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.input-section .order-by {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 25%;
+}
+
+.input-section .filter-form {
+  display: flex;
+  justify-content: start;
+  gap: 20px;
+  width: 100%;
+  height: 50px;
+}
+
+.filter-form fieldset {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  border: none;
+}
+
+.filter-form .price-filter{
+}
+
+
 #new-product-btn {
   display: flex;
   align-items: center;

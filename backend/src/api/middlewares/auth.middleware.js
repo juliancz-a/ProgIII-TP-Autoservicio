@@ -26,7 +26,9 @@ const validatePassword = async (req, res, next) => {
     if (!username || !password) {
         return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
     }
+    
     const user = await userDao.findByUsername(username)
+    
     if (!user) {
         return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
     };

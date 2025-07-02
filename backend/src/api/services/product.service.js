@@ -3,11 +3,34 @@ import imageDao from "../dao/image.dao.js";
 import sequelize from "../../config/db.js";
 import streamifier from 'streamifier';
 import cloudinary from '../../config/cloudinary.js';
+import { Op } from "sequelize";
 
 class ProductService {
 
-    async getAll(limit = 10, offset = 0) {
-      return await productDao.findAll(limit, offset);
+    async getAll(limit = 10, offset = 0, filters) {
+
+      const where = {};
+      const {min, max} = filters.priceRange
+
+      if (filters.category) {
+        where.category = filters.category;
+      }
+
+      if (min || max) {
+        where.price = {};
+        if (min) {
+          where.price[Op.gte] = min;
+        }
+        if (max) {
+          where.price[Op.lte] = max;
+        }
+      }
+
+      if (filters.enabled) {
+        where.enabled = filters.enabled === 'true' ? true : false;
+      }
+      
+      return await productDao.findAll(limit, offset, where);
     }
 
     async getAllAndIsEnabled(limit = 10, offset = 0, category = null) {

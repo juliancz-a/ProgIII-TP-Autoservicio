@@ -24,7 +24,10 @@ const renderProducts = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;  // ítems por página
   const offset = (page - 1) * limit;
 
-  const { count, rows } = await productService.getAll(limit, offset);
+  const filters = {category : req.query.category, priceRange : {min : parseInt(req.query.min), max: parseInt(req.query.max)}, enabled : req.query.enabled}
+  console.log(filters);
+  
+  const { count, rows } = await productService.getAll(limit, offset, filters);
 
   const products = rows.map(product => ({
     ...product.dataValues,
@@ -35,6 +38,7 @@ const renderProducts = async (req, res) => {
   res.render('products', {
     username,
     products,
+    filters,
     pagination: {
       totalItems: count,
       totalPages: Math.ceil(count / limit),
