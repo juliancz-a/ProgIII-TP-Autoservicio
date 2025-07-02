@@ -1,5 +1,11 @@
 const loginForm = document.querySelector('form');
+const username = document.getElementById('username');
+const password = document.getElementById('password');
 
+autocompleteBtn.addEventListener('click', () => {
+    username.value = 'admin';
+    password.value = 'admin';
+})
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
