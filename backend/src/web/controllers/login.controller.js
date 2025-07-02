@@ -1,11 +1,3 @@
-const users = [
-  {
-    username: "mase",
-    password: "barcelav1uk"
-  }
-]
-
-
 const renderLogin = (req, res) => {
   res.render('login', { error: null });
 };
