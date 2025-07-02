@@ -32,7 +32,8 @@ function renderCards(products) {
 function renderEmptySite() {
     const emptyGrid = document.createElement('h2')
     emptyGrid.textContent = 'No encontramos ningun producto';
-    productGrid.replaceChildren(emptyGrid)
+    emptyGrid.className = 'empty-products';
+    productGrid.replaceChildren(emptyGrid);
 }
 
 function createCardStructure(product) {    

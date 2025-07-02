@@ -22,7 +22,7 @@ app.set('views', join(__dirname, 'views'))
 // App middlewares
 app.use(express.json())
 app.use(express.static(join(__dirname, 'public')))
-app.use(cors({origin : env.cors.origin}))
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 
 await sequelize.sync()
