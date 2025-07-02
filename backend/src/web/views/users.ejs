@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/html-head.ejs') %>
+        <title>Ventas</title>
+    </head>
+    <body>
+        <%- include('./partials/sidebar.ejs', {activePage : ''}) %>
+        <main class="main-content">
+            <table class="table">
+                <thead class="table-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Fecha creación</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <% if (users.length > 0) { %>
+                        <% users.forEach(user => { %>
+                            <tr>
+                                <td data-label="ID"><%= user.id %></td>
+                                <td data-label="Nombre"><%= user.username %></td>
+                                <td data-label="Fecha creación"><%= user.formattedDate %></td>
+                                <td data-label="Estado"> <%= user.status ? 'Activo' : 'Inactivo' %> </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay usuarios disponibles.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table> 
+            <% if (users) { %>
+                <%- include('./partials/pagination.ejs') %>
+            <% } %>
+        </main>
+    </body>
+</html>

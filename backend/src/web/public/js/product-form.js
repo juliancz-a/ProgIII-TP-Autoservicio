@@ -127,8 +127,6 @@ productForm.addEventListener('submit', async(evn) => {
         alert("Por favor, seleccione una imagen válida.");
         return;
     }
-
-    console.log(formData);
     
     try {
         productValidator.validateProduct({title: evn.target[0].value, description: evn.target[1].value, category: evn.target[2].value, price: evn.target[3].value})

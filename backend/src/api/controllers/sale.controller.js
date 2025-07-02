@@ -18,10 +18,12 @@ class SaleController {
             }));
 
             res.status(200).json({
-                totalItems: count,
-                totalPages: Math.ceil(count / limit),
+                sales : salesFormatted,
+                pagination : {
+                    totalItems: count,
+                    totalPages: Math.ceil(count / limit),
                 currentPage: page,
-                sales: salesFormatted
+                }      
             });
         } catch (error) {
             res.status(500).json({ message: "Internal server error", err: error.message });

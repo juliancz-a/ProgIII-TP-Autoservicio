@@ -1,5 +1,6 @@
 import productService from "../../api/services/product.service.js";
 import saleService from "../../api/services/sale.service.js"
+import userService from "../../api/services/user.service.js";
 import formatUtils from "../../api/utils/formatUtils.js";
 
 
@@ -95,10 +96,38 @@ const renderSales = async (req, res) => {
   });
 }
 
+  const renderUsers = async (req, res) => {
+    const { username } = req.query;
+    if (!username) return res.redirect('/login');
+
+      
+    const page = parseInt(req.query.page) || 1;     // página actual
+    const limit = parseInt(req.query.limit) || 10;  // users por página
+    const offset = (page - 1) * limit;
+
+    const { count, rows } = await userService.getAll(limit, offset);
+
+    const users = rows.map(user => ({
+      ...user.dataValues,
+      formattedDate: formatUtils.formatDate(user.createdAt),
+    }));
+    
+    res.render('users', {
+      username,
+      users,
+      pagination: {
+        totalItems: count,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page,
+      }
+    });
+  }
+
 export default {
   renderDashboard,
   renderProducts,
+  renderSales,
+  renderUsers,
   renderProductForm,
   renderNewProductForm,
-  renderSales
 }

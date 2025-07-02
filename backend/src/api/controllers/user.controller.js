@@ -3,8 +3,25 @@ import userDao from "../dao/user.dao.js";
 class UserController {
     getAllUsers = async (req, res) => {
         try {
-            const users = await userDao.findAll();
-            res.status(200).json(users);
+            const page = parseInt(req.query.page) || 1;     // página actual
+            const limit = parseInt(req.query.limit) || 10;  // users por página
+            const offset = (page - 1) * limit;
+
+            const { count, rows } =  await userDao.findAll(limit, offset);
+
+            const usersFormatted = rows.map(({ dataValues }) => ({
+                ...dataValues,
+                formattedDate: formatUtils.formatDate(dataValues.createdAt),
+            }));
+
+            res.status(200).json({
+                users:  usersFormatted,
+                pagination: {
+                    totalItems: count,
+                    currentPage: page,
+                    totalPages
+                }});
+                
         } catch (error) {
             res.status(500).json({message: "Internal server error", err: error.message });
         }
