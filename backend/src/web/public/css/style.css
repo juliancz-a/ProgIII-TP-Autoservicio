@@ -129,7 +129,7 @@ body.no-scroll {
 .main-content {
   display: flex;
   flex-direction: column;
-  margin: 2rem 5rem;
+  margin: 3rem 5rem;
   gap: 3dvh;
 }
 
@@ -142,6 +142,9 @@ body.no-scroll {
 }
 
 #new-product-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6dvw;
   padding: 1rem;
   font-family: inherit;
   background-color: var(--accent-primary);
@@ -150,6 +153,10 @@ body.no-scroll {
   font-weight: 600;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.plus-symbol {
+  font-size: 2rem;
 }
 
 #new-product-btn:hover {
@@ -207,6 +214,10 @@ tbody tr:hover {
 .status-active {
   color: var(--success);
   font-weight: bold;
+}
+
+.actions-head {
+  width: 15%;
 }
 
 .actions {
@@ -379,6 +390,10 @@ tbody tr:hover {
   border-color: #ea580c;
 }
 
+.products-head {
+  display: flex;
+  justify-content: space-between;
+}
 
 @keyframes modalFadeIn {
   0% {
