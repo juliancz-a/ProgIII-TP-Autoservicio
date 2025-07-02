@@ -101,7 +101,7 @@
 
                         <div class="product-preview">
                             <p>Preview del producto</p>
-                            <img id="preview-image" src="<%= product?.images.url || 'https://placehold.co/600x400?text=Sin+imagen' %>" alt="<%= product?.title || 'Producto' %>" />
+                            <img id="preview-image" src="<%= product?.images[0].url || 'https://placehold.co/600x400?text=Sin+imagen' %>" alt="<%= product?.title || 'Producto' %>" />
                             <p id="preview-title"><%= product?.title || 'Sin título' %></p>
                             <p id="preview-description"><%= product?.description || 'Sin descripción' %></p>
                             <p id="preview-category">

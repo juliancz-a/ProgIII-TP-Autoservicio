@@ -105,9 +105,17 @@
     justify-content: center;
 }
 
-.card-image img {
-    object-fit: cover;
-    width: 50%
+.card-image svg {
+    width: 75%;
+}
+
+.card-image .icon-path {
+  fill: #ff6b00;
+  transition: fill 0.3s ease;
+}
+
+.card:hover .card-image .icon-path {
+  fill: #ffffff;
 }
 
 @media (max-width: 1024px) {

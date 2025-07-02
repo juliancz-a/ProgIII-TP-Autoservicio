@@ -44,10 +44,17 @@ function createCardStructure(product) {
         maximumFractionDigits: 2
     }).split(",");
 
+    let image;
+    if (product.images && product.images.length > 0) {
+        image = product.images[0].url;
+    } else {
+        image = 'https://placehold.co/600x400?text=Sin+imagen';
+    }
+
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
-                    <img draggable="false" src="${product.images[0].url}" alt="${product.title}">
+                    <img draggable="false" src="${image}" alt="${product.title}">
                 </div>
                 <div class="card-text">
                     <p class="title">${product.title}</p>

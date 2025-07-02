@@ -137,6 +137,10 @@ body.no-scroll {
   color: var(--accent-primary);
 }
 
+.main-content h2 {
+  font-size: 3rem;
+}
+
 #new-product-btn {
   padding: 1rem;
   font-family: inherit;
