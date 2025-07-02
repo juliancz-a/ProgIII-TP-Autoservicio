@@ -7,7 +7,7 @@ import { Op } from "sequelize";
 
 class ProductService {
 
-    async getAll(limit = 10, offset = 0, filters) {
+    async getAll(limit = 10, offset = 0, target = null, filters) {
 
       const where = {};
       const {min, max} = filters.priceRange
@@ -30,7 +30,7 @@ class ProductService {
         where.enabled = filters.enabled === 'true' ? true : false;
       }
       
-      return await productDao.findAll(limit, offset, where);
+      return await productDao.findAll(limit, offset, target, where);
     }
 
     async getAllAndIsEnabled(limit = 10, offset = 0, category = null, target = null) {

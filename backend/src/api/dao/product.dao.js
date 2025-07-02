@@ -3,7 +3,12 @@ import { Op } from 'sequelize';
 
 class ProductDao {
 
-    async findAll(limit = 10, offset = 0, where) {
+    async findAll(limit = 10, offset = 0, target = null, where) {
+        
+        if (target) {
+            where.title = { [Op.like]: `%${target.trim()}%` };  // busca coincidencias parciales
+        }
+
         return await Product.findAndCountAll({
             limit,
             offset,
