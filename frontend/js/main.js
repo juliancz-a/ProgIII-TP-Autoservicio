@@ -193,9 +193,9 @@ function showCategoryContent() {
         hideSpinner();
     })
 
-    const fallbackCategory = selectedCategory || 'featured';
+    const fallbackCategory = category || 'featured';
 
-    categoryTitle.innerText = getMainTitle(selectedCategory);
+    categoryTitle.innerText = getMainTitle(category);
     const selectedBtn = document.querySelector(`.categories-button[value=${fallbackCategory}]`)
     if (selectedBtn) selectedBtn.classList.add('selected');
 }
@@ -205,6 +205,9 @@ function processQuery() {
 
     debounceTimeout = setTimeout(() => {
         const target = searchBar.value.trim();
+
+        if (target === '') return;
+
         const params = new URLSearchParams(window.location.search);
         const category = params.get('category') || null;
         const page = 1;
