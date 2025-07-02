@@ -44,7 +44,7 @@ function createCartProduct(product) {
         <div class="product-content">
             <div class="product-details-wrapper">
                 <div class="product-image">
-                    <img draggable="false" src="${images.url}" alt="${title}">
+                    <img draggable="false" src="${images[0].url}" alt="${title}">
                 </div>
                 <div class="product-details">
                     <p class="product-title">${title}</p>
