@@ -7,8 +7,12 @@
     <body>
         <%- include('./partials/sidebar.ejs', {activePage : 'products'}) %>
         <main class="main-content">
-            <h2>Productos</h2>
-            <button id="new-product-btn">Nuevo producto</button>
+            <div class="products-head">
+                <h2>Productos</h2>
+                <button id="new-product-btn">
+                    <span class="plus-symbol">+</span>Nuevo producto
+                </button>
+            </div>
             <table class="table">
                 <thead class="table-head">
                     <tr>
@@ -18,7 +22,7 @@
                         <th>Categoría</th>
                         <th>Precio</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
+                        <th class="actions-head">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="table-body">
