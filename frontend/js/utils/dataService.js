@@ -1,15 +1,14 @@
 const API_URL = 'https://neonbits.up.railway.app/api'
 
-export async function fetchProducts(page = 1, category = null) {
+export async function fetchProducts({page = 1, category = null, target = null}) {
     const params = new URLSearchParams();
     params.append('page', page);
     
     if (category) params.append('category', category);
+    if (target) params.append('target', target.trim());
 
     const response = await fetch(`${API_URL}/products/enabled?${params.toString()}`);
     const data = await response.json();
-    console.log(data);
-    
     
     return data;
 }
