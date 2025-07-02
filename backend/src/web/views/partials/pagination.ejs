@@ -1,0 +1,26 @@
+<div class="pagination">
+    <div class="pagination-previous">
+        <% if (pagination.currentPage > 1) { %>
+            <a href="?page=1&username=<%= username %>"><span class="material-symbols-outlined">first_page</span></a>
+            <a href="?page=<%= pagination.currentPage - 1 %>&username=<%= username %>"><span class="material-symbols-outlined">chevron_left</span></a>
+        <% } %>
+    </div>
+
+    <!-- ej max[start]=> (1, 1-3) => 1  || end min[end] => (7, 2 + 3) => 5-->
+    <div class="pagination-pages"> 
+        <% const start = Math.max(1, pagination.currentPage - 3); %> 
+        <% const end = Math.min(pagination.totalPages, pagination.currentPage + 3); %>
+        <% for (let i = start; i <= end; i++) { %>
+            <a href="?page=<%= i %>&username=<%= username %>" class="<%= pagination.currentPage === i ? 'active' : '' %>">
+                <%= i %>
+            </a>
+        <% } %>
+    </div>
+
+    <div class="pagination-next">
+        <% if (pagination.currentPage < pagination.totalPages) { %>
+            <a href="?page=<%= pagination.currentPage + 1 %>&username=<%= username %>"><span class="material-symbols-outlined">chevron_right</span></a>
+            <a href="?page=<%= pagination.totalPages %>&username=<%= username %>"><span class="material-symbols-outlined">last_page</span></a>
+        <% } %>
+    </div>
+</div>

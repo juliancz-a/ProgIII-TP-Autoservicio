@@ -1,13 +1,10 @@
-:root {
-    --header-height: clamp(70px, 10dvh, 100px);
-}
 
 /* Synthwave themed cart styling */
 .cart-container {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin: 3dvh auto 3rem;
+    margin: 7dvh auto 3rem;
     background-color: #1a1a2e;
     background-image: linear-gradient(135deg, #1a1a2e 0%, #251f47 100%);
     padding: 2rem;

@@ -1,0 +1,27 @@
+<aside class="sidebar">
+    <h2>Admin</h2>
+    <div class="hamburger-menu" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    <nav>
+        <ul id="nav-buttons" class="nav-buttons">
+            <li>
+                <a class="<%= activePage === 'dashboard' ? 'active' : '' %>"href="/dashboard?username=<%= username %>">Dashboard</a>
+            </li>
+            <li>
+                <a class="<%= activePage === 'sales' ? 'active' : '' %>" href="/dashboard/sales?username=<%= username %>">Ventas</a>
+            </li>
+            <li>
+                <a class="<%= activePage === 'products' ? 'active' : '' %>" href="/dashboard/products?username=<%= username %>">Productos</a>
+            </li>
+            <li>
+                <a class="<%= activePage === 'users' ? 'active' : '' %>" href="/dashboard/products?username=<%= username %>">Productos</a>
+            </li>
+            <li>
+                <a href="/login"><p>Cerrar sesión</p><span class="material-symbols-outlined">logout</span></a>
+            </li>
+        </ul>
+    </nav>
+</aside>

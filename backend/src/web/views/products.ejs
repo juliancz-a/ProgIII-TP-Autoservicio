@@ -1,16 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/style.css">
-        <title>Document</title>
+        <%- include('./partials/html-head.ejs') %>
+        <title>Prdocuts</title>
     </head>
     <body>
+        <%- include('./partials/sidebar.ejs', {activePage : 'products'}) %>
         <main class="main-content">
-            <div class="product-form">
-                
-            </div>
+            <h2>Productos</h2>
+            <button id="new-product-btn">Nuevo producto</button>
+            <table class="table">
+                <thead class="table-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <% if (products.length > 0) { %>
+                        <% products.forEach(product => { %>
+                            <tr>
+                                <td data-label="ID"><%= product.id %></td>
+                                <td data-label="Título"><%= product.title %></td>
+                                <td data-label="Descripción"><%= product.description %></td>
+                                <td data-label="Categoría"><%= product.category.charAt(0).toUpperCase() + product.category.slice(1) %></td>
+                                <td data-label="Precio">$<%= product.formattedPrice %></td>
+                                <td data-label="Estado" class="<%= product.enabled ? 'status status-active' : 'status' %>" data-id="<%= product.id %>">
+                                    <%= product.enabled ? 'Activo' : 'Inactivo' %> </td>
+                                <td data-label="Acciones" class="actions">
+                                    <button class="edit-product" data-id="<%= product.id %>">Editar</button>
+                                    <button class="toggle-product" value="<%= product.enabled %>" data-id="<%= product.id %>">Cambiar estado</button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay productos disponibles.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <% if (products) { %>
+                <%- include('./partials/pagination.ejs') %>
+            <% } %>
         </main>
+        <!-- Modal  -->
+        <div id="modal-overlay" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-body"></div>
+                <div class="modal-buttons"></div>
+            </div>
+        </div>
     </body>
+    <script type="module" src="/js/products.js"></script>
 </html>

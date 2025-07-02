@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import loginController from '../controllers/login.controller.js';
+import authMiddleware from '../../api/middlewares/auth.middleware.js';
+import loginController from '../controllers/login.controller.js'
 
 const router = Router();
 
@@ -7,6 +8,6 @@ const router = Router();
 router.get('/login', loginController.renderLogin);
 
 // Manejo del login
-router.post('/login', loginController.validateLoginForm);
+router.post('/login', authMiddleware.validatePassword, loginController.authLogin);
 
 export default router;

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/html-head.ejs') %>
+        <link rel="stylesheet" href="/css/product-form.css">
+        <title>Formulario</title>
+    </head>
+    <body>
+        <%- include('./partials/sidebar.ejs', {activePage: ''}) %>
+        <main class="main-content">
+            <div class="form-container">
+                <form 
+                    action="<%= product ? `/api/products/edit/${product.id}?username=${encodeURIComponent(username)}` : `/api/products/create?username=${encodeURIComponent(username)}` %>"
+                    method="POST" 
+                    class="product-form"
+                    enctype="multipart/form-data"
+                    id="product-form"
+                >
+                    <section>
+                        <div class="product-inputs">
+                            <div class="form-group">
+                                <label class="input-label" for="title">Titulo</label>
+                                <input 
+                                    type="text" 
+                                    id="title" 
+                                    name="title" 
+                                    value="<%= product ? product.title : '' %>" 
+                                    placeholder="Ingresa el nombre del producto" 
+                                    autocomplete="off" 
+                                />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="input-label" for="description">Descripción</label>
+                                <input 
+                                    type="text" 
+                                    id="description"
+                                    name="description"
+                                    value="<%= product ? product.description : '' %>" 
+                                    placeholder="Ingresa la descripción del producto"
+                                    autocomplete="off" />
+                            </div>
+
+                            <div class="form-group">
+                                <label class="input-label" for="category">Categoria</label>
+                                <select name="category" id="category">
+                                    <option value="" disabled <%= !product ? 'selected' : '' %> hidden>Seleccionar categoría</option>
+                                    <option value="accessory" <%= product?.category === 'accessory' ? 'selected' : '' %>>Accessory</option>
+                                    <option value="component" <%= product?.category === 'component' ? 'selected' : '' %>>Component</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="input-label" for="price">Precio</label>
+                                <input 
+                                    type="text" 
+                                    id="price"
+                                    name="price"
+                                    value="<%= product ? product.price : '' %>"  
+                                    placeholder="Ingresa el precio del producto"
+                                    autocomplete="off"
+                                    min="0"
+                                    step="0.01" />
+                            </div>
+
+                            <div class="form-group">
+                                <p class="input-label">Seleccionar imagen</p>
+                                <label for="fileInput" class="drop-area" id="drop-area">
+                                    <img src="/img/upload-image.jpg" alt="upload-image" class="upload-image">
+                                    <p class="drop-text">Arrastra una imagen aquí o <span>explora</span></p>
+                                    <p class="drop-subtext">Tamaño máximo: 5MB, formatos soportados: PNG/JPG/JPEG/WEBP</p>
+                                </label>
+                                <input type="file" id="fileInput" name="image"/>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="input-label" for="status">Estado</label>
+                                <div class="status-toggle">
+                                    <label class="status-radio">
+                                        <input 
+                                            type="radio" 
+                                            name="enabled" 
+                                            value="true" 
+                                            <%= !product || product.enabled ? 'checked' : '' %>
+                                        >
+                                        <span>Activo</span>
+                                    </label>
+                                    <label class="status-radio">
+                                        <input 
+                                            type="radio" 
+                                            name="enabled" 
+                                            value="false" 
+                                            <%= product && !product.enabled ? 'checked' : '' %>
+                                        >
+                                        <span>Inactivo</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-preview">
+                            <p>Preview del producto</p>
+                            <img id="preview-image" src="<%= product?.images[0].url || 'https://placehold.co/600x400?text=Sin+imagen' %>" alt="<%= product?.title || 'Producto' %>" />
+                            <p id="preview-title"><%= product?.title || 'Sin título' %></p>
+                            <p id="preview-description"><%= product?.description || 'Sin descripción' %></p>
+                            <p id="preview-category">
+                                <%= product?.category
+                                ? product.category.charAt(0).toUpperCase() + product.category.slice(1)
+                                : 'Sin categoría' %>
+                            </p>
+                            <h5 id="preview-price" class="price">$<%= product?.price?.toFixed(2) || '0.00' %></h5>
+                            <p id="preview-status" class="status <%= !product || product.enabled ? 'status-active' : 'status-inactive' %>">
+                                <%= !product || product.enabled ? 'Activo' : 'Inactivo' %>
+                            </p>
+                        </div>
+                    </section>
+
+                    <button id="save" type="submit" class="btn btn-primary">Guardar cambios</button>
+                </form>
+            </div>
+        </main>
+    </body>
+    <script type="module" src="/js/product-form.js"></script>
+</html>

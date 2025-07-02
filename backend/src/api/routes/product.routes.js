@@ -1,18 +1,24 @@
-import {Router} from 'express';
+import { Router } from 'express';
+import { productMiddleware } from '../../api/middlewares/validator.middleware.js';
 import productController from '../controllers/product.controller.js';
+import upload from "../../api/middlewares/multer.middleware.js";
 
 const router = Router();
 
-router.get('/', productController.findAllProducts);
+router.get('/', productController.getAllProducts);
 
-router.get('/:id', productController.findProductById);
+router.get('/enabled', productController.getAllProductsEnabled);
 
-router.post('/', productController.createProduct)
+router.post('/cart', productController.getAllProductsOnCart);
 
-router.put('/:id', productController.updateProductById)
+router.get('/:id', productController.getProductById);
 
-router.patch('/:id', productController.toggleEnabledById)
+router.post('/', upload.single('image'), productMiddleware, productController.createProduct);
 
-router.delete('/:id', productController.deleteProductById)
+router.put('/:id', upload.single('image'), productMiddleware, productController.updateProductById);
+
+router.patch('/:id', productController.toggleEnabledById);
+
+router.delete('/:id', productController.deleteProductById);
 
 export default router;

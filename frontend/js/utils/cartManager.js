@@ -1,4 +1,4 @@
-import { fetchProducts, getCart, saveCart } from "./dataService.js";
+import {getCart, saveCart, getUser, fetchCartProducts} from "./dataService.js";
 
 let cart = getCart();
 
@@ -7,9 +7,10 @@ export function getCurrentCart() {
 }
 
 export async function getFullCart() {
-    const productsDb = await fetchProducts()
+    const ids = cart.map(item => item.id)    
+    const productsDb = await fetchCartProducts(ids)    
     
-    const fullCart = getCart().map(cartItem => {
+    const fullCart = cart.map(cartItem => {
         const productData = productsDb.find(p => p.id === cartItem.id);
         return  {
             ...productData,
@@ -17,6 +18,22 @@ export async function getFullCart() {
         }
     })
     return fullCart;
+}
+
+export async function getSaleBody() {
+    const cart = await getFullCart();
+    return {
+        client_name : getUser(),
+        total : cart.reduce((acc, p) => acc + p.price * p.quantity, 0),
+        products : cart.map(p => {
+            return {
+                id : p.id,
+                title : p.title,
+                unit_price : p.price,
+                quantity : p.quantity
+            }
+        })
+    }
 }
 
 //revisar logica addtocart y updateproductquantity
@@ -47,12 +64,12 @@ export function removeFromCart(product) {
 }
 
 export function getTotalPrice(cart) {
+    
     const total = cart.reduce((acc, p) => acc + p.price * p.quantity, 0);
     const [integer, decimals] = total.toLocaleString("es-AR", {
         minimumFractionDigits: 2
     }).split(',');
 
-    
     return {integer , decimals}
 }
 

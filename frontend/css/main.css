@@ -16,7 +16,6 @@ h1 {
   text-shadow: 0 0 5px rgba(229, 229, 255, 0.3);
 }
 
-
 .container {
   width: 100%;
   display: flex;
@@ -30,9 +29,10 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
   padding-right: 20px;
   padding-left: 20px;
+  margin-bottom: 25px;
 }
 
 .products-section .title-wrapper {
@@ -59,8 +59,6 @@ h1 {
 
   gap: 40px;
   margin-top: 25px;
-  margin-bottom: 50px;
-  
 }
 
 .card {
@@ -104,7 +102,9 @@ h1 {
 }
 
 .card-text .title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  text-align: left;
+  text-justify: inter-word;
 }
 
 .card-text .title::after {
@@ -119,7 +119,7 @@ h1 {
 .card-text .description {
   font-size: 0.8rem;
   opacity: 0.6;
-  text-align: justify;
+  text-align: left;
   text-justify: inter-word;
   line-height: 1.4;
   padding: 2px;
@@ -205,19 +205,19 @@ h1 {
     320deg,
     rgba(0, 77, 139, 0.767),
     rgba(83, 0, 83, 0.541)
-    );
+  );
     
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .card-buy-button:hover {
-    background-color: #451459;
-    transform: scale(1.05);
-  }
+  background-color: #451459;
+  transform: scale(1.05);
+}
   
 
 .card-added {
-    background-image: linear-gradient(144deg, #ffc340, #f3428c 50%, #db3551);
+  background-image: linear-gradient(144deg, #ffc340, #f3428c 50%, #db3551);
 }
 
 .quantityWrapper {
@@ -231,14 +231,45 @@ h1 {
   height: 35px;
 }
 
-.added {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    padding: 5px;
-    color: white;
-    background-image: linear-gradient(144deg, #4340ff, #424ef3 50%, #3582db);
+.pagination {
+  padding: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  border-radius: 10px;
+}
 
+.pagination .page-item {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background-color: #1a1a2e;
+  border: 1px solid rgba(255, 42, 110, 0.741);
+  box-shadow: 0 0 5px rgba(255, 42, 110, 0.351);
+  color: #ff2a6d;
+  font-weight: bold;
+  transition: 250ms;
+  border-radius: 10px;
+  user-select: none;
+}
+
+.pagination .page-item.active {
+  color: #00e5ff;
+  text-shadow: 0 0 4px rgba(0, 229, 255, 0.6);
+  background: rgba(255, 42, 109, 0.3);
+}
+
+.pagination .page-item:hover {
+  background: rgba(255, 42, 109, 0.3);
+  color: #00e5ff;
+  text-shadow: 0 0 4px rgba(0, 229, 255, 0.6);
+}
+
+.added {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  padding: 5px;
+  color: white;
+  background-image: linear-gradient(144deg, #4340ff, #424ef3 50%, #3582db);
 }
 
 @media(max-width : 480px) {
@@ -268,9 +299,7 @@ h1 {
 
   .card-content .card-image img {
     object-fit: cover;
-    
   }
-
   
   .card-content .card-text {
     width: 100%;

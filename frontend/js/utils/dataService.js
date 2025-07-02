@@ -1,8 +1,43 @@
-export async function fetchProducts() {
-    const response = await fetch('https://neonbits.up.railway.app/products')
-    const data = await response.json()
+const API_URL = 'http://localhost:5000/api'
+
+export async function fetchProducts(page = 1, category = null) {
+    const params = new URLSearchParams();
+    params.append('page', page);
     
-    return data
+    if (category) params.append('category', category);
+
+    const response = await fetch(`${API_URL}/products/enabled?${params.toString()}`);
+    const data = await response.json();
+    console.log(data);
+    
+    
+    return data;
+}
+
+export async function fetchCartProducts(ids) {
+    const cfg = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body : JSON.stringify({ids : ids})
+    }
+
+    const response = await fetch(`${API_URL}/products/cart`, cfg);
+    const data = await response.json();
+
+    return data;
+}
+
+export async function createSale(data) {
+    const cfg = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body : JSON.stringify(data)
+    }
+    await fetch(`${API_URL}/sales`, cfg)
 }
 
 export function getCart() {

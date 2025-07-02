@@ -10,29 +10,17 @@
     <title id="tab-title">NeonBits</title>
 </head>
 <body class="dark-mode">
-    <div id="loader">
-        <div class="loader-spinner"></div>
+    <div id="spinner" class="spinner-overlay hidden">
+        <div class="spinner"></div>
     </div>
     <header>
         <nav class="nav-bar">
             <div class="logo">
                 <a id="logo" href="/">
-                    <img class="logo-img" src="./img/logo_navbar.png" alt="NEONBITS">
+                    <img draggable="false" class="logo-img" src="./img/logo_navbar.png" alt="NEONBITS">
                 </a>
             </div>
             <div class="nav-content" id="nav-content">
-
-                <ul class="categories">
-                    <li>
-                        <button class="categories-button" value="featured">Destacados<div class="arrow-wrapper"><div class="arrow"></div></div></button>
-                    </li>
-                    <li>
-                        <button class="categories-button" value="component">Componentes<div class="arrow-wrapper"><div class="arrow"></div></div></button>
-                    </li>
-                    <li>
-                        <button class="categories-button" value="accessory">Accesorios<div class="arrow-wrapper"><div class="arrow"></div></div></button>
-                    </li>
-                </ul>
                 <div class="search-bar">
                     <input
                     id="query"
@@ -48,14 +36,6 @@
                         </g>
                     </svg>
                 </div>
-                <div class="theme-toggler">
-                    <input type="checkbox" name="" id="toggle">
-                    <label for="toggle" class="toggle">
-                        <span class="material-symbols-outlined sunny">sunny</span>
-                        <span class="material-symbols-outlined moon">dark_mode</span>
-                        <span class="ball"></span>
-                    </label>
-                </div>
             </div>
             <div class="nav-control">
                 <div class="hamburger-menu" id="hamburger">
@@ -63,19 +43,46 @@
                     <span class="bar"></span>
                     <span class="bar"></span>
                 </div>
-                <a href="cart.html" class="cart-button" id="cart-button"><span class="material-symbols-outlined">shopping_cart</span></a>
+                <a href="" class="button logout-button" id="logout-button"><span class="material-symbols-outlined">logout</span></a>
+                <a href="cart.html" class="button cart-button" id="cart-button"><span class="material-symbols-outlined">shopping_cart</span></a>
             </div>
         </nav>
-
+        <nav id="nav-categories" class="nav-bar-categories">
+            <ul class="categories">
+                <li>
+                    <button class="categories-button" value="featured">Destacados<div class="arrow-wrapper"><div class="arrow"></div></div></button>
+                </li>
+                <li>
+                    <button class="categories-button" value="component">Componentes<div class="arrow-wrapper"><div class="arrow"></div></div></button>
+                </li>
+                <li>
+                    <button class="categories-button" value="accessory">Accesorios<div class="arrow-wrapper"><div class="arrow"></div></div></button>
+                </li>
+            </ul>
+            <div class="theme-toggler">
+                <input type="checkbox" name="" id="toggle">
+                <label for="toggle" class="toggle">
+                    <span class="material-symbols-outlined sunny">sunny</span>
+                    <span class="material-symbols-outlined moon">dark_mode</span>
+                    <span class="ball"></span>
+                </label>
+            </div>
+        </nav>
     </header>
     <main class="container">
         <section class="products-section">
             <div class="title-wrapper">
                 <h2 id="category-title">Nuestros productos</h2>
             </div>
+
             <!-- PRODUCT GRID -->
             <div id="grid" class="product-grid">
                <!-- Dynamic Content -->
+            </div>
+
+            <!-- PAGES -->
+            <div id="pagination" class="pagination">
+                <!-- Dynamic Content -->
             </div>
         </section>
     </main>

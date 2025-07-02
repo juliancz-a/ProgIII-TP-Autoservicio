@@ -1,5 +1,6 @@
-import { getFullCart, removeFromCart, updateProductQuantity, getTotalPrice, updateCartBtn } from "./utils/cartManager.js";
-import { redirectToMain, confirmPurchase, activateModal,  closeModal, setLoader} from "./utils/uiHelpers.js";
+import { getFullCart, removeFromCart, updateProductQuantity, getTotalPrice, updateCartBtn, getSaleBody } from "./utils/cartManager.js";
+import { createSale } from "./utils/dataService.js";
+import { redirectToMain, confirmPurchase, activateModal,  closeModal } from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "login.html";
@@ -32,7 +33,7 @@ function renderCart(products) {
 // Crea un producto en el DOM del carrito
 function createCartProduct(product) {
     
-    const {id , title, price, img, quantity} = product;
+    const {id , title, price, images, quantity} = product;
 
     const productDiv = document.createElement('div');
     productDiv.className = 'product';
@@ -43,7 +44,7 @@ function createCartProduct(product) {
         <div class="product-content">
             <div class="product-details-wrapper">
                 <div class="product-image">
-                    <img draggable="false" src="${img}" alt="${title}">
+                    <img draggable="false" src="${images.url}" alt="${title}">
                 </div>
                 <div class="product-details">
                     <p class="product-title">${title}</p>
@@ -169,8 +170,6 @@ getFullCart().then(cart => {
     updateCartBtn(fullCart, quantityIcon)
 })
 
-setLoader()
-
 //Modal Management
 // DOM Elements //
 const modal = document.getElementById('modal-confirm')
@@ -188,12 +187,18 @@ let popupBody = {
     type: 'error'
 }
 
+
+
 // Modal Events
 checkoutBtn.addEventListener('click', () => {
     activateModal(modal, fullCart, popupBody)
 });
 mainRedirectBtn.addEventListener('click', redirectToMain);
-confirmBtn.addEventListener('click', confirmPurchase);
+confirmBtn.addEventListener('click', async () => {
+    confirmPurchase();
+    createSale(await getSaleBody())
+});
 cancelBtn.addEventListener('click', () => {
     closeModal(modal, modalContent)
 });
+

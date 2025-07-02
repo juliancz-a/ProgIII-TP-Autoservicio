@@ -1,6 +1,6 @@
 import { fetchProducts } from "./utils/dataService.js";
 import { getCurrentCart, addToCart, isInCart, updateCartBtn } from "./utils/cartManager.js";
-import { showPopup, setLoader} from "./utils/uiHelpers.js";
+import { showPopup } from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "/login.html";   
@@ -11,13 +11,11 @@ function renderCards(products) {
     const fragment = document.createDocumentFragment();
 
     if (products.length === 0) {
-        const emptyGrid = document.createElement('h1')
-        emptyGrid.textContent = 'No encontramos ningun producto';
-        productGrid.replaceChildren(emptyGrid)
+        renderEmptySite();
         return;
     }
     
-    for(const product of products) {
+    for (const product of products) {
     
         const cardDiv = createCardStructure(product)
 
@@ -31,6 +29,12 @@ function renderCards(products) {
     productGrid.replaceChildren(fragment);
 }
 
+function renderEmptySite() {
+    const emptyGrid = document.createElement('h2')
+    emptyGrid.textContent = 'No encontramos ningun producto';
+    productGrid.replaceChildren(emptyGrid)
+}
+
 function createCardStructure(product) {    
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
@@ -40,10 +44,17 @@ function createCardStructure(product) {
         maximumFractionDigits: 2
     }).split(",");
 
+    let image;
+    if (product.images && product.images.length > 0) {
+        image = product.images[0].url;
+    } else {
+        image = 'https://placehold.co/600x400?text=Sin+imagen';
+    }
+
     cardDiv.innerHTML = `
             <div class="card-content">
                 <div class="card-image">
-                    <img draggable="false" src="${product.img}" alt="${product.title}">
+                    <img draggable="false" src="${image}" alt="${product.title}">
                 </div>
                 <div class="card-text">
                     <p class="title">${product.title}</p>
@@ -66,20 +77,19 @@ function createCardStructure(product) {
 function addButtonsEvents(cardDiv, product) {
 
     let popupBody = {
-    message : `${product.title} agregado al carrito`,
-    color : '#568a33',
-    icon : 'check'
+        message : `${product.title} agregado al carrito`,
+        color : '#568a33',
+        icon : 'check'
     }
 
     const productManager = cardDiv.querySelector('.card-buy');
     const buyBtn = productManager.querySelector('.card-buy-button')
     
     buyBtn.addEventListener('click', () => {
-            
-            showPopup(popupBody)            
-            addToCart(product)
-            updateCard(cardDiv, product)
-            updateCartBtn(cart, quantityIcon)
+        showPopup(popupBody)            
+        addToCart(product)
+        updateCard(cardDiv, product)
+        updateCartBtn(cart, quantityIcon)
     })
 }
 
@@ -113,23 +123,77 @@ function getMainTitle(category) {
     return titles[category] || 'Nuestros productos';
 }
 
+function renderPagination(pagination) {
+    const paginationContainer = document.getElementById('pagination');
+    if (!paginationContainer || !pagination) return;
+
+    const { currentPage, totalPages } = pagination;
+
+    const fragment = document.createDocumentFragment();
+
+    if (currentPage > 1) {
+        const prev = createPaginationLink(currentPage - 1, '<');
+        fragment.appendChild(prev);
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = createPaginationLink(i, i, currentPage);
+        if (i === currentPage) pageBtn.classList.add('active');
+        fragment.appendChild(pageBtn);
+    }
+
+    if (currentPage < totalPages) {
+        const next = createPaginationLink(currentPage + 1, '>');
+        fragment.appendChild(next);
+    }
+
+    paginationContainer.replaceChildren(fragment);
+}
+
+function createPaginationLink(page, label, currentPage) {
+    const link = document.createElement('a');
+    link.className = 'page-item';
+
+    if (page === currentPage) {
+        link.textContent = label;
+        link.classList.add('active');
+        link.style.cursor = 'default';     // Cursor de "no clickeable"
+    } else {
+        const params = new URLSearchParams(window.location.search);
+        params.set('page', page);
+        link.href = `?${params.toString()}`;
+        link.textContent = label;
+    }
+
+    return link;
+}
+
+
 function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
     const params = new URLSearchParams(window.location.search) //URLSearchParams => obj con los params
     let selectedCategory = params.get('category'); // accessory / component / featured (all)
-
-    if (!selectedCategory) selectedCategory = 'featured'; 
+    let currentPage = parseInt(params.get('page')) || 1;
     
-    fetchProducts().then(data => {
-        let products = (selectedCategory === 'accessory' || selectedCategory === 'component') ? data.filter(p => p.category === selectedCategory) : data;
-        
-        renderCards(products)
+    showSpinner();
+
+    fetchProducts(currentPage, selectedCategory).then(data => {
+        renderCards(data.products);
+        console.log(data.products);
+        renderPagination(data.pagination)
+    }).catch(err => {
+        console.error("Error al cargar productos", err);
+        renderEmptySite();
+    }).finally(() => {
+        hideSpinner();
     })
 
-    categoryTitle.innerText = getMainTitle(selectedCategory)
-    const selectedBtn = document.querySelector(`.categories-button[value=${selectedCategory}]`)
-    selectedBtn.classList.add('selected')
-    
+    const fallbackCategory = selectedCategory || 'featured';
+
+    categoryTitle.innerText = getMainTitle(selectedCategory);
+    const selectedBtn = document.querySelector(`.categories-button[value=${fallbackCategory}]`)
+    selectedBtn.classList.add('selected');
 }
+
 function processQuery() {
     clearTimeout(debounceTimeout); // Reinicia el temporizador
 
@@ -139,11 +203,21 @@ function processQuery() {
     }, 400); // Espera 400 ms desde la última tecla
 }
 
+function showSpinner() {
+    document.getElementById("spinner").classList.remove("hidden");
+}
+
+function hideSpinner() {
+    document.getElementById("spinner").classList.add("hidden");
+}
+
 function executeSearch(query) {
     fetchProducts().then(data => {
-        let products = data;
-        const filteredItems = products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
+        const filteredItems = data.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
         renderCards(filteredItems);
+    }).catch(err => {
+        console.error("Error en la búsqueda", err);
+        renderEmptySite();
     })
 }
 
@@ -167,4 +241,4 @@ searchBar.addEventListener('input', processQuery)
 let cart = getCurrentCart();
 showCategoryContent()
 updateCartBtn(cart, quantityIcon)
-setLoader()
+// setLoader()

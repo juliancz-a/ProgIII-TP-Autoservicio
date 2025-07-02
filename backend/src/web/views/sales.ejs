@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include('./partials/html-head.ejs') %>
+        <title>Ventas</title>
+    </head>
+    <body>
+        <%- include('./partials/sidebar.ejs', {activePage : 'sales'}) %>
+        <main class="main-content">
+            <h2>Ventas</h2>
+            <table class="table">
+                <thead class="table-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <% if (sales.length > 0) { %>
+                        <% sales.forEach(sale => { %>
+                            <tr>
+                                <td data-label="ID"><%= sale.id %></td>
+                                <td data-label="Cliente"><%= sale.client_name %></td>
+                                <td data-label="Total">$<%= sale.formattedPrice %></td>
+                                <td data-label="Fecha"><%= sale.formattedDate %></td>
+                                <td data-label="Acciones" class="actions">
+                                    <button value="<%= sale.id %>" class="view-details">Ver detalles</button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay ventas disponibles.</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table> 
+            <% if (sales) { %>
+                <%- include('./partials/pagination.ejs') %>
+            <% } %>
+        </main>
+        <!-- Modal  -->
+        <div id="modal-overlay" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-body"></div>
+                <div class="modal-buttons"></div>
+            </div>
+        </div>
+    </body>
+        <script type="module" src="/js/sales.js"></script>
+</html>
