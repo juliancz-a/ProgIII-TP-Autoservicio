@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api'
+const API_URL = 'https://neonbits.up.railway.app/api'
 
 export async function fetchProducts(page = 1, category = null) {
     const params = new URLSearchParams();
