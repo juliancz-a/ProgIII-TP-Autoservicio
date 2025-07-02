@@ -5,22 +5,16 @@ const users = [
   }
 ]
 
-const validateUser = (username, password) => {
-  return users.find((u) => u.username === username && u.password === password)
-}
 
 const renderLogin = (req, res) => {
   res.render('login', { error: null });
 };
 
-const validateLoginForm = (req, res) => {
-  const { username, password } = req.body;
-
-  if (!validateUser(username, password)) {
-    return res.render('login', { error: 'Usuario o contraseña incorrectos' });
-  }
-
-  res.redirect(`/dashboard?username=${encodeURIComponent(username)}`);
+const authLogin = async (req, res) => {
+  
+  const { username, password } = req.user;
+  
+  res.status(200).json({redirect : `/dashboard?username=${encodeURIComponent(username)}`});
 };
 
-export default { renderLogin, validateLoginForm }
+export default { renderLogin, authLogin }

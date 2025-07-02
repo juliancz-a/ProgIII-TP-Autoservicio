@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { User } from "../models/index.js";
+import userDao from "../dao/user.dao.js";
 
 const saltRounds = 10;
 
@@ -23,8 +23,10 @@ const hashPassword = async (req, res, next) => {
 
 const validatePassword = async (req, res, next) => {
     const { username, password } = req.body;
-
-    const user = await User.findOne({ where: { username } });
+    if (!username || !password) {
+        return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
+    }
+    const user = await userDao.findByUsername(username)
     if (!user) {
         return res.status(401).json({ message: "Usuario o contraseña incorrectos" });
     };

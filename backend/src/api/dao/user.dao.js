@@ -1,12 +1,19 @@
 import { User } from "../models/index.js";
 
 class UserDao {
-    async findAll() {
-        return await User.findAll();
+    async findAll(limit = 10, offset = 0) {
+        return await User.findAndCountAll({
+            limit,
+            offset
+    })
     }
 
     async findById(id) {
         return await User.findByPk(id)
+    }
+
+    async findByUsername(username) {
+        return await User.findOne({where : {username : username}})
     }
 
     async create(user) {
