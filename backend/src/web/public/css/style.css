@@ -145,7 +145,7 @@ body.no-scroll {
   display: flex;
   align-items: center;
   gap: 0.6dvw;
-  padding: 1rem;
+  padding: 0.6rem 2rem;
   font-family: inherit;
   background-color: var(--accent-primary);
   border: none;
