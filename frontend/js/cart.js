@@ -39,7 +39,7 @@ function createCartProduct(product) {
     productDiv.className = 'product';
     
     const split_price = price.toFixed(2).split(".");
-        
+       
     productDiv.innerHTML = `
         <div class="product-content">
             <div class="product-details-wrapper">

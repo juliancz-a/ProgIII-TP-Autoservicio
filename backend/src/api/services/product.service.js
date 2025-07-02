@@ -33,8 +33,8 @@ class ProductService {
       return await productDao.findAll(limit, offset, where);
     }
 
-    async getAllAndIsEnabled(limit = 10, offset = 0, category = null) {
-      return await productDao.findAllAndIsEnabled(limit, offset, category);
+    async getAllAndIsEnabled(limit = 10, offset = 0, category = null, target = null) {
+      return await productDao.findAllAndIsEnabled(limit, offset, category, target);
     }
 
     async getAllByIds(ids) {

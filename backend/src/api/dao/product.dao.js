@@ -1,4 +1,5 @@
 import {Product, Image} from "../models/index.js";
+import { Op } from 'sequelize';
 
 class ProductDao {
 
@@ -12,11 +13,15 @@ class ProductDao {
         });
     }
 
-    async findAllAndIsEnabled(limit = 10, offset = 0, category = null) {
+    async findAllAndIsEnabled(limit = 10, offset = 0, category = null, target = null) {
         const where = { enabled: true };
         
         if (category) {
             where.category = category;
+        }
+
+        if (target) {
+            where.title = { [Op.like]: `%${target.trim()}%` };  // busca coincidencias parciales
         }
 
         return await Product.findAndCountAll({
