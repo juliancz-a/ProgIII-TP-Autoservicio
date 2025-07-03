@@ -13,7 +13,10 @@
                     <span class="plus-symbol">+</span>Nuevo producto
                 </button>
             </div>
-            <%- include('./partials/search-bar.ejs') %>
+            <section class="input-section">
+                <%- include('./partials/search-bar.ejs') %>
+                <%- include('./partials/filters') %>
+            </section>
             <table class="table">
                 <thead class="table-head">
                     <tr>
@@ -50,8 +53,15 @@
                     <% } %>
                 </tbody>
             </table>
+            <%= console.log(order) %>
             <% if (products) { %>
-                <%- include('./partials/pagination.ejs') %>
+                <%- include('./partials/pagination.ejs', 
+                {params: {
+                    target: preservedQuery || null, 
+                    filters: filtersQuery || null,
+                    order: order || null
+                }}
+                ) %>
             <% } %>
         </main>
         <!-- Modal  -->
@@ -63,6 +73,6 @@
         </div>
     </body>
     <script type="module" src="/js/products.js"></script>
-    <script src="/js/filter-form.js"></script>
-    <script src="/js/search-bar.js"></script>
+    <script src="/js/ui/filter-form.js"></script>
+    <script src="/js/ui/search-bar.js"></script>
 </html>

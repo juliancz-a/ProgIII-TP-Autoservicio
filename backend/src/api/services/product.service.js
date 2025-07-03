@@ -7,7 +7,7 @@ import { Op } from "sequelize";
 
 class ProductService {
 
-    async getAll(limit = 10, offset = 0, target = null, filters) {
+    async getAll(limit = 10, offset = 0, order = null, target = null, filters = {}) {
 
       const where = {};
       const {min, max} = filters.priceRange
@@ -27,10 +27,24 @@ class ProductService {
       }
 
       if (filters.enabled) {
-        where.enabled = filters.enabled === 'true' ? true : false;
+        where.enabled = filters.enabled === 'true';
       }
       
-      return await productDao.findAll(limit, offset, target, where);
+      console.log(order);
+      
+      if(order) {
+        if(order === 'DESC' || order === 'ASC') {
+          order = ['price', order] // Price order
+        } else {
+          order = ['enabled', order === 'active' ? 'DESC' : 'ASC'] // Status order
+        }
+      } else {
+        order = ['createdAt', 'ASC'] // default order
+      }
+      
+      console.log("order:" , order);
+      
+      return await productDao.findAll(limit, offset, order, target, where);
     }
 
     async getAllAndIsEnabled(limit = 10, offset = 0, category = null, target = null) {
@@ -95,5 +109,6 @@ class ProductService {
       productDao.deleteById(id);
     }
   }
+
 
 export default new ProductService();

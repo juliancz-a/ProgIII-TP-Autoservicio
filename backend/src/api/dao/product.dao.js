@@ -3,16 +3,18 @@ import { Op } from 'sequelize';
 
 class ProductDao {
 
-    async findAll(limit = 10, offset = 0, target = null, where) {
+    async findAll(limit = 10, offset = 0, order = ['createdAt', 'ASC'], target = null, where) {
         
         if (target) {
             where.title = { [Op.like]: `%${target.trim()}%` };  // busca coincidencias parciales
         }
-
+        
+        console.log(order);
+        
         return await Product.findAndCountAll({
             limit,
             offset,
-            order: [['createdAt', 'ASC']],
+            order: [order],
             include: [{model : Image, as : 'images'}],
             where
         });

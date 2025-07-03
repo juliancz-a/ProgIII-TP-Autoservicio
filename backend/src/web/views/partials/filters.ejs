@@ -1,0 +1,29 @@
+<form class="filter-form" id="filter-form">
+    <fieldset class="category-filter">
+        <label for="category">Filtrar por categoría:</label>
+        <select name="category" id="category">
+            <option value="" <%= !filters.category ? 'selected' : '' %>>Todos</option>
+            <option value="component" <%= filters.category === 'component' ? 'selected' : '' %>>Componentes</option>
+            <option value="accessory" <%= filters.category === 'accessory' ? 'selected' : '' %>>Accesorios</option>
+        </select>
+    </fieldset>
+
+    <fieldset class="price-filter">
+        <legend>Filtrar por precio:</legend>
+        <section class="input-group">
+            <input min=0 type="number" name="min" value= "<%= filters.priceRange.min ? filters.priceRange.min : '' %>" placeholder="Min:" />
+            <input type="number" name="max" value= "<%= filters.priceRange.max ? filters.priceRange.max : '' %>" placeholder="Max:" />
+        </section>
+    </fieldset>
+
+    <fieldset class="state-filter">
+        <legend>Filtrar por estado:</legend>
+        <section class="input-group">
+            <label><input type="radio" name="enabled" value="true" <%= filters.enabled === 'true' ? 'checked' : '' %>> Activo</label>
+            <label><input type="radio" name="enabled" value="false" <%= filters.enabled === 'false' ? 'checked' : ''%>> Inactivo</label>
+            <label><input type="radio" name="enabled" value="" <%= !filters.enabled ? 'checked' : '' %>> Todos</label>
+        </section>
+    </fieldset>
+
+    <button type="submit">Aplicar filtros</button>
+</form>
