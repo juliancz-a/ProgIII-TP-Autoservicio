@@ -55,11 +55,21 @@
 .product-item {
     display: flex;
     justify-content: space-between;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.header-item th {
+    padding: 0 1rem;
+}
+
+.product-item td {
+    padding: 1rem;
 }
 
 .title {
     width: 60%;
     text-align: left;
+    margin-right: 5px;
 }
 
 .quantity{
@@ -75,6 +85,7 @@
 
 .table-footer {
     border-top: solid 1px black;
+    padding: 1rem;
 }
 
 .footer-item {
@@ -96,4 +107,52 @@
 
 #ticket-btn:hover {
     opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+    .product-table,
+    .table-header,
+    .table-content,
+    .table-footer,
+    .product-table tr,
+    .product-table th,
+    .product-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-header {
+        display: none;
+    }
+
+    .table-content {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .product-table tr {
+        margin-bottom: 1rem;
+        border-radius: 5px;
+        padding: 10px;
+    }
+
+    .product-table td {
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .product-table td:last-child {
+        border: none;
+    }
+
+    .product-table td::before {
+        content: attr(data-label); 
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        font-weight: bold;
+        text-align: left;
+    }
 }
