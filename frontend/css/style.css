@@ -37,6 +37,7 @@ html {
   font-family: "Exo";
   overflow-y: scroll;
   scrollbar-gutter: stable;
+  min-width: 360px;
 }
 
 body {
@@ -630,10 +631,7 @@ main {
   }
 }
 
-@media (max-width: 1150px) {
-
- 
-
+@media (max-width: 1024px) {
     /* Nav Responsive */
    .hamburger-menu {
     display: block;

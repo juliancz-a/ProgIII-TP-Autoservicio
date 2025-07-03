@@ -206,13 +206,24 @@ function processQuery() {
     debounceTimeout = setTimeout(() => {
         const target = searchBar.value.trim();
 
-        if (target === '') return;
-
         const params = new URLSearchParams(window.location.search);
         const category = params.get('category') || null;
         const page = 1;
 
         const url = new URL(window.location.href);
+
+        if (target === '') {
+            // 🔄 Borrar la búsqueda, actualizar URL y mostrar productos normales
+            url.searchParams.delete('target');
+            url.searchParams.set('page', page);
+            if (category) url.searchParams.set('category', category);
+            else url.searchParams.delete('category');
+
+            window.history.pushState({}, '', url);
+            showCategoryContent();
+            return;
+        }
+
         url.searchParams.set('target', target);
         url.searchParams.set('page', page);
         if (category) url.searchParams.set('category', category);

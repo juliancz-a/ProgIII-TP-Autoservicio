@@ -285,6 +285,8 @@ h1 {
   background-image: linear-gradient(144deg, #4340ff, #424ef3 50%, #3582db);
 }
 
+
+
 @media(max-width : 480px) {
   .card {
     width: 90%;
@@ -305,7 +307,7 @@ h1 {
   .card-content .card-image {
     width: 80%;
     transform: none;
-    height: 200px;
+    height: 240px;
     margin-bottom: 10px;
     box-shadow: none;
   }
@@ -335,5 +337,9 @@ h1 {
 
   .card-buy .price {
     font-size: 1.25rem;
+  }
+
+  .pagination {
+    gap: 2dvw;
   }
 }

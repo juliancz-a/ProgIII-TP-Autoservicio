@@ -31,9 +31,9 @@ function renderTicket(cart) {
     
         const tr = document.createElement("tr");
         tr.innerHTML = 
-            `<td class="title">${title} </td>
-            <td class="quantity">${quantity}</td>
-            <td class="price">$${(getTotalAmount(price, quantity)).toLocaleString("es-AR", { minimumFractionDigits: 2 })}</td>`;
+            `<td data-label="Nombre" class="title">${title} </td>
+            <td data-label="Cantidad" class="quantity">${quantity}</td>
+            <td data-label="Precio" class="price">$${(getTotalAmount(price, quantity)).toLocaleString("es-AR", { minimumFractionDigits: 2 })}</td>`;
         tr.className = "product-item"
         tableContent.appendChild(tr);
     });
