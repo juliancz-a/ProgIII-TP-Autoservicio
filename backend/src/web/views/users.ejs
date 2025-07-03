@@ -35,8 +35,12 @@
                 </tbody>
             </table> 
             <% if (users) { %>
-                <%- include('./partials/pagination.ejs') %>
+                <%- include('./partials/pagination.ejs', {params : null}) %>
             <% } %>
         </main>
     </body>
+    <script type="module">
+        import { setupHamburguerMenu } from "/js/ui/hamburguerMenu.js";
+        setupHamburguerMenu();
+    </script>
 </html>

@@ -17,8 +17,8 @@ class ImageDao {
         return await Image.bulkCreate(images, options);
     }
 
-    async update(image) {
-        return await Image.update(image);
+    async update(id, image) {
+        return await Image.update(image, {where : {id : id}});
     }
 
     async deleteById(id) {

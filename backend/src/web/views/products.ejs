@@ -14,7 +14,21 @@
                 </button>
             </div>
             <section class="input-section">
-                <%- include('./partials/search-bar.ejs') %>
+                <%- include('./partials/search-bar.ejs', {placeholder: 'Buscar productos...'}) %>
+                    <div class="order-by">
+                        <label for="order">Ordenar por:</label>
+                        <select name="order" id="order">
+                            <option value="" <%= !order ? 'selected' : '' %>>Todos</option>
+                            <optgroup label="Precio">
+                                <option value="ASC" <%= order === 'ASC' ? 'selected' : '' %>>Precio asc.</option>
+                                <option value="DESC"<%= order === 'DESC' ? 'selected' : '' %>>Precio desc.</option>
+                            </optgroup>
+                            <optgroup label="Estado">
+                                <option value="active" <%= order === 'active' ? 'selected' : '' %>>Activo</option>
+                                <option value="inactive" <%= order === 'inactive' ? 'selected' : '' %>>Inactivo</option>
+                            </optgroup>
+                        </select>
+                    </div>
                 <%- include('./partials/filters') %>
             </section>
             <table class="table">

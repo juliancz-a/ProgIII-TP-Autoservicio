@@ -30,8 +30,6 @@ class ProductService {
         where.enabled = filters.enabled === 'true';
       }
       
-      console.log(order);
-      
       if(order) {
         if(order === 'DESC' || order === 'ASC') {
           order = ['price', order] // Price order
@@ -41,8 +39,6 @@ class ProductService {
       } else {
         order = ['createdAt', 'ASC'] // default order
       }
-      
-      console.log("order:" , order);
       
       return await productDao.findAll(limit, offset, order, target, where);
     }
@@ -97,9 +93,48 @@ class ProductService {
     }
 
     async updateById(id, body) {
-      productValidator.validateProduct(body);
-      await productDao.updateById(id, body)
-    }
+      const { title, description, category, price, enabled, imageId, existingImageFile, imageFile} = body;
+      let imageData = JSON.parse(existingImageFile)
+
+      let url = imageData.url // existing image cloudinary url
+      let originalname = imageData.name  //existing image cloudinary url
+
+      if (imageFile) {
+        const uploadResult = await new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream({
+            folder: 'images',
+            resource_type: 'image'
+          }, (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          });
+  
+          streamifier.createReadStream(imageFile.buffer).pipe(stream);
+        });
+
+        url = uploadResult.secure_url //cloudinary url
+        originalname = imageFile.originalname // new image original name
+      }
+
+      return await sequelize.transaction(async (t) => {
+        await productDao.updateById(id, {
+          title,
+          description,
+          category,
+          price: parseFloat(price),
+          enabled: enabled === 'true'
+        }, { transaction: t });
+
+        await imageDao.update(parseInt(imageId), {
+          name: originalname,
+          url: url,
+          product_id: id
+        }, { transaction: t });
+
+        const updatedProduct = await productDao.findById(id, { transaction: t });
+        return updatedProduct;
+    });
+  }
 
     async patchEnabledById(id, enabled) {
       await productDao.toggleEnabledById(id, enabled)

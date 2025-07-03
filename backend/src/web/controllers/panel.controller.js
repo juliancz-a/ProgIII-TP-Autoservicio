@@ -25,9 +25,9 @@ const renderProducts = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;  // ítems por página
   const offset = (page - 1) * limit;
 
-  const target = req.query.target
+  const target = req.query.target;
+  const order = req.query.order;
   const filters = {category : req.query.category, priceRange : {min : parseInt(req.query.min), max: parseInt(req.query.max)}, enabled : req.query.enabled}
-  const order = req.query.order
 
   const { count, rows } = await productService.getAll(limit, offset, order, target, filters);
 
@@ -37,11 +37,6 @@ const renderProducts = async (req, res) => {
   })) 
   
   const filtersQuery = buildFiltersQuery(filters)
-  console.log("PARAMS");
-  console.log(target);
-  console.log(filtersQuery);
-  console.log(order);
-  
 
   res.render('products', {
     username,
@@ -92,7 +87,11 @@ const renderSales = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;  // ítems por página
   const offset = (page - 1) * limit;
 
-  const { count, rows } = await saleService.getAll(limit, offset);
+  const target = req.query.target;
+  const order = req.query.order;
+  console.log(order);
+  
+  const { count, rows } = await saleService.getAll(limit, offset, target, order);
 
   const sales = rows.map(sale => ({
     ...sale.dataValues,
@@ -103,6 +102,8 @@ const renderSales = async (req, res) => {
   res.render('sales', {
     username,
     sales,
+    preservedQuery : target,
+    order,
     pagination: {
       totalItems: count,
       totalPages: Math.ceil(count / limit),

@@ -10,8 +10,6 @@
         <main class="main-content">
             <div class="form-container">
                 <form 
-                    action="<%= product ? `/api/products/edit/${product.id}?username=${encodeURIComponent(username)}` : `/api/products/create?username=${encodeURIComponent(username)}` %>"
-                    method="POST" 
                     class="product-form"
                     enctype="multipart/form-data"
                     id="product-form"
@@ -70,10 +68,11 @@
                                     <p class="drop-text">Arrastra una imagen aquí o <span>explora</span></p>
                                     <p class="drop-subtext">Tamaño máximo: 5MB, formatos soportados: PNG/JPG/JPEG/WEBP</p>
                                 </label>
+                                <input type="hidden" id="existingImageId" value="<%= product.images[0].id %>">                                
+                                <input type="hidden" id="existingImageUrl" value="<%= product.images[0].url %>">
+                                <input type="hidden" id="existingImageName" value="<%= product.images[0].name %>">                                
                                 <input type="file" id="fileInput" name="image"/>
-
                             </div>
-
                             <div class="form-group">
                                 <label class="input-label" for="status">Estado</label>
                                 <div class="status-toggle">
@@ -116,7 +115,7 @@
                         </div>
                     </section>
 
-                    <button id="save" type="submit" class="btn btn-primary">Guardar cambios</button>
+                    <button data-id="<%= product.id %>" id="save" type="submit" class="btn btn-primary">Guardar cambios</button>
                 </form>
             </div>
         </main>

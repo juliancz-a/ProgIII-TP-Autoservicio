@@ -14,7 +14,6 @@ router.post('/cart', productController.getAllProductsOnCart);
 router.get('/:id', productController.getProductById);
 
 router.post('/', upload.single('image'), productMiddleware, productController.createProduct);
-
 router.put('/:id', upload.single('image'), productMiddleware, productController.updateProductById);
 
 router.patch('/:id', productController.toggleEnabledById);
