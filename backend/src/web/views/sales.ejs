@@ -8,6 +8,23 @@
         <%- include('./partials/sidebar.ejs', {activePage : 'sales'}) %>
         <main class="main-content">
             <h2>Ventas</h2>
+            <section class="input-section">
+                <%- include('./partials/search-bar.ejs', {placeholder: 'Buscar ventas por cliente...'}) %> 
+                <div class="order-by">
+                    <label for="order">Ordenar por:</label>
+                    <select name="order" id="order">
+                        <option value="" <%= !order ? 'selected' : '' %>>Todos</option>
+                        <optgroup label="Nombre">
+                            <option value="client_nameASC" <%= order === 'client_nameASC' ? 'selected' : '' %>>Nombre asc.</option>
+                            <option value="client_nameDESC"<%= order === 'client_nameDESC' ? 'selected' : '' %>>Nombre desc.</option>
+                        </optgroup>
+                        <optgroup label="Total">
+                            <option value="totalASC" <%= order === 'totalASC' ? 'selected' : '' %>>Total asc.</option>
+                            <option value="totalDESC" <%= order === 'totalDESC' ? 'selected' : '' %>>Total desc.</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </section>
             <table class="table">
                 <thead class="table-head">
                     <tr>
@@ -39,7 +56,7 @@
                 </tbody>
             </table> 
             <% if (sales) { %>
-                <%- include('./partials/pagination.ejs') %>
+                <%- include('./partials/pagination.ejs', {params : null}) %>
             <% } %>
         </main>
         <!-- Modal  -->
@@ -51,4 +68,5 @@
         </div>
     </body>
         <script type="module" src="/js/sales.js"></script>
+        <script src="/js/ui/search-bar.js"></script>
 </html>

@@ -86,9 +86,7 @@ class ProductController {
         try {
             const {title, description, category, price, enabled} = req.body;
             
-            const file = req.file;
-
-            if (!file) {
+            if (!req.file) {
                 return res.status(400).json({ message: 'No se subió ninguna imagen' });
             }
             
@@ -98,7 +96,7 @@ class ProductController {
                 category, 
                 price, 
                 enabled,
-                imageFile: file
+                imageFile: req.file
             });
 
             res.status(201).json({
@@ -114,11 +112,16 @@ class ProductController {
 
     updateProductById = async (req, res)  => {
         try {
-            const product = req.body;
+            const {title, description, category, price, enabled, imageId, existingImageFile} = req.body;
+            
             const id = req.params.id;
-            productService.updateById(id, product)
-
-            res.status(201).json('Updated')
+            const imageFile = req.file
+            const product = await productService.updateById(id, {title, description, category, price, enabled, imageId, existingImageFile, imageFile})
+            
+            res.status(201).json({
+                message: 'Product was updated successfully',
+                payload: product
+            });
             
         } catch (error) {
             res.status(500).json({ message: "Internal server error", err: error.message });

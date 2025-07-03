@@ -1,19 +1,5 @@
-    <form id="search-form" class="search-bar">
-        <input type="search" name="query" id="query" placeholder="Buscar productos..." value="<%= preservedQuery ? preservedQuery : '' %>">
+<form id="search-form" class="search-bar">
+        <input type="search" name="query" id="query" placeholder="<%=placeholder%>" value="<%= preservedQuery ? preservedQuery : '' %>">
         <button type="submit">Buscar</button>
         <button type="button" class="reset-btn <%= preservedQuery ? 'active' : '' %>">x</button>
-    </form>
-    <div class="order-by">
-        <label for="order">Ordenar por:</label>
-        <select name="order" id="order">
-            <option value="" <%= !order ? 'selected' : '' %>>Todos</option>
-            <optgroup label="Precio">
-                <option value="ASC" <%= order === 'ASC' ? 'selected' : '' %>>Precio asc.</option>
-                <option value="DESC"<%= order === 'DESC' ? 'selected' : '' %>>Precio desc.</option>
-            </optgroup>
-            <optgroup label="Estado">
-                <option value="active" <%= order === 'active' ? 'selected' : '' %>>Activo</option>
-                <option value="inactive" <%= order === 'inactive' ? 'selected' : '' %>>Inactivo</option>
-            </optgroup>
-        </select>
-    </div>
+</form>

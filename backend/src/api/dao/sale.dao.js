@@ -1,13 +1,21 @@
 import {Sale, SaleDetail} from '../models/index.js';
 import sequelize from '../../config/db.js';
+import { Op } from 'sequelize';
 
 class SaleDao {
-    async findAll(limit = 10, offset = 0) {
+    async findAll(limit = 10, offset = 0, target = null, order = null) {
+        let where = {}
+
+        if (target) {
+            where.client_name = { [Op.like]: `%${target.trim()}%` };  // busca coincidencias parciales
+        }
+
         return await Sale.findAndCountAll({
             limit,
             offset,
-            order: [['createdAt', 'ASC']], 
-            distinct: true
+            order: order, 
+            distinct: true,
+            where
         });
     }
 

@@ -1,8 +1,10 @@
-<%
+<%  
     let paramsString = ''
-    if (params.target) paramsString += `&target=${params.target}`;
-    if (params.filters) paramsString += `${params.filters}`;
-    if (params.order) paramsString += `&order=${params.order}`;
+    if(params) {
+        if (params.target) paramsString += `&target=${params.target}`;
+        if (params.filters) paramsString += `${params.filters}`;
+        if (params.order) paramsString += `&order=${params.order}`;
+    }
 %>
 
 <div class="pagination">
