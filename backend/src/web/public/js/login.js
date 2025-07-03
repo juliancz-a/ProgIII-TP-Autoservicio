@@ -1,6 +1,7 @@
 const loginForm = document.querySelector('form');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
+const autocompleteBtn = document.querySelector('.autocomplete-button')
 
 autocompleteBtn.addEventListener('click', () => {
     username.value = 'admin';

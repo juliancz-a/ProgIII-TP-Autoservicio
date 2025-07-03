@@ -1,20 +1,6 @@
 import {Sale, SaleDetail} from '../models/index.js';
 import sequelize from '../../config/db.js';
 
-// FRONTEND BODY 
-// const body = {
-//     client_name : 'Julian',
-//     total : 2500,
-//     products : [
-//         {
-//             id : 1,
-//             title : "Joystick",
-//             unit_price : 1250,
-//             quantity : 2
-//         }
-//     ]
-// }
-
 class SaleDao {
     async findAll(limit = 10, offset = 0) {
         return await Sale.findAndCountAll({

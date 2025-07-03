@@ -5,9 +5,17 @@ class ProductController {
         try {
             const page = parseInt(req.query.page) || 1;     // página actual
             const limit = parseInt(req.query.limit) || 12;  // ítems por página
+
+            //Filters
+            const filters = {
+                category : req.query.category,
+                priceRange : {min : req.query.min, max: req.query.max},
+                status : req.query.status
+            }
+
             const offset = (page - 1) * limit; //skips por pagina (primera pagina 0 skips)
 
-            const { count, rows } = await productService.getAll(limit, offset);
+            const { count, rows } = await productService.getAll(limit, offset, filters);
 
             res.status(200).json({
                 products: rows,
