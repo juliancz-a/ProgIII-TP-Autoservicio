@@ -266,8 +266,6 @@ function processQuery() {
 }
 
 function executeSearch(page, target, category) {
-    showSpinner();
-
     fetchProducts({page, category, target}).then(data => {
         renderCards(data.products);
         renderPagination(data.pagination, category, target);
@@ -275,9 +273,6 @@ function executeSearch(page, target, category) {
     .catch(err => {
         console.error("Error en la búsqueda", err);
         renderEmptySite();
-    })
-    .finally(() => {
-        hideSpinner();
     })
 }
 
