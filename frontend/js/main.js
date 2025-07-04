@@ -124,27 +124,61 @@ function getMainTitle(category) {
     return titles[category] || 'Nuestros productos';
 }
 
+function getPagination(currentPage, totalPages) {
+  const pages = [];
+
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages.push(1);
+
+    if (currentPage > 4) {
+      pages.push('...');
+    }
+
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    if (currentPage < totalPages - 3) {
+      pages.push('...');
+    }
+
+    pages.push(totalPages);
+  }
+
+  return pages;
+}
+
 function renderPagination(pagination, category, target) {
     const paginationContainer = document.getElementById('pagination');
     if (!paginationContainer || !pagination) return;
 
     const { currentPage, totalPages } = pagination;
+    const pages = getPagination(currentPage, totalPages);
 
     const fragment = document.createDocumentFragment();
 
     if (currentPage > 1) {
-        const prev = createPaginationLink(currentPage - 1, '<', category, target);
-        fragment.appendChild(prev);
+        fragment.appendChild(createPaginationLink(currentPage - 1, '‹', category, target));
     }
 
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = createPaginationLink(i, i, category, target, currentPage);
-        fragment.appendChild(pageBtn);
-    }
+    pages.forEach(p => {
+        if (p === '...') {
+            const dots = document.createElement('span');
+            dots.className = 'page-dots';
+            dots.textContent = '...';
+            fragment.appendChild(dots);
+        } else {
+            fragment.appendChild(createPaginationLink(p, p, category, target, currentPage));
+        }
+    });
 
     if (currentPage < totalPages) {
-        const next = createPaginationLink(currentPage + 1, '>', category, target);
-        fragment.appendChild(next);
+        fragment.appendChild(createPaginationLink(currentPage + 1, '›', category, target));
     }
 
     paginationContainer.replaceChildren(fragment);
@@ -153,20 +187,18 @@ function renderPagination(pagination, category, target) {
 function createPaginationLink(page, label, category, target, currentPage) {
     const link = document.createElement('a');
     link.className = 'page-item';
+    link.textContent = label;
 
     if (page === currentPage) {
-        link.textContent = label;
         link.classList.add('active');
-        link.style.cursor = 'default';     // Cursor de "no clickeable"
+        link.style.cursor = 'default';
     } else {
         const params = new URLSearchParams();
-
         params.set('page', page);
         if (category) params.set('category', category);
         if (target) params.set('target', target);
 
         link.href = `?${params.toString()}`;
-        link.textContent = label;
     }
 
     return link;
