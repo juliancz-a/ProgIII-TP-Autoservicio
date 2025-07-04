@@ -156,4 +156,3 @@ Principal models:
 
 - [Cloudinary](https://cloudinary.com/)
 - [Sequelize ORM](https://sequelize.org/)
-
