@@ -6,6 +6,11 @@ Full Stack Application.
 
 Autoservice system for fast delivery of PC Components and accesories.
 
+[Link to the main page](https://neonbits.netlify.app/)
+<br>
+<br>
+[Link to the admin page](https://neonbits.up.railway.app/login)
+
 ## Tech Stack
 
 **Client:** Vanilla JS
