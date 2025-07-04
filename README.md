@@ -97,7 +97,7 @@ Principal models:
 
 ### 📤 Checkout
 
-![Checkout](https://res.cloudinary.com/dlapbwezd/image/upload/v1751598287/Screenshot_4_rzdcek.png)
+![Checkout](https://res.cloudinary.com/dlapbwezd/image/upload/v1751599723/Screenshot_11_thjjcf.png)
 
 ### 🔐 Login admin
 
