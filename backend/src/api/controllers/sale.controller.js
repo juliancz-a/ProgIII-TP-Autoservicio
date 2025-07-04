@@ -8,8 +8,10 @@ class SaleController {
             const page = parseInt(req.query.page) || 1;     // página actual
             const limit = parseInt(req.query.limit) || 10;  // ítems por página
             const offset = (page - 1) * limit;
-
-            const { count, rows } =  await saleService.getAll(limit, offset);
+            const target = req.query.target;
+            const order = req.query.order;
+            
+            const { count, rows } =  await saleService.getAll(limit, offset, target, order);
 
             const salesFormatted = rows.map(({ dataValues }) => ({
                 ...dataValues,

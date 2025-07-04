@@ -10,20 +10,23 @@ class ProductService {
     async getAll(limit = 10, offset = 0, order = null, target = null, filters = {}) {
 
       const where = {};
-      const {min, max} = filters.priceRange
 
       if (filters.category) {
         where.category = filters.category;
       }
 
-      if (min || max) {
-        where.price = {};
-        if (min) {
-          where.price[Op.gte] = min;
+      if(filters.priceRange) {
+        const {min, max} = filters.priceRange
+        if (min || max) {
+          where.price = {};
+          if (min) {
+            where.price[Op.gte] = min;
+          }
+          if (max) {
+            where.price[Op.lte] = max;
+          }
         }
-        if (max) {
-          where.price[Op.lte] = max;
-        }
+
       }
 
       if (filters.enabled) {
