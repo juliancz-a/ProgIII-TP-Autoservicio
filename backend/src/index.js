@@ -22,7 +22,12 @@ app.set('views', join(__dirname, 'views'))
 // App middlewares
 app.use(express.json())
 app.use(express.static(join(__dirname, 'public')))
-app.use(cors())
+app.use(cors(
+  {
+    origin: ["https://neonbits.netlify.app/"], // tus dominios permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+  }
+))
 app.use(express.urlencoded({ extended: true }));
 
 await sequelize.sync()
