@@ -51,5 +51,13 @@ function confirmPurchase() {
     }, 500)
 }
 
+function showSpinner() {
+    document.getElementById("spinner")?.classList.remove("hidden");
+}
 
-export {showPopup, closeModal, confirmPurchase, redirectToMain, activateModal}
+function hideSpinner() {
+    document.getElementById("spinner")?.classList.add("hidden");
+}
+
+
+export {showPopup, closeModal, confirmPurchase, redirectToMain, activateModal, showSpinner, hideSpinner}
