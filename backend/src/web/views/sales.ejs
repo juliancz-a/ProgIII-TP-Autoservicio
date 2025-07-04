@@ -56,7 +56,7 @@
                 </tbody>
             </table> 
             <% if (sales) { %>
-                <%- include('./partials/pagination.ejs', {params : null}) %>
+                <%- include('./partials/pagination.ejs', {params : {target : preservedQuery || null, filters : null, order : order || null}}) %>
             <% } %>
         </main>
         <!-- Modal  -->
