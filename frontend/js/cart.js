@@ -1,6 +1,6 @@
 import { getFullCart, removeFromCart, updateProductQuantity, getTotalPrice, updateCartBtn, getSaleBody } from "./utils/cartManager.js";
 import { createSale } from "./utils/dataService.js";
-import { redirectToMain, confirmPurchase, activateModal,  closeModal } from "./utils/uiHelpers.js";
+import { redirectToMain, confirmPurchase, activateModal,  closeModal, showSpinner, hideSpinner } from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "login.html";
@@ -12,10 +12,7 @@ function renderCart(products) {
     cartGrid.innerHTML = '';    
 
     if (products.length === 0) {
-        const emptyCart = document.createElement('h1')
-        emptyCart.textContent = 'No hay elementos en el carrito';
-        cartGrid.appendChild(emptyCart);
-        updateSubtotalDisplay([]);
+        renderEmptySite();
         return;
     }
 
@@ -28,6 +25,13 @@ function renderCart(products) {
 
     cartGrid.appendChild(fragment);
     updateSubtotalDisplay(products)
+}
+
+function renderEmptySite() {
+    const emptyCart = document.createElement('h1')
+    emptyCart.textContent = 'No hay elementos en el carrito';
+    cartGrid.appendChild(emptyCart);
+    updateSubtotalDisplay([]);
 }
 
 // Crea un producto en el DOM del carrito
@@ -164,10 +168,18 @@ cartBtn.appendChild(quantityIcon);
 
 // INIT
 let fullCart = [];
+showSpinner();
 getFullCart().then(cart => {    
     fullCart = cart
     renderCart(fullCart);
     updateCartBtn(fullCart, quantityIcon)
+})
+.catch(err => {
+    console.error("Error al cargar productos", err);
+    renderEmptySite();
+})
+.finally(() => {
+    hideSpinner();
 })
 
 //Modal Management

@@ -245,35 +245,45 @@ h1 {
 }
 
 .pagination {
-  padding: 0.5rem;
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
   border-radius: 10px;
 }
 
-.pagination .page-item {
+.page-item, .page-dots {
+  padding: 0.5rem 0.85rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #1e1e2f;
+  color: #f1f1f1;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  background-color: #1a1a2e;
-  border: 1px solid rgba(255, 42, 110, 0.741);
-  box-shadow: 0 0 5px rgba(255, 42, 110, 0.351);
-  color: #ff2a6d;
-  font-weight: bold;
-  transition: 250ms;
-  border-radius: 10px;
+  font-size: 1.1rem;
+  min-width: 36px;
+  text-align: center;
   user-select: none;
+  transition: all 0.3s ease;
 }
 
-.pagination .page-item.active {
+.page-item:hover:not(.active) {
+  background-color: #292b3d;
   color: #00e5ff;
-  text-shadow: 0 0 4px rgba(0, 229, 255, 0.6);
-  background: rgba(255, 42, 109, 0.3);
+  border-color: #00e5ff;
 }
 
-.pagination .page-item:hover {
-  background: rgba(255, 42, 109, 0.3);
+.page-item.active {
+  background-color: rgb(26, 25, 25);
   color: #00e5ff;
-  text-shadow: 0 0 4px rgba(0, 229, 255, 0.6);
+  font-weight: bold;
+  cursor: default;
+  border-color: #00e5ff;
+}
+
+.page-dots {
+  color: #888;
+  pointer-events: none;
 }
 
 .added {
@@ -342,4 +352,11 @@ h1 {
   .pagination {
     gap: 2dvw;
   }
+}
+
+
+@media (max-width: 360px) {
+ .pagination {
+  gap: 1dvw
+ } 
 }

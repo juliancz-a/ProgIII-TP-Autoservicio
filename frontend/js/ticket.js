@@ -1,9 +1,6 @@
 import { getFullCart , getTotalPrice} from "./utils/cartManager.js";
 import { getUser, getCurrentDate, restartService } from "./utils/dataService.js";
-
-getFullCart().then(cart => {
-    renderTicket(cart)
-})
+import { showSpinner, hideSpinner } from "./utils/uiHelpers.js";
 
 // DOM Elements 
 const clientName = document.getElementById("client-name");
@@ -47,3 +44,13 @@ function renderTicket(cart) {
 exitBtn.addEventListener('click', restartService);
 logoBtn.addEventListener('click', restartService);
 
+showSpinner();
+getFullCart().then(cart => {
+    renderTicket(cart)
+})
+.catch(err => {
+    console.error("Error al cargar productos", err);
+})
+.finally(() => {
+    hideSpinner();
+})
