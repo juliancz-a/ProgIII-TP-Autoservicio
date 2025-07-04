@@ -36,9 +36,7 @@ export async function getSaleBody() {
     }
 }
 
-//revisar logica addtocart y updateproductquantity
 export function addToCart(product) {
-    
     let productInCart = isInCart(product);
 
     if(productInCart) {
