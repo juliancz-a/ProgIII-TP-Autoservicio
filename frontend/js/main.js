@@ -1,6 +1,6 @@
 import { fetchProducts } from "./utils/dataService.js";
 import { getCurrentCart, addToCart, isInCart, updateCartBtn } from "./utils/cartManager.js";
-import { showPopup } from "./utils/uiHelpers.js";
+import { showPopup, showSpinner, hideSpinner } from "./utils/uiHelpers.js";
 
 if (!localStorage.getItem("takeawayName")) {
     window.location.href = "/login.html";   
@@ -264,14 +264,6 @@ function processQuery() {
         window.history.pushState({}, '', url);
         executeSearch(page, target, category);
     }, 400);
-}
-
-function showSpinner() {
-    document.getElementById("spinner")?.classList.remove("hidden");
-}
-
-function hideSpinner() {
-    document.getElementById("spinner")?.classList.add("hidden");
 }
 
 function executeSearch(page, target, category) {
