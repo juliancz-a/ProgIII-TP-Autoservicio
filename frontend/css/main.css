@@ -254,13 +254,13 @@ h1 {
 }
 
 .page-item, .page-dots {
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.85rem;
   border: 1px solid #444;
   border-radius: 6px;
   background-color: #1e1e2f;
   color: #f1f1f1;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   min-width: 36px;
   text-align: center;
   user-select: none;
@@ -274,7 +274,7 @@ h1 {
 }
 
 .page-item.active {
-  background-color: rgba(255, 42, 109, 0.3);
+  background-color: rgb(26, 25, 25);
   color: #00e5ff;
   font-weight: bold;
   cursor: default;
