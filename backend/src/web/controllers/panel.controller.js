@@ -15,7 +15,6 @@ const renderDashboard = async (req, res) => {
   });
 }
 
-
 const renderProducts = async (req, res) => {
   const { username } = req.query;
 
@@ -30,6 +29,12 @@ const renderProducts = async (req, res) => {
   const filters = {category : req.query.category, priceRange : {min : parseInt(req.query.min), max: parseInt(req.query.max)}, enabled : req.query.enabled}
 
   const { count, rows } = await productService.getAll(limit, offset, order, target, filters);
+
+  let totalPages =  Math.ceil(count / limit)
+
+  if (page > totalPages) { //reacomodar el pageParam tras paginación
+    redirectToLastPage(req)
+  }
 
   const products = rows.map(product => ({
     ...product.dataValues,
@@ -46,8 +51,7 @@ const renderProducts = async (req, res) => {
     order,
     filters,
     pagination: {
-      totalItems: count,
-      totalPages: Math.ceil(count / limit),
+      totalPages,
       currentPage: page,
     }
   });
@@ -104,7 +108,6 @@ const renderSales = async (req, res) => {
     preservedQuery : target,
     order,
     pagination: {
-      totalItems: count,
       totalPages: Math.ceil(count / limit),
       currentPage: page,
     }
@@ -137,13 +140,18 @@ const renderSales = async (req, res) => {
     });
   }
 
-  // const getParams = (req) => {
-  //   const page = parseInt(req.query.page) || 1;     // página actual
-  //   const limit = parseInt(req.query.limit) || 10;  // items por página
-  //   const offset = (page - 1) * limit;
+const redirectToLastPage = (req) =>  {
+    const host = req.get('host');              // ej: localhost:3000
+    const protocol = req.protocol;             // ej: http o https
+    const originalUrl = req.originalUrl;       // ej: /productos?page=999&order=ASC
 
-  //   return 
-  // }
+    const fullUrl = `${protocol}://${host}${originalUrl}`;
+    const urlObj = new URL(fullUrl);
+
+    urlObj.searchParams.set('page', totalPages);
+
+    return res.redirect(urlObj.pathname + urlObj.search);
+}
 
 
 export default {
