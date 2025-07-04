@@ -1,6 +1,7 @@
 const loginForm = document.querySelector('form');
 const username = document.getElementById('username');
 const password = document.getElementById('password');
+const autocompleteBtn = document.querySelector('.autocomplete-button')
 
 autocompleteBtn.addEventListener('click', () => {
     username.value = 'admin';
@@ -16,7 +17,7 @@ loginForm.addEventListener('submit', async (e) => {
     };
 
     try {
-        const res = await fetch('/login', {method: 'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify(credentials) });
+        const res = await fetch('/login', {method: 'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify(credentials)});
 
         const data = await res.json();
         
@@ -27,9 +28,7 @@ loginForm.addEventListener('submit', async (e) => {
 
         window.location.href = data.redirect;
 
-    } catch (err) {
-        console.log(err);
-        
+    } catch (err) {        
         alert("Error de red");
         console.error(err);
     }

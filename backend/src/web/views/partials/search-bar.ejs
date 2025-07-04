@@ -1,0 +1,5 @@
+<form id="search-form" class="search-bar">
+        <input type="search" name="query" id="query" placeholder="<%=placeholder%>" value="<%= preservedQuery ? preservedQuery : '' %>">
+        <button type="submit">Buscar</button>
+        <button type="button" class="reset-btn <%= preservedQuery ? 'active' : '' %>">x</button>
+</form>

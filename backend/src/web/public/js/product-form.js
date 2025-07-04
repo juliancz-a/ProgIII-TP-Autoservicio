@@ -117,38 +117,53 @@ statusRadios.forEach(radio => {
 
 
 const productForm = document.getElementById('product-form');
+const imageName = document.getElementById('existingImageName') // previous image name prod
+const imageUrl = document.getElementById('existingImageUrl') //previous image url prod
+const imageId = document.getElementById('existingImageId') //previous image id prod
+const buttonSave = document.getElementById('save')
+
+let method;
+let url;
 
 productForm.addEventListener('submit', async(evn) => {
     evn.preventDefault();
-
+        
     const formData = new FormData(productForm);
     const file = fileInput.files[0];
-    if (!file || !isValidFile(file)) {
-        alert("Por favor, seleccione una imagen válida.");
-        return;
-    }
-    
+
+    if(!imageId.value) {
+        if (!file || !isValidFile(file)) {
+            alert("Por favor, seleccione una imagen válida.");
+            return;
+        }
+        method = 'POST'
+        url = '/api/products/'
+    } else {
+        formData.append('imageId', imageId.value)
+        formData.append("existingImageFile", JSON.stringify({name : imageName.value, url : imageUrl.value}));
+        method = 'PUT'
+        url = `/api/products/${buttonSave.dataset.id}`
+    }    
+
     try {
         productValidator.validateProduct({title: evn.target[0].value, description: evn.target[1].value, category: evn.target[2].value, price: evn.target[3].value})
-        const res = await fetch('/api/products/', {
-            method: 'POST',
-            body: formData
+        const res = await fetch(url, {
+            method : method,
+            body : formData
         });
         
         const data = await res.json();
-
         if (!res.ok) throw new Error(data.message);
-        
+
         const productId = data.payload.id;
 
-        alert('éxito')
+        alert('Producto guardado')
         window.location.href = `/dashboard/edit/${productId}${window.location.search}`;
         
     } catch(error) {
         alert(error.message)
         console.error(`${error.name} - ${error.message}`);
     }
-
 })
 
 setupHamburguerMenu()

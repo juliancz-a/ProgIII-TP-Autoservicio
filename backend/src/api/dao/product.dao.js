@@ -1,23 +1,32 @@
 import {Product, Image} from "../models/index.js";
+import { Op } from 'sequelize';
 
 class ProductDao {
 
-    async findAll(limit = 10, offset = 0) {
+    async findAll(limit = 10, offset = 0, order = ['createdAt', 'ASC'], target = null, where) {
+        
+        if (target) {
+            where.title = { [Op.like]: `%${target.trim()}%` };  // busca coincidencias parciales
+        }
+        
         return await Product.findAndCountAll({
             limit,
             offset,
-            order: [
-                ['createdAt', 'ASC']
-            ],
-            include: [{model : Image, as : 'images'}]
+            order: [order],
+            include: [{model : Image, as : 'images'}],
+            where
         });
     }
 
-    async findAllAndIsEnabled(limit = 10, offset = 0, category = null) {
+    async findAllAndIsEnabled(limit = 10, offset = 0, category = null, target = null) {
         const where = { enabled: true };
         
         if (category) {
             where.category = category;
+        }
+
+        if (target) {
+            where.title = { [Op.like]: `%${target.trim()}%` };  // busca coincidencias parciales
         }
 
         return await Product.findAndCountAll({

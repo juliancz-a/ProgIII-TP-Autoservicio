@@ -2,6 +2,7 @@ import productService from "../../api/services/product.service.js";
 import saleService from "../../api/services/sale.service.js"
 import userService from "../../api/services/user.service.js";
 import formatUtils from "../../api/utils/formatUtils.js";
+import { buildFiltersQuery } from "../../api/utils/queryBuilder.js";
 
 
 const renderDashboard = async (req, res) => {
@@ -24,17 +25,26 @@ const renderProducts = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;  // ítems por página
   const offset = (page - 1) * limit;
 
-  const { count, rows } = await productService.getAll(limit, offset);
+  const target = req.query.target;
+  const order = req.query.order;
+  const filters = {category : req.query.category, priceRange : {min : parseInt(req.query.min), max: parseInt(req.query.max)}, enabled : req.query.enabled}
+
+  const { count, rows } = await productService.getAll(limit, offset, order, target, filters);
 
   const products = rows.map(product => ({
     ...product.dataValues,
     formattedPrice: formatUtils.formatPrice(product.price)
   })) 
   
+  const filtersQuery = buildFiltersQuery(filters)
 
   res.render('products', {
     username,
     products,
+    preservedQuery : target,
+    filtersQuery,
+    order,
+    filters,
     pagination: {
       totalItems: count,
       totalPages: Math.ceil(count / limit),
@@ -77,7 +87,10 @@ const renderSales = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;  // ítems por página
   const offset = (page - 1) * limit;
 
-  const { count, rows } = await saleService.getAll(limit, offset);
+  const target = req.query.target;
+  const order = req.query.order;
+  
+  const { count, rows } = await saleService.getAll(limit, offset, target, order);
 
   const sales = rows.map(sale => ({
     ...sale.dataValues,
@@ -88,6 +101,8 @@ const renderSales = async (req, res) => {
   res.render('sales', {
     username,
     sales,
+    preservedQuery : target,
+    order,
     pagination: {
       totalItems: count,
       totalPages: Math.ceil(count / limit),
@@ -100,7 +115,6 @@ const renderSales = async (req, res) => {
     const { username } = req.query;
     if (!username) return res.redirect('/login');
 
-      
     const page = parseInt(req.query.page) || 1;     // página actual
     const limit = parseInt(req.query.limit) || 10;  // users por página
     const offset = (page - 1) * limit;
@@ -122,6 +136,15 @@ const renderSales = async (req, res) => {
       }
     });
   }
+
+  // const getParams = (req) => {
+  //   const page = parseInt(req.query.page) || 1;     // página actual
+  //   const limit = parseInt(req.query.limit) || 10;  // items por página
+  //   const offset = (page - 1) * limit;
+
+  //   return 
+  // }
+
 
 export default {
   renderDashboard,

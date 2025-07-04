@@ -5,9 +5,17 @@ class ProductController {
         try {
             const page = parseInt(req.query.page) || 1;     // página actual
             const limit = parseInt(req.query.limit) || 12;  // ítems por página
+
+            //Filters
+            const filters = {
+                category : req.query.category,
+                priceRange : {min : req.query.min, max: req.query.max},
+                status : req.query.status
+            }
+
             const offset = (page - 1) * limit; //skips por pagina (primera pagina 0 skips)
 
-            const { count, rows } = await productService.getAll(limit, offset);
+            const { count, rows } = await productService.getAll(limit, offset, filters);
 
             res.status(200).json({
                 products: rows,
@@ -28,10 +36,11 @@ class ProductController {
             const page = parseInt(req.query.page) || 1;     // página actual
             const limit = parseInt(req.query.limit) || 12;  // ítems por página
             const category = req.query.category;
+            const target = req.query.target;
 
             const offset = (page - 1) * limit;
 
-            const { count, rows } = await productService.getAllAndIsEnabled(limit, offset, category);
+            const { count, rows } = await productService.getAllAndIsEnabled(limit, offset, category, target);
             
             const totalPages = Math.ceil(count / limit);
 
@@ -77,9 +86,7 @@ class ProductController {
         try {
             const {title, description, category, price, enabled} = req.body;
             
-            const file = req.file;
-
-            if (!file) {
+            if (!req.file) {
                 return res.status(400).json({ message: 'No se subió ninguna imagen' });
             }
             
@@ -89,7 +96,7 @@ class ProductController {
                 category, 
                 price, 
                 enabled,
-                imageFile: file
+                imageFile: req.file
             });
 
             res.status(201).json({
@@ -105,11 +112,16 @@ class ProductController {
 
     updateProductById = async (req, res)  => {
         try {
-            const product = req.body;
+            const {title, description, category, price, enabled, imageId, existingImageFile} = req.body;
+            
             const id = req.params.id;
-            productService.updateById(id, product)
-
-            res.status(201).json('Updated')
+            const imageFile = req.file
+            const product = await productService.updateById(id, {title, description, category, price, enabled, imageId, existingImageFile, imageFile})
+            
+            res.status(201).json({
+                message: 'Product was updated successfully',
+                payload: product
+            });
             
         } catch (error) {
             res.status(500).json({ message: "Internal server error", err: error.message });

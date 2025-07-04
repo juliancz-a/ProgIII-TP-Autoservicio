@@ -40,7 +40,7 @@ function createCardStructure(product) {
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card';
 
-    const [intPart, decimalPart] = product.price.toLocaleString("es-AR", {
+    const [intPart] = product.price.toLocaleString("es-AR", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }).split(",");
@@ -124,101 +124,168 @@ function getMainTitle(category) {
     return titles[category] || 'Nuestros productos';
 }
 
-function renderPagination(pagination) {
+function getPagination(currentPage, totalPages) {
+  const pages = [];
+
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages.push(1);
+
+    if (currentPage > 4) {
+      pages.push('...');
+    }
+
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    if (currentPage < totalPages - 3) {
+      pages.push('...');
+    }
+
+    pages.push(totalPages);
+  }
+
+  return pages;
+}
+
+function renderPagination(pagination, category, target) {
     const paginationContainer = document.getElementById('pagination');
     if (!paginationContainer || !pagination) return;
 
     const { currentPage, totalPages } = pagination;
+    const pages = getPagination(currentPage, totalPages);
 
     const fragment = document.createDocumentFragment();
 
     if (currentPage > 1) {
-        const prev = createPaginationLink(currentPage - 1, '<');
-        fragment.appendChild(prev);
+        fragment.appendChild(createPaginationLink(currentPage - 1, '‹', category, target));
     }
 
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = createPaginationLink(i, i, currentPage);
-        if (i === currentPage) pageBtn.classList.add('active');
-        fragment.appendChild(pageBtn);
-    }
+    pages.forEach(p => {
+        if (p === '...') {
+            const dots = document.createElement('span');
+            dots.className = 'page-dots';
+            dots.textContent = '...';
+            fragment.appendChild(dots);
+        } else {
+            fragment.appendChild(createPaginationLink(p, p, category, target, currentPage));
+        }
+    });
 
     if (currentPage < totalPages) {
-        const next = createPaginationLink(currentPage + 1, '>');
-        fragment.appendChild(next);
+        fragment.appendChild(createPaginationLink(currentPage + 1, '›', category, target));
     }
 
     paginationContainer.replaceChildren(fragment);
 }
 
-function createPaginationLink(page, label, currentPage) {
+function createPaginationLink(page, label, category, target, currentPage) {
     const link = document.createElement('a');
     link.className = 'page-item';
+    link.textContent = label;
 
     if (page === currentPage) {
-        link.textContent = label;
         link.classList.add('active');
-        link.style.cursor = 'default';     // Cursor de "no clickeable"
+        link.style.cursor = 'default';
     } else {
-        const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams();
         params.set('page', page);
+        if (category) params.set('category', category);
+        if (target) params.set('target', target);
+
         link.href = `?${params.toString()}`;
-        link.textContent = label;
     }
 
     return link;
 }
 
 
-function showCategoryContent() { // Location => tiene informacion de la URL actual // Search => info de los params de la url
-    const params = new URLSearchParams(window.location.search) //URLSearchParams => obj con los params
-    let selectedCategory = params.get('category'); // accessory / component / featured (all)
-    let currentPage = parseInt(params.get('page')) || 1;
+function showCategoryContent() { 
+    const params = new URLSearchParams(window.location.search)
+    let category = params.get('category');
+    const target = params.get('target') || null;
+    let page = parseInt(params.get('page')) || 1;
     
     showSpinner();
 
-    fetchProducts(currentPage, selectedCategory).then(data => {
+    fetchProducts({page, category, target}).then(data => {
         renderCards(data.products);
-        console.log(data.products);
-        renderPagination(data.pagination)
-    }).catch(err => {
+        renderPagination(data.pagination, category, target)
+    })
+    .catch(err => {
         console.error("Error al cargar productos", err);
         renderEmptySite();
-    }).finally(() => {
+    })
+    .finally(() => {
         hideSpinner();
     })
 
-    const fallbackCategory = selectedCategory || 'featured';
+    const fallbackCategory = category || 'featured';
 
-    categoryTitle.innerText = getMainTitle(selectedCategory);
+    categoryTitle.innerText = getMainTitle(category);
     const selectedBtn = document.querySelector(`.categories-button[value=${fallbackCategory}]`)
-    selectedBtn.classList.add('selected');
+    if (selectedBtn) selectedBtn.classList.add('selected');
 }
 
 function processQuery() {
     clearTimeout(debounceTimeout); // Reinicia el temporizador
 
     debounceTimeout = setTimeout(() => {
-        const query = searchBar.value.trim();
-        executeSearch(query); //función de búsqueda
-    }, 400); // Espera 400 ms desde la última tecla
+        const target = searchBar.value.trim();
+
+        const params = new URLSearchParams(window.location.search);
+        const category = params.get('category') || null;
+        const page = 1;
+
+        const url = new URL(window.location.href);
+
+        if (target === '') {
+            url.searchParams.delete('target');
+            url.searchParams.set('page', page);
+            if (category) url.searchParams.set('category', category);
+            else url.searchParams.delete('category');
+
+            window.history.pushState({}, '', url);
+            showCategoryContent();
+            return;
+        }
+
+        url.searchParams.set('target', target);
+        url.searchParams.set('page', page);
+        if (category) url.searchParams.set('category', category);
+        else url.searchParams.delete('category');
+
+        window.history.pushState({}, '', url);
+        executeSearch(page, target, category);
+    }, 400);
 }
 
+//SPINNER
 function showSpinner() {
-    document.getElementById("spinner").classList.remove("hidden");
+    document.getElementById("spinner")?.classList.remove("hidden");
 }
-
 function hideSpinner() {
-    document.getElementById("spinner").classList.add("hidden");
+    document.getElementById("spinner")?.classList.add("hidden");
 }
 
-function executeSearch(query) {
-    fetchProducts().then(data => {
-        const filteredItems = data.products.filter((p) => p.title.toLowerCase().includes(query.toLowerCase()))
-        renderCards(filteredItems);
-    }).catch(err => {
+function executeSearch(page, target, category) {
+    showSpinner();
+
+    fetchProducts({page, category, target}).then(data => {
+        renderCards(data.products);
+        renderPagination(data.pagination, category, target);
+    })
+    .catch(err => {
         console.error("Error en la búsqueda", err);
         renderEmptySite();
+    })
+    .finally(() => {
+        hideSpinner();
     })
 }
 
@@ -242,4 +309,3 @@ searchBar.addEventListener('input', processQuery)
 let cart = getCurrentCart();
 showCategoryContent()
 updateCartBtn(cart, quantityIcon)
-// setLoader()

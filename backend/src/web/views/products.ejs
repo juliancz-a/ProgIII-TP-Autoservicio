@@ -7,8 +7,30 @@
     <body>
         <%- include('./partials/sidebar.ejs', {activePage : 'products'}) %>
         <main class="main-content">
-            <h2>Productos</h2>
-            <button id="new-product-btn">Nuevo producto</button>
+            <div class="products-head">
+                <h2>Productos</h2>
+                <button id="new-product-btn">
+                    <span class="plus-symbol">+</span>Nuevo producto
+                </button>
+            </div>
+            <section class="input-section">
+                <%- include('./partials/search-bar.ejs', {placeholder: 'Buscar productos...'}) %>
+                    <div class="order-by">
+                        <label for="order">Ordenar por:</label>
+                        <select name="order" id="order">
+                            <option value="" <%= !order ? 'selected' : '' %>>Todos</option>
+                            <optgroup label="Precio">
+                                <option value="ASC" <%= order === 'ASC' ? 'selected' : '' %>>Precio asc.</option>
+                                <option value="DESC"<%= order === 'DESC' ? 'selected' : '' %>>Precio desc.</option>
+                            </optgroup>
+                            <optgroup label="Estado">
+                                <option value="active" <%= order === 'active' ? 'selected' : '' %>>Activo</option>
+                                <option value="inactive" <%= order === 'inactive' ? 'selected' : '' %>>Inactivo</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                <%- include('./partials/filters') %>
+            </section>
             <table class="table">
                 <thead class="table-head">
                     <tr>
@@ -18,7 +40,7 @@
                         <th>Categoría</th>
                         <th>Precio</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
+                        <th class="actions-head">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="table-body">
@@ -46,7 +68,13 @@
                 </tbody>
             </table>
             <% if (products) { %>
-                <%- include('./partials/pagination.ejs') %>
+                <%- include('./partials/pagination.ejs', 
+                {params: {
+                    target: preservedQuery || null, 
+                    filters: filtersQuery || null,
+                    order: order || null
+                }}
+                ) %>
             <% } %>
         </main>
         <!-- Modal  -->
@@ -58,4 +86,6 @@
         </div>
     </body>
     <script type="module" src="/js/products.js"></script>
+    <script src="/js/ui/filter-form.js"></script>
+    <script src="/js/ui/search-bar.js"></script>
 </html>
