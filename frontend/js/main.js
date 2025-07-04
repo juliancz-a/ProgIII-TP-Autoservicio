@@ -245,7 +245,6 @@ function processQuery() {
         const url = new URL(window.location.href);
 
         if (target === '') {
-            // 🔄 Borrar la búsqueda, actualizar URL y mostrar productos normales
             url.searchParams.delete('target');
             url.searchParams.set('page', page);
             if (category) url.searchParams.set('category', category);
@@ -302,4 +301,3 @@ searchBar.addEventListener('input', processQuery)
 let cart = getCurrentCart();
 showCategoryContent()
 updateCartBtn(cart, quantityIcon)
-// setLoader()

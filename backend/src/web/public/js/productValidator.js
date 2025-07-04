@@ -32,8 +32,6 @@ const productValidator = {
     },
 
     validateStringField(content, field) {
-        console.log(content);
-        
         const { fieldName, minLength, maxLength } = this.fieldsCfg[field];
 
         if (!content) {

@@ -199,17 +199,17 @@ let popupBody = {
     type: 'error'
 }
 
-
-
 // Modal Events
 checkoutBtn.addEventListener('click', () => {
     activateModal(modal, fullCart, popupBody)
 });
+
 mainRedirectBtn.addEventListener('click', redirectToMain);
 confirmBtn.addEventListener('click', async () => {
     confirmPurchase();
     createSale(await getSaleBody())
 });
+
 cancelBtn.addEventListener('click', () => {
     closeModal(modal, modalContent)
 });

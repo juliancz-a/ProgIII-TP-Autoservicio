@@ -97,7 +97,7 @@ Principal models:
 
 ### 📤 Checkout
 
-![Checkout](https://res.cloudinary.com/dlapbwezd/image/upload/v1751598287/Screenshot_4_rzdcek.png)
+![Checkout](https://res.cloudinary.com/dlapbwezd/image/upload/v1751599723/Screenshot_11_thjjcf.png)
 
 ### 🔐 Login admin
 
@@ -143,9 +143,9 @@ Principal models:
 
 ### Images
 
-- `GET /api/products`
-- `GET /api/products/{id}`
-- `POST /api/products`
+- `GET /api/images`
+- `GET /api/images/{id}`
+- `POST /api/images`
 
 ## Authors
 
@@ -156,4 +156,3 @@ Principal models:
 
 - [Cloudinary](https://cloudinary.com/)
 - [Sequelize ORM](https://sequelize.org/)
-
