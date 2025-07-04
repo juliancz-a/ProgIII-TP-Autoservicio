@@ -4,8 +4,6 @@ import { restartService } from "./dataService.js";
 
 const toggleBtn = document.getElementById('toggle');
 const body = document.querySelector('body');
-const moonIcon = document.querySelector('.moon');
-const sunIcon = document.querySelector('sunny')
 const ball = document.querySelector('.ball');
 
 toggleBtn.addEventListener('change', () => {
