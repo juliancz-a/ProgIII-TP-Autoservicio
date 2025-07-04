@@ -245,7 +245,6 @@ function processQuery() {
         const url = new URL(window.location.href);
 
         if (target === '') {
-            // 🔄 Borrar la búsqueda, actualizar URL y mostrar productos normales
             url.searchParams.delete('target');
             url.searchParams.set('page', page);
             if (category) url.searchParams.set('category', category);
@@ -266,10 +265,10 @@ function processQuery() {
     }, 400);
 }
 
+//SPINNER
 function showSpinner() {
     document.getElementById("spinner")?.classList.remove("hidden");
 }
-
 function hideSpinner() {
     document.getElementById("spinner")?.classList.add("hidden");
 }
@@ -310,4 +309,3 @@ searchBar.addEventListener('input', processQuery)
 let cart = getCurrentCart();
 showCategoryContent()
 updateCartBtn(cart, quantityIcon)
-// setLoader()

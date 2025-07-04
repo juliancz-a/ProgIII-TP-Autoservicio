@@ -89,7 +89,6 @@ const renderSales = async (req, res) => {
 
   const target = req.query.target;
   const order = req.query.order;
-  console.log(order);
   
   const { count, rows } = await saleService.getAll(limit, offset, target, order);
 
@@ -116,7 +115,6 @@ const renderSales = async (req, res) => {
     const { username } = req.query;
     if (!username) return res.redirect('/login');
 
-      
     const page = parseInt(req.query.page) || 1;     // página actual
     const limit = parseInt(req.query.limit) || 10;  // users por página
     const offset = (page - 1) * limit;
@@ -138,6 +136,15 @@ const renderSales = async (req, res) => {
       }
     });
   }
+
+  // const getParams = (req) => {
+  //   const page = parseInt(req.query.page) || 1;     // página actual
+  //   const limit = parseInt(req.query.limit) || 10;  // items por página
+  //   const offset = (page - 1) * limit;
+
+  //   return 
+  // }
+
 
 export default {
   renderDashboard,

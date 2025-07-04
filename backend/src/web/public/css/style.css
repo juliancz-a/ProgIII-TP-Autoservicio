@@ -383,7 +383,8 @@ tbody tr:hover {
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow-y: auto;
 }
 
 .modal-body table {
@@ -392,6 +393,8 @@ tbody tr:hover {
 }
 
 .modal-body p {
+  width: 100%;
+  height: auto;
   font-size:  1.5rem;
 }
 
@@ -646,14 +649,14 @@ tbody tr:hover {
   
 
   .sidebar .nav-buttons {
-  width: 60%;
-  height: calc(100dvh - 70px); /* Deja espacio para el menú hamburguesa */
-  position: fixed;
-  left: -200%;
-  top: 40px;
-  transition: 0.25s;
-  display: flex;
-  flex-direction: column;
+    width: 60%;
+    height: calc(100dvh - 70px); /* Deja espacio para el menú hamburguesa */
+    position: fixed;
+    left: -200%;
+    top: 40px;
+    transition: 0.25s;
+    display: flex;
+    flex-direction: column;
   }
 
   .sidebar .nav-buttons.active {
@@ -710,7 +713,7 @@ tbody tr:hover {
   .pagination a span.material-symbols-outlined {
     font-size: 1.2rem;
 
-}
+  }
 
 }
 

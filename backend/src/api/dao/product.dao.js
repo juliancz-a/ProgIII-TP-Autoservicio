@@ -9,8 +9,6 @@ class ProductDao {
             where.title = { [Op.like]: `%${target.trim()}%` };  // busca coincidencias parciales
         }
         
-        console.log(order);
-        
         return await Product.findAndCountAll({
             limit,
             offset,
