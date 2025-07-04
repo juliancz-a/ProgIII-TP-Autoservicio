@@ -143,9 +143,9 @@ Principal models:
 
 ### Images
 
-- `GET /api/products`
-- `GET /api/products/{id}`
-- `POST /api/products`
+- `GET /api/images`
+- `GET /api/images/{id}`
+- `POST /api/images`
 
 ## Authors
 
