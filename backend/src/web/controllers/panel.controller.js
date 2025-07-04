@@ -31,10 +31,9 @@ const renderProducts = async (req, res) => {
   const { count, rows } = await productService.getAll(limit, offset, order, target, filters);
 
   let totalPages =  Math.ceil(count / limit)
-
-  if (page > totalPages) { //reacomodar el pageParam tras paginación
-    redirectToLastPage(req)
-  }
+  if (totalPages === 0) totalPages = 1
+  
+  if (redirectIfInvalidPage(req, res, page, totalPages)) return; // corta si redirigió
 
   const products = rows.map(product => ({
     ...product.dataValues,
@@ -140,17 +139,22 @@ const renderSales = async (req, res) => {
     });
   }
 
-const redirectToLastPage = (req) =>  {
-    const host = req.get('host');              // ej: localhost:3000
-    const protocol = req.protocol;             // ej: http o https
-    const originalUrl = req.originalUrl;       // ej: /productos?page=999&order=ASC
 
-    const fullUrl = `${protocol}://${host}${originalUrl}`;
-    const urlObj = new URL(fullUrl);
+function redirectIfInvalidPage(req, res, currentPage, totalPages) {
+  if (currentPage > totalPages) {
+      const host = req.get('host'); // ej: localhost:3000
+      const protocol = req.protocol; // ej: http o https
+      const originalUrl = req.originalUrl; // ej: /productos?
 
-    urlObj.searchParams.set('page', totalPages);
+      const fullUrl = `${protocol}://${host}${originalUrl}`;
+      const urlObj = new URL(fullUrl);
 
-    return res.redirect(urlObj.pathname + urlObj.search);
+      urlObj.searchParams.set('page', totalPages > 0 ? totalPages : 1);
+      
+      res.redirect(urlObj.pathname + urlObj.search);
+      return true; // redirect
+    }
+  return false; // sigue ejecutando flujo
 }
 
 
